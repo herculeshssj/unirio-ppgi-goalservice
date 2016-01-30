@@ -1,0 +1,24 @@
+wsmlVariant _"http://www.wsmo.org/wsml/wsml-syntax/wsml-rule"
+
+namespace { _"http://www.uniriotec.br/aspect/SimpleLog#",
+	log _"http://www.uniriotec.br/aspect/LogOntology#",
+	wsml _"http://www.wsmo.org/wsml/wsml-syntax#",
+	dc _"http://purl.org/dc/elements/1.1#"
+ }
+ 
+goal DBLogGoal
+	nfp
+		dc#title hasValue "Database log goal"
+		dc#contributor hasValue "Hercules S. S. Jose"
+		dc#description hasValue "Achieve the goal of registering the log on the database"
+	endnfp
+	importsOntology {
+		log#LogOntology
+	}
+	capability DBLogGoalCapability
+		postcondition
+			definedBy
+				?logEffect[
+					messageLogged hasValue _boolean("true"),
+					logPersisted hasValue _boolean("true")				
+				] memberOf log#LogEffect.

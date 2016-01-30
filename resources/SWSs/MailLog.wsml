@@ -1,0 +1,23 @@
+wsmlVariant _"http://www.wsmo.org/wsml/wsml-syntax/wsml-rule"
+
+namespace { _"http://www.uniriotec.br/aspect/SimpleLog#",
+	log _"http://www.uniriotec.br/aspect/LogOntology#",
+	wsml _"http://www.wsmo.org/wsml/wsml-syntax#",
+	dc _"http://purl.org/dc/elements/1.1#"
+ }
+
+webService MailLog
+	nfp
+		dc#title hasValue "Mail Log service"
+		dc#contributor hasValue "Hercules S. S. Jose"
+		dc#description hasValue "Send the information logged by e-mail"
+	endnfp
+	importsOntology {
+		log#LogOntology
+	}
+	capability MailLogCapability
+		postcondition
+			definedBy
+				?logEffect memberOf log#LogEffect
+					and ?logEffect[messageLogged hasValue _boolean("true")]
+					and ?logEffect[mailSent hasValue _boolean("true")].
