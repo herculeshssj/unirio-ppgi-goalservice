@@ -1,0 +1,52 @@
+wsmlVariant _"http://www.wsmo.org/wsml/wsml-syntax/wsml-flight"
+
+namespace { _"http://www.uniriotec.br/aspect/logging#",
+	dc _"http://purl.org/dc/elements/1.1#"
+ }
+
+ontology LogOntology
+	nfp
+		dc#title hasValue "Log Ontology"
+		dc#contributor hasValue "Hercules S. S. Jose"
+		dc#date hasValue _date(2016,01,13)
+		dc#format hasValue "text/plain"
+		dc#language hasValue "en-US"
+	endnfp
+
+concept Severity
+	nfp
+		dc#description hasValue "Level of severity"
+	endnfp
+	name ofType _string
+	level ofType _integer
+
+concept LogRequest
+	nfp
+		dc#description hasValue "Log requested"
+	endnfp
+	severity ofType Severity
+	message ofType _string
+
+concept LogEffect
+	nfp
+		dc#description hasValue "Response of log requested"
+	endnfp
+	messageLogged ofType _boolean
+	mailSent ofType _boolean
+	logPersisted ofType _boolean
+
+instance DEBUG memberOf Severity
+	name hasValue "DEBUG"
+	level hasValue 1
+	
+instance INFO memberOf Severity
+	name hasValue "INFO"
+	level hasValue 2
+	
+instance WARN memberOf Severity
+	name hasValue "WARNING"
+	level hasValue 3
+	
+instance ERROR memberOf Severity
+	name hasValue "ERROR"
+	level hasValue 4

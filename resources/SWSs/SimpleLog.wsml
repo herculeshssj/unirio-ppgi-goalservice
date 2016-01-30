@@ -1,0 +1,47 @@
+wsmlVariant _"http://www.wsmo.org/wsml/wsml-syntax/wsml-flight"
+
+namespace { _"http://www.uniriotec.br/aspect/ws/logging#",
+	onto _"http://www.uniriotec.br/aspect/logging#",
+	dc _"http://purl.org/dc/elements/1.1#"
+ }
+
+webService SimpleLog
+	nfp
+		dc#title hasValue "Simple Log service"
+		dc#contributor hasValue "Hercules S. S. Jose"
+		dc#description hasValue "Register the information on the console"
+		_"http://owner" hasValue _"http://www.uniriotec.br/aspect/ws/logging"
+	endnfp
+	
+capability SimpleLogCapability
+	importsOntology onto#LogOntology
+	
+postcondition SimpleLogPostcond
+	definedBy
+		?logRequest[
+			onto#message hasValue ?x,
+			onto#severity hasValue ?y
+		] memberOf onto#LogRequest
+			and
+		?logEffect[
+			onto#messageLogged hasValue ?a,
+			onto#mailSent hasValue ?b,
+			onto#logPersisted hasValue ?c
+		] memberOf onto#LogEffect.
+
+interface SimpleLogInterface
+	importsOntology onto#LogOntology
+	
+	choreography SimpleLogChoreography
+	stateSignature SimpleLogStateSignature
+		importsOntology onto#LogOntology
+		in
+			concept onto#LogRequest withGrounding _"http://localhost:8080/LogApp/services/LogService?wsdl#wsdl.interfaceMessageReference(LogService/simpleLogService/simpleLogServiceRequest)"
+			
+		out 
+			concept onto#LogEffect
+		
+	transitionRules SimpleLogTransitionRules
+		forall {?request} with (?request memberOf onto#LogRequest) do
+			add(_# memberOf onto#LogEffect)
+		endForall
