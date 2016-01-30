@@ -1,0 +1,15 @@
+wsmlVariant _"http://www.wsmo.org/wsml/wsml-syntax/wsml-flight"
+namespace { _"http://www.wsmo.org/ontologies/PackagerAdapterOntology#"}
+
+ontology AdapterOntology
+
+concept xml2wsmlmapping
+     instanceMappings impliesType (1 *) _string
+     valueMappings impliesType (1 *) _string
+     conceptOutput impliesType (1 1) _string
+     inputMessage impliesType (1 1) _string
+
+instance requestURLResp memberOf xml2wsmlmapping
+     valueMappings hasValue { "//ns:generateURLResponse/return=url" }
+     conceptOutput hasValue "resGetURL"
+     inputMessage hasValue "//ns:generateURLResponse/return"

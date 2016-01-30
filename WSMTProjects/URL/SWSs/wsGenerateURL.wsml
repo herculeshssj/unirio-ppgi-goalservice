@@ -1,0 +1,53 @@
+wsmlVariant _"http://www.wsmo.org/wsml/wsml-syntax/wsml-flight"
+namespace { _"http://www.wsmo.org/ws/wsGenerateURL#"
+, 
+     dc _"http://purl.org/dc/elements/1.1#", 
+     foaf _"http://xmlns.com/foaf/01/", 
+     xsd _"http://www.w3c.org/2001/XMLSchema#", 
+     wsml _"http://www.wsmo.org/2004/wsml#", 
+     onto _"http://www.ip-super.org/ontologies/prereview#" }
+
+
+webService wsGenerateURL
+     nonFunctionalProperties
+          dc#type hasValue _"http://www.wsmo.org/2007/super#ws"
+          dc#date hasValue _date(2007,1,8)
+          dc#description hasValue ""
+          dc#format hasValue "text/plain"
+          dc#contributor hasValue ""
+          dc#title hasValue "Packager service providing URL for requested contents"
+          dc#language hasValue "en-US"
+          wsml#version hasValue "$Revision: 1.2 $"
+          _"http://owner" hasValue _"http://www.wsmo.org/ws/packager"
+     endNonFunctionalProperties
+
+capability wsGenerateURLCapability
+
+     importsOntology
+            _"http://www.ip-super.org/ontologies/prereview#sbpelProcess"
+
+postcondition wsGenerateURLPostcond
+     definedBy 
+          ?varInput[onto#userID hasValue ?x] memberOf onto#reqGetURL
+  and ?varOutput[onto#url hasValue ?y] memberOf onto#resGetURL. 
+
+interface wsGenerateURLInterface
+
+     importsOntology
+            _"http://www.ip-super.org/ontologies/prereview#sbpelProcess"
+     choreography wsGenerateURLChoreography
+     stateSignature _wsGenerateURLStateSignature
+          importsOntology
+            _"http://www.ip-super.org/ontologies/prereview#sbpelProcess"
+
+          in 
+               concept onto#reqGetURL withGrounding _"http://localhost:8001/Packager?wsdl#wsdl.interfaceMessageReference(PackagerPort/generateURL/in0)"
+
+          out 
+               concept onto#resGetURL
+
+     transitionRules wsGenerateURLTransitionRules
+          forall {?request} with (?request memberOf onto#reqGetURL) do 
+               add(_# memberOf onto#resGetURL)
+          endForall
+

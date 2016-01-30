@@ -1,0 +1,32 @@
+wsmlVariant _"http://www.wsmo.org/wsml/wsml-syntax/wsml-flight"
+
+namespace { _"http://www.ip-super.org/ontologies/prereview#", 
+     dc _"http://purl.org/dc/elements/1.1#", 
+	 sbpel _"http://www.ip-super.org/ontologies/sbpel/20061129#"}
+
+ontology sbpelProcess
+
+     nonFunctionalProperties
+          dc#title hasValue "Pre-review sBPEL Process"
+          dc#description hasValue "sBPEL Process of service provision for SUPER Pre-review"
+          dc#publisher hasValue "SUPER European Integrated Project"
+          dc#subject hasValue {"sBPEL", "business process", "workflow"}
+          dc#creator hasValue "Barry Norton"
+          dc#language hasValue "en-UK"
+          dc#date hasValue "$Date: 2007/01/10$"
+     endNonFunctionalProperties
+
+concept reqGetLicense
+  requestedContent ofType _string
+  byUser ofType _string
+
+concept resGetLicense
+  agreement ofType _string
+
+concept reqGetURL
+  requestedContent ofType _string
+  byUser ofType _string
+
+concept resGetURL
+  url ofType _string
+  

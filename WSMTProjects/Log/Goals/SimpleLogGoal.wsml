@@ -1,0 +1,50 @@
+wsmlVariant _"http://www.wsmo.org/wsml/wsml-syntax/wsml-flight"
+
+namespace { _"http://www.uniriotec.br/aspect/goal/logging#",
+	onto _"http://www.uniriotec.br/aspect/logging#",
+	dc _"http://purl.org/dc/elements/1.1#"
+ }
+ 
+goal SimpleLogGoal
+	nfp
+		dc#title hasValue "Simple log goal"
+		dc#contributor hasValue "Hercules S. S. Jose"
+		dc#description hasValue "Achieve the goal of simple log the information on the console"
+	endnfp
+	
+capability SimpleLogGoalCapability
+	importsOntology onto#LogOntology
+	
+postcondition
+	definedBy
+		?logRequest[
+			onto#message hasValue ?x,
+			onto#severity hasValue ?y
+		] memberOf onto#LogRequest
+			and
+		?logEffect[
+			onto#messageLogged hasValue ?a,
+			onto#mailSent hasValue ?b,
+			onto#logPersisted hasValue ?c
+		] memberOf onto#LogEffect.		
+
+interface SimpleLogGoalInterface
+	choreography SimpleLogGoalChoreography
+	stateSignature SimpleLogGoalStateSignature
+		importsOntology onto#LogOntology
+		in
+			onto#LogRequest
+		out
+			onto#LogEffect
+	
+	transitionRules SimpleLogGoalTransitionRules
+		forall {?request} with (?request memberOf onto#LogRequest) do
+			add (_# memberOf onto#LogEffect)
+		endForall
+		
+ontology SimpleLogGoalOntology
+	importsOntology onto#LogOntology
+	
+	instance test1 memberOf onto#LogRequest
+		severity hasValue onto#INFO
+		message hasValue "first test with log using WSMX"					

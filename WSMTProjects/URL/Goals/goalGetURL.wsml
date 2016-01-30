@@ -1,0 +1,53 @@
+wsmlVariant _"http://www.wsmo.org/wsml/wsml-syntax/wsml-flight"
+
+namespace { _"http://www.ip-super.org/goal/prereview#",
+     dc _"http://purl.org/dc/elements/1.1#", 
+     foaf _"http://xmlns.com/foaf/01/", 
+     xsd _"http://www.w3c.org/2001/XMLSchema#", 
+     wsml _"http://www.wsmo.org/2004/wsml#", 
+     onto _"http://www.ip-super.org/ontologies/prereview#"
+     }
+
+goal goalGetURL
+     nonFunctionalProperties
+          dc#title hasValue "Request for packager service providing URL for requested contents"
+          dc#format hasValue "text/plain"
+          dc#type hasValue _"http://www.wsmo.org/2007/super#goal"
+          dc#contributor hasValue ""
+          wsml#version hasValue "$Revision: 1.2 $"
+          dc#description hasValue ""
+          dc#date hasValue _date(2007,01,08)
+          dc#language hasValue "en-US"
+     endNonFunctionalProperties
+
+capability goalGenerateURLCapability
+  importsOntology { _"http://www.ip-super.org/ontologies/prereview#sbpelProcess" }
+
+postcondition definedBy 
+	?varInput[onto#userID hasValue ?x] memberOf onto#reqGetURL and 
+	?varOutput[onto#url hasValue ?y] memberOf onto#resGetURL.
+
+interface goalGenerateURLInterface
+
+choreography goalGenerateURLChoreography
+
+	stateSignature goalGenerateURLStateSignature
+	   importsOntology { _"http://www.ip-super.org/ontologies/prereview#sbpelProcess" }
+	
+		in  onto#reqGetURL
+		out onto#resGetURL
+	
+transitionRules goalGenerateURLTransitionRules
+
+	forall {?request} with (
+          	?request memberOf onto#reqGetURL
+		) do
+		add (_# memberOf onto#resGetURL)
+	endForall
+
+ontology goalGetURLOntology
+  importsOntology { _"http://www.ip-super.org/ontologies/prereview#sbpelProcess" }
+	
+  instance input memberOf onto#reqGetURL
+    onto#requestedContent hasValue "Football World Cup Final 2006"
+    onto#byUser hasValue "Zinedine Zidane"
