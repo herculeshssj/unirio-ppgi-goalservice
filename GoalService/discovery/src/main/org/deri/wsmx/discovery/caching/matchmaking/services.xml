@@ -1,0 +1,15 @@
+<service name="VampireInvoker" >
+<description>
+runs a proof obligation that is provided as input
+</description>
+<parameter 
+	name="ServiceClass" 
+	locked="false">
+	org.deri.wsmx.discovery.caching.matchmaking.VampireInvoker
+</parameter>
+
+<operation name="check">
+	<messageReceiver class="org.apache.axis2.rpc.receivers.RPCMessageReceiver"/>
+</operation>
+
+</service>

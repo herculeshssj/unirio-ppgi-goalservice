@@ -1,0 +1,78 @@
+/* 
+SDC Ontology 
+
+This ontology defines the knowledge structure for "Semantic Discovery 
+Caching", short SDC, a technique for increasing the efficiency of 
+Web service discovery by capturing and reuse of design time 
+discovery results. 
+The SDC ontology describes a graph strcuture that organizes goal templates 
+with respect to their semantic similarity (meaning: having at least one 
+common solution), and it captures the minimal knowledge on the usability 
+of available Web services for 
+each goal template. 
+The complete specification of the SDC technique is available in: 
+"Stollberg, M.: Semantic Discovery Caching: Capturing and Reuse of Web Service 
+Discovery Results for Improving the Computational Efficiency of 
+Service-Oriented Architectures (Specification). DERI Technical Report, 
+February 03rd, 2007." 
+*/  
+
+/* 
+Header
+*/ 
+
+wsmlVariant _"http://www.wsmo.org/wsml/wsml-syntax/wsml-rule"
+
+namespace {_"http://members.deri.at/~michaels/ontologies/SDContology.wsml#",
+	dc _"http://purl.org/dc/elements/1.1#",
+	wsml _"http://www.wsmo.org/wsml/wsml-syntax#"
+	}
+
+ontology _"http://members.deri.at/~michaels/ontologies/SDContology.wsml"
+	nfp 
+		dc#description hasValue "SDC Ontology"
+		dc#date hasValue _date(2007,03,04)
+		dc#format hasValue "text/plain"
+		dc#language hasValue "en-US" 
+		dc#author hasValue "Michael Stollberg"
+	endnfp
+
+/* 
+Schema
+*/ 
+
+	
+concept goalTemplate 
+	description impliesType wsml#goal
+	position impliesType goalGraphPosition 
+
+concept goalGraphPosition
+instance root memberOf goalGraphPosition
+instance child memberOf goalGraphPosition
+instance intersectionGT memberOf goalGraphPosition
+
+concept goalInstance 
+	correspondingGoalTemplate impliesType goalTemplate 
+	inputs impliesType wsml#string
+
+concept matchingDegree 
+instance exact memberOf matchingDegree 
+instance plugin memberOf matchingDegree 
+instance subsume memberOf matchingDegree 
+instance intersect memberOf matchingDegree 
+instance disjoint memberOf matchingDegree 
+
+
+concept goalGraphArc 
+	sourceGT impliesType (1 1) goalTemplate 
+	targetGT impliesType (1 1) goalTemplate 
+	similarity impliesType (1 1) matchingDegree 
+	
+concept discoveryCacheArc
+	sourceGT impliesType (1 1) goalTemplate 
+	targetWS impliesType (1 1) wsml#webService
+	usability impliesType (1 1) matchingDegree 
+
+
+// functions / relations for ranking to be added 
+ 

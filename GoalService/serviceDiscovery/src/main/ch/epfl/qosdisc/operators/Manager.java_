@@ -1,0 +1,332 @@
+/* 
+ * QoS Discovery Component
+ * Copyright (C) 2006 Sebastian Gerlach
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ */
+
+package ch.epfl.qosdisc.operators;
+
+import org.wsmo.factory.*;
+import org.wsmo.common.*;
+import org.wsmo.wsml.*;
+import org.omwg.ontology.*;
+import org.wsmo.service.*;
+
+import org.apache.log4j.*;
+
+import java.util.*;
+import java.io.*;
+import java.net.*;
+
+/**
+ * Simple manager for loading ontologies
+ * 
+ * @author Sebastian Gerlach
+ */
+public class Manager {
+
+	/**
+	 * Manager singleton instance.
+	 */
+	private static Manager theManager = null;
+
+	/**
+	 * Logger for this class.
+	 */
+	private static Logger log = Logger.getLogger(Manager.class);
+
+	/**
+	 * Parser for processing the input files.
+	 */
+	private Parser parser;
+
+	/**
+	 * The entities currently stored in the manager.
+	 */
+	private Map<String, TopEntity[]> entities;
+
+	public static final int ONTOLOGY = 1;
+
+	public static final int SERVICE = 2;
+
+	public static final int GOAL = 3;
+
+	/**
+	 * Constructor. Private for singleton usage.
+	 */
+	private Manager() {
+
+		// Creation parameters for the parser
+		HashMap<String, Object> createParams = new HashMap<String, Object>();
+		createParams.put(Factory.PROVIDER_CLASS,
+				"org.deri.wsmo4j.factory.LogicalExpressionFactoryImpl");
+		LogicalExpressionFactory leFactory = (LogicalExpressionFactory) Factory
+				.createLogicalExpressionFactory(createParams);
+		WsmoFactory factory = Factory.createWsmoFactory(null);
+		createParams = new HashMap<String, Object>();
+		createParams.put(Factory.WSMO_FACTORY, factory);
+		createParams.put(Factory.LE_FACTORY, leFactory);
+
+		// Create parser.
+		parser = Factory.createParser(createParams);
+
+		// Create entity map.
+		entities = new HashMap<String, TopEntity[]>();
+
+		// Log
+		log.info("Manager started.");
+	}
+
+	/**
+	 * Perform substitutions according to configuration file.
+	 * 
+	 * @param name Original name.
+	 * @return Name with substitutions applied.
+	 */
+	public static String rename(String name) {
+
+		// Rename URL if a substitution rule is in the configuration.
+		String altName = name;
+		for (int i = 1;; i++) {
+
+			// Get the substitution rule.
+			String subexp = TestFrame.props.getProperty("subst" + i);
+			if (subexp == null)
+				break;
+
+			// Find -> mark and cut.
+			int pos = subexp.indexOf("->");
+			if (pos == -1) {
+				log.warn("Substitution rule " + i + "does not contain -> :"
+						+ subexp);
+			} else {
+				altName = altName.replace(subexp.substring(0, pos), subexp
+						.substring(pos + 2));
+			}
+		}
+
+		return altName;
+	}
+	
+	/**
+	 * Retrieves an entity from provided wsml file.
+	 * 
+	 * @param name The contents of the wsml file.
+	 * @return The requested entity, or null if it cannot be found.
+	 */
+	private TopEntity getEntityFromString(String content, int type) {
+
+		TopEntity retVal = null;
+		try {				
+
+			// Read the Entity.
+			TopEntity[] entity = parser.parse(new StringBuffer(content));
+
+			if (entity != null) {
+
+				// Log types contained.
+				for (int i = 0; i < entity.length; ++i) {
+					log.debug(" " + entity[i].getIdentifier().toString()
+							+ " (" + entity[i].getClass().getName() + ")");
+					
+					// If the item is an ontology, reference it from all other items.
+					if(Ontology.class.isAssignableFrom(entity[i].getClass())) {
+						
+						// Removed the following for now. In file imports now work properly.
+//						for(int j = 0; j < entity.length; ++j) {
+//							if(!Ontology.class.isAssignableFrom(entity[j].getClass())) {
+//								entity[j].addOntology((Ontology)entity[i]);
+//								
+//								// Inform the user that we are doing something weird.
+//								log.debug("Attaching "+entity[i].getIdentifier().toString()+" to "+entity[j].getIdentifier().toString());
+//							}							
+//						}
+						if( type == ONTOLOGY)
+							retVal = entity[i];
+					}
+					else if(Goal.class.isAssignableFrom(entity[i].getClass()) && type == GOAL)
+						retVal = entity[i];
+					else if(ServiceDescription.class.isAssignableFrom(entity[i].getClass()) && type == SERVICE)
+						retVal = entity[i];
+				}
+				
+				// Find short name of entity.
+				String searchName = entity[0].getIdentifier().toString();
+				searchName =searchName.substring(0,searchName.indexOf('#'));
+				
+				// Store the parsed entity.
+				entities.put(searchName, entity);
+			}
+		} catch (Exception ex) {
+			log.error("Could not parse entity provided as string: "+ex.getMessage());
+		}
+
+		return retVal;
+	}
+
+	/**
+	 * Retrieves an entity by name (IRI).
+	 * 
+	 * @param name The IRI of the entity to retrieve.
+	 * @return The requested entity, or null if it cannot be found.
+	 */
+	private TopEntity getEntity(String name, int type) {
+
+		// Try to find the requested entity in our cache
+		String searchName = name.indexOf('#')== -1 ? name : name.substring(0,name.indexOf('#'));
+		TopEntity[] entity = entities.get(searchName);
+
+		if (entity == null) {
+			
+			// Debug output.
+			log.info("Getting " + name);
+
+			// Rename URL if a substitution rule is in the configuration.
+			String altName = Manager.rename(name);
+
+			// It is not there, download and parse it.
+			try {				
+
+				// Open URL.
+				InputStream is = new URL(altName).openStream(); 
+				Reader reader = new InputStreamReader(is);
+
+				// Read the Entity.
+				entity = parser.parse(reader);
+
+				if (entity != null) {
+
+					// Log types contained.
+					for (int i = 0; i < entity.length; ++i)
+						log.debug(" " + entity[i].getIdentifier().toString()
+								+ " (" + entity[i].getClass().getName() + ")");
+
+					// Store the parsed entity.
+					entities.put(searchName, entity);
+				}
+
+				// Close the stream.
+				reader.close();
+			} catch (Exception ex) {
+				log.error("Could not load "+name+" from "+altName+": "+ex.getMessage());
+			}
+		}
+
+		// Error conditions, return null.
+		if (entity == null || entity.length == 0)
+			return null;
+
+		// Find first top entity of appropriate type.
+		// TODO: Extend this behavior to named top entities (not required yet).
+		for (int i = 0; i < entity.length; ++i) {
+			if (type == ONTOLOGY
+					&& Ontology.class.isAssignableFrom(entity[i].getClass()))
+				return entity[i];
+			if (type == GOAL
+					&& Goal.class.isAssignableFrom(entity[i].getClass()))
+				return entity[i];
+			if (type == SERVICE
+					&& ServiceDescription.class.isAssignableFrom(entity[i]
+							.getClass()))
+				return entity[i];
+		}
+
+		// If nothing was found, return null.
+		return null;
+	}
+
+	/**
+	 * Static entry point to retrieve an ontology.
+	 * 
+	 * @param name Name of the ontology to recover.
+	 * @return The ontology.
+	 */
+	static public synchronized Ontology getOntology(String name) {
+
+		// Instantiate Manager singleton if required.
+		if (theManager == null)
+			theManager = new Manager();
+
+		// Call the singleton.
+		return (Ontology) theManager.getEntity(name, ONTOLOGY);
+	}
+
+	/**
+	 * Static entry point to retrieve a goal.
+	 * 
+	 * @param name Name of the goal to recover.
+	 * @return The ontology.
+	 */
+	static public synchronized Goal getGoal(String name) {
+
+		// Instantiate Manager singleton if required.
+		if (theManager == null)
+			theManager = new Manager();
+
+		// Call the singleton.
+		return (Goal) theManager.getEntity(name, GOAL);
+	}
+
+	/**
+	 * Static entry point to retrieve a service description.
+	 * 
+	 * @param name Name of the service description to recover.
+	 * @return The ontology.
+	 */
+	static public synchronized ServiceDescription getService(String name) {
+
+		// Instantiate Manager singleton if required.
+		if (theManager == null)
+			theManager = new Manager();
+
+		// Call the singleton.
+		return (ServiceDescription) theManager.getEntity(name, SERVICE);
+	}
+	
+	/**
+	 * Static entry point to retrieve a goal from a wsml file provided as a string.
+	 * 
+	 * @param content The wsml file.
+	 * @return The goal.
+	 */
+	static public synchronized Goal getGoalFromString(String content) {
+
+		// Instantiate Manager singleton if required.
+		if (theManager == null)
+			theManager = new Manager();
+
+		// Call the singleton.
+		return (Goal) theManager.getEntityFromString(content, GOAL);		
+	}
+	
+	/**
+	 * Static entry point to retrieve a service from a wsml file provided as a string.
+	 * 
+	 * @param content The wsml file.
+	 * @return The goal.
+	 */
+	static public synchronized ServiceDescription getServiceFromString(String content) {
+
+		// Instantiate Manager singleton if required.
+		if (theManager == null)
+			theManager = new Manager();
+
+		// Call the singleton.
+		return (ServiceDescription) theManager.getEntityFromString(content, SERVICE);
+		
+	}
+	
+}

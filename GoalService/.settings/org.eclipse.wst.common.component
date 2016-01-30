@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="GoalService">
+        <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/core/src/main"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/core/src/api"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/core/src/jaxws"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/choreography/src/main"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/client/src/main"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/communicationmanager/src/main"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/discovery/src/main"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/invoker/src/main"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/mediator/src/main"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/orchestration/src/main"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/parser/src/main"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/resourcemanager/src/main"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/serviceDiscovery/src/main"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/visualisation/src/main"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/webservices/src/main"/>
+        <property name="context-root" value="GoalService"/>
+        <property name="java-output-path" value="/GoalService/build/classes"/>
+    </wb-module>
+</project-modules>

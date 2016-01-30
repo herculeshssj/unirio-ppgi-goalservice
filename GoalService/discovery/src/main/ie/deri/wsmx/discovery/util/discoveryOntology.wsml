@@ -1,0 +1,86 @@
+wsmlVariant _"http://www.wsmo.org/wsml/wsml-syntax/wsml-flight"
+
+namespace {_"http://www.gsmo.org/discoveryOntology#",
+	dc	 _"http://purl.org/dc/elements/1.1#",
+	wsml _"http://www.wsmo.org/wsml/wsml-syntax#"}
+
+ontology _"http://www.gsmo.org/discoveryOntology.wsml"
+	nfp 
+		dc#description hasValue "Discovery configuration ontology"
+		dc#date hasValue _date(2007,12,04)
+		dc#creator hasValue "Adina Sirbu, Holger Lausen and Nathalie Steinmetz"
+		dc#format hasValue "text/plain"
+		dc#language hasValue "en-US" 
+	endnfp
+
+/*
+ * Discovery strategies
+ */
+ 	
+concept discoveryStrategy
+
+concept KeywordBasedStrategy subConceptOf discoveryStrategy
+	type ofType (1) KeywordMatchType
+	threshold ofType (0 1) _integer
+
+concept SetBasedStrategy subConceptOf discoveryStrategy
+	type ofType (1) SetMatchType
+
+instance Keyword memberOf KeywordBasedStrategy
+	
+instance Lightweight_Rule memberOf SetBasedStrategy
+	
+instance Lightweight_DL memberOf SetBasedStrategy
+	
+instance Heavyweight_Rule_Separated memberOf SetBasedStrategy
+	
+instance Heavyweight_Rule_Complete memberOf SetBasedStrategy
+
+/*
+ * Match types - keyword- and set- based
+ */
+
+concept typeOfMatch
+	rank ofType (1) _integer
+	
+concept KeywordMatchType subConceptOf typeOfMatch
+
+concept SetMatchType subConceptOf typeOfMatch
+	
+/*
+ * Match types - instances
+ */ 
+	
+instance partialMatch memberOf KeywordMatchType
+	rank hasValue 1
+	
+instance fullMatch memberOf KeywordMatchType
+	rank hasValue 2
+
+instance intersectionMatch memberOf SetMatchType
+	rank hasValue 1
+	
+instance subsumptionMatch memberOf SetMatchType
+	rank hasValue 2
+	
+instance pluginMatch memberOf SetMatchType
+	rank hasValue 3
+	
+instance exactMatch memberOf SetMatchType
+	rank hasValue 4
+	
+/*
+ * Pre-filter mechanism
+ */
+ 
+concept preFilter 	
+
+instance preFilterOn memberOf preFilter
+
+instance preFilterOff memberOf preFilter
+	
+/*
+ * ranking
+ */
+relation rankOf(ofType DiscoveryStrategy, ofType _integer)
+

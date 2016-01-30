@@ -1,0 +1,61 @@
+wsmlVariant _"http://www.wsmo.org/wsml/wsml-syntax/wsml-flight"
+
+namespace {_"http://www.gsmo.org/discoveryOntology#",
+	dc	 _"http://purl.org/dc/elements/1.1#",
+	wsml _"http://www.wsmo.org/wsml/wsml-syntax#"}
+
+ontology _"http://www.gsmo.org/discoveryOntology.wsml"
+	nfp 
+		dc#description hasValue "Discovery ranking ontology"
+		dc#date hasValue _date(2006,09,19)
+		dc#format hasValue "text/plain"
+		dc#language hasValue "en-US" 
+	endnfp
+	
+concept DiscoveryStrategy
+
+/*
+ * keyword
+ */
+concept Keyword subConceptOf DiscoveryStrategy
+	preference ofType (1) KeywordPreference
+	threshold ofType (0 1) _integer
+	
+concept KeywordPreference
+	rank ofType (1) _integer
+
+instance fullMatch memberOf KeywordPreference
+	rank hasValue 2
+	
+instance partialMatch memberOf KeywordPreference
+	rank hasValue 1
+
+/*
+ * lightweight and heavyweight
+ */
+concept Lightweight subConceptOf DiscoveryStrategy
+	type ofType (1) MatchType
+
+concept Heavyweight subConceptOf DiscoveryStrategy
+	type ofType (1) MatchType
+	
+concept MatchType
+	rank ofType (1) _integer
+
+instance exactMatch memberOf MatchType
+	rank hasValue 4
+
+instance pluginMatch memberOf MatchType
+	rank hasValue 3
+	
+instance subsumptionMatch memberOf MatchType
+	rank hasValue 2
+	
+instance intersectionMatch memberOf MatchType
+	rank hasValue 1
+
+/*
+ * ranking
+ */
+relation rankOf(ofType DiscoveryStrategy, ofType _integer)
+

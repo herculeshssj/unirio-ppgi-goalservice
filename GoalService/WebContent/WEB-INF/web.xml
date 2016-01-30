@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+  <display-name>GoalService</display-name>
+  
+  	<description>
+        A semantic service for aspect
+    </description>
+
+    <context-param>
+        <param-name>InterfaceBWebSideController</param-name>
+        <param-value>org.yawlfoundation.yawl.goalService.GoalService</param-value>
+    </context-param>
+
+    <context-param>
+        <param-name>InterfaceB_BackEnd</param-name>
+        <param-value>http://localhost:8080/yawl/ib</param-value>
+    </context-param>
+
+    <context-param>
+        <param-name>EngineLogonUserName</param-name>
+        <param-value>GoalService</param-value>
+    </context-param>
+
+    <context-param>
+        <param-name>EngineLogonPassword</param-name>
+        <param-value>yGoal</param-value>
+    </context-param>
+
+    <!--CharsetFilter -->
+
+    <filter>
+        <filter-name>CharsetFilter</filter-name>
+        <filter-class>org.yawlfoundation.yawl.util.CharsetFilter</filter-class>
+        <init-param>
+            <param-name>requestEncoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>CharsetFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+
+    <servlet>
+        <servlet-name>GoalService</servlet-name>
+        <servlet-class>
+            org.yawlfoundation.yawl.engine.interfce.interfaceB.InterfaceB_EnvironmentBasedServer
+        </servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>GoalService</servlet-name>
+        <url-pattern>/ib</url-pattern>
+    </servlet-mapping>
+    
+</web-app>
