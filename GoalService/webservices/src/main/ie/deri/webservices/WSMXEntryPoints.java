@@ -17,28 +17,15 @@
 
 package ie.deri.webservices;
 
-import org.apache.axis2.context.ConfigurationContext;
-import org.apache.axis2.context.ConfigurationContextFactory;
-import org.apache.axis2.description.AxisService;
-import org.apache.axis2.engine.AxisConfiguration;
-import org.apache.axis2.transport.http.SimpleHTTPServer;
-
-import ie.deri.wsmx.commons.Helper;
-import ie.deri.wsmx.executionsemantic.ExecutionSemanticsFinalResponse;
-
 import java.io.StringReader;
 import java.util.HashMap;
 import java.util.Set;
 
 import javax.management.MBeanServer;
 import javax.management.ObjectName;
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServlet;
-import javax.xml.ws.Endpoint;
 
 import org.apache.log4j.Logger;
 import org.deri.wsmo4j.io.parser.wsml.ParserImpl;
-
 //import org.ipsuper.nexcom.services.CEOApprovalWebService;
 //import org.ipsuper.nexcom.services.LegalDepartmentWebService;
 //import org.ipsuper.nexcom.services.VoIPSEEEntryPoint;
@@ -54,6 +41,9 @@ import org.wsmo.mediator.Mediator;
 import org.wsmo.service.Goal;
 import org.wsmo.service.WebService;
 import org.wsmo.wsml.Parser;
+
+import ie.deri.wsmx.commons.Helper;
+import ie.deri.wsmx.executionsemantic.ExecutionSemanticsFinalResponse;
 
 /**
  * The communication manager provides the interface to WSMX. This class is running as an Web service that communicates with WSMX 

@@ -1,12 +1,15 @@
 package org.deri.wsmx.unittest.main;
 
+import org.apache.log4j.Logger;
+import org.deri.wsmx.unittest.util.WSMXExecution;
+
 public class AchieveGoalExecutionSemanticsTest {
 	protected static Logger logger = Logger.getLogger(AchieveGoalExecutionSemanticsTest.class);
 	public static WSMXExecution run = new WSMXExecution();
 
 	/**
-	 * Classe de teste que ir√° invocar um servi√ßo Web a partir de um objetivo
-	 * estabelecido usando os recursos sem√¢nticos oferecidos pelo WSMX.
+	 * Classe de teste que ir· invocar um serviÁo Web a partir de um objetivo
+	 * estabelecido usando os recursos sem‚nticos oferecidos pelo WSMX.
 	 * @param args
 	 */
 	public static void main(String[] args) throws Exception {
