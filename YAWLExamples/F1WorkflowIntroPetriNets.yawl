@@ -1,0 +1,711 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<specificationSet xmlns="http://www.yawlfoundation.org/yawlschema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="3.0" xsi:schemaLocation="http://www.yawlfoundation.org/yawlschema http://www.yawlfoundation.org/yawlschema/YAWL_Schema3.0.xsd">
+  <specification uri="F1WorkflowIntroPetriNets">
+    <documentation>No description provided</documentation>
+    <metaData>
+      <creator>Administrador</creator>
+      <description>No description provided</description>
+      <version>0.1</version>
+      <persistent>false</persistent>
+      <identifier>UID_98c02606-6415-4d5e-9480-9695eb2cc2d1</identifier>
+    </metaData>
+    <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+    <decomposition id="Net" isRootNet="true" xsi:type="NetFactsType">
+      <processControlElements>
+        <inputCondition id="InputCondition">
+          <flowsInto>
+            <nextElementRef id="Recording_2" />
+          </flowsInto>
+        </inputCondition>
+        <task id="Recording_2">
+          <name>Recording</name>
+          <flowsInto>
+            <nextElementRef id="Establish_Type_1" />
+          </flowsInto>
+          <join code="xor" />
+          <split code="and" />
+          <resourcing>
+            <offer initiator="user" />
+            <allocate initiator="user" />
+            <start initiator="user" />
+          </resourcing>
+        </task>
+        <task id="Establish_Type_1">
+          <name>Establish Type</name>
+          <flowsInto>
+            <nextElementRef id="Premium_1" />
+          </flowsInto>
+          <flowsInto>
+            <nextElementRef id="Policy_1" />
+          </flowsInto>
+          <join code="xor" />
+          <split code="and" />
+          <resourcing>
+            <offer initiator="user" />
+            <allocate initiator="user" />
+            <start initiator="user" />
+          </resourcing>
+        </task>
+        <task id="Policy_1">
+          <name>Policy</name>
+          <flowsInto>
+            <nextElementRef id="Reject_2" />
+          </flowsInto>
+          <join code="xor" />
+          <split code="and" />
+          <resourcing>
+            <offer initiator="user" />
+            <allocate initiator="user" />
+            <start initiator="user" />
+          </resourcing>
+        </task>
+        <task id="Premium_1">
+          <name>Premium</name>
+          <flowsInto>
+            <nextElementRef id="Reject_2" />
+          </flowsInto>
+          <join code="xor" />
+          <split code="and" />
+          <resourcing>
+            <offer initiator="user" />
+            <allocate initiator="user" />
+            <start initiator="user" />
+          </resourcing>
+        </task>
+        <condition id="Reject_2">
+          <name>Reject?</name>
+          <flowsInto>
+            <nextElementRef id="Emergency_1" />
+          </flowsInto>
+          <flowsInto>
+            <nextElementRef id="Reject_3" />
+          </flowsInto>
+          <flowsInto>
+            <nextElementRef id="Size_of_claim_1" />
+          </flowsInto>
+        </condition>
+        <task id="Emergency_1">
+          <name>Emergency</name>
+          <flowsInto>
+            <nextElementRef id="C_4" />
+            <predicate>true()</predicate>
+            <isDefaultFlow />
+          </flowsInto>
+          <flowsInto>
+            <nextElementRef id="Measures_1" />
+            <predicate>true()</predicate>
+          </flowsInto>
+          <join code="xor" />
+          <split code="or" />
+          <resourcing>
+            <offer initiator="user" />
+            <allocate initiator="user" />
+            <start initiator="user" />
+          </resourcing>
+        </task>
+        <task id="Reject_3">
+          <name>Reject</name>
+          <flowsInto>
+            <nextElementRef id="OutputCondition" />
+          </flowsInto>
+          <join code="xor" />
+          <split code="and" />
+          <resourcing>
+            <offer initiator="user" />
+            <allocate initiator="user" />
+            <start initiator="user" />
+          </resourcing>
+        </task>
+        <task id="Size_of_claim_1">
+          <name>Size of claim</name>
+          <flowsInto>
+            <nextElementRef id="C_5" />
+            <predicate>true()</predicate>
+            <isDefaultFlow />
+          </flowsInto>
+          <flowsInto>
+            <nextElementRef id="Assessor_1" />
+            <predicate>true()</predicate>
+          </flowsInto>
+          <join code="xor" />
+          <split code="or" />
+          <resourcing>
+            <offer initiator="user" />
+            <allocate initiator="user" />
+            <start initiator="user" />
+          </resourcing>
+        </task>
+        <condition id="C_4">
+          <flowsInto>
+            <nextElementRef id="Close_1" />
+          </flowsInto>
+        </condition>
+        <condition id="C_5">
+          <flowsInto>
+            <nextElementRef id="Settlement_1" />
+          </flowsInto>
+        </condition>
+        <task id="Assessor_1">
+          <name>Assessor</name>
+          <flowsInto>
+            <nextElementRef id="C_5" />
+          </flowsInto>
+          <join code="xor" />
+          <split code="and" />
+          <resourcing>
+            <offer initiator="user" />
+            <allocate initiator="user" />
+            <start initiator="user" />
+          </resourcing>
+        </task>
+        <task id="Close_1">
+          <name>Close</name>
+          <flowsInto>
+            <nextElementRef id="OutputCondition" />
+          </flowsInto>
+          <join code="or" />
+          <split code="and" />
+          <resourcing>
+            <offer initiator="user" />
+            <allocate initiator="user" />
+            <start initiator="user" />
+          </resourcing>
+        </task>
+        <task id="Measures_1">
+          <name>Measures</name>
+          <flowsInto>
+            <nextElementRef id="C_4" />
+          </flowsInto>
+          <join code="xor" />
+          <split code="and" />
+          <resourcing>
+            <offer initiator="user" />
+            <allocate initiator="user" />
+            <start initiator="user" />
+          </resourcing>
+        </task>
+        <task id="Settlement_1">
+          <name>Settlement</name>
+          <flowsInto>
+            <nextElementRef id="Reaction_1" />
+          </flowsInto>
+          <join code="xor" />
+          <split code="and" />
+          <resourcing>
+            <offer initiator="user" />
+            <allocate initiator="user" />
+            <start initiator="user" />
+          </resourcing>
+        </task>
+        <task id="Reaction_1">
+          <name>Reaction</name>
+          <flowsInto>
+            <nextElementRef id="Objection_1" />
+            <predicate>true()</predicate>
+            <isDefaultFlow />
+          </flowsInto>
+          <flowsInto>
+            <nextElementRef id="C_6" />
+            <predicate>true()</predicate>
+          </flowsInto>
+          <join code="xor" />
+          <split code="or" />
+          <resourcing>
+            <offer initiator="user" />
+            <allocate initiator="user" />
+            <start initiator="user" />
+          </resourcing>
+        </task>
+        <condition id="C_6">
+          <flowsInto>
+            <nextElementRef id="Pay_1" />
+          </flowsInto>
+        </condition>
+        <task id="Objection_1">
+          <name>Objection</name>
+          <flowsInto>
+            <nextElementRef id="Proceedings_1" />
+            <predicate>true()</predicate>
+          </flowsInto>
+          <flowsInto>
+            <nextElementRef id="C_5" />
+            <predicate>true()</predicate>
+            <isDefaultFlow />
+          </flowsInto>
+          <join code="xor" />
+          <split code="or" />
+          <resourcing>
+            <offer initiator="user" />
+            <allocate initiator="user" />
+            <start initiator="user" />
+          </resourcing>
+        </task>
+        <task id="Pay_1">
+          <name>Pay</name>
+          <flowsInto>
+            <nextElementRef id="Close_1" />
+          </flowsInto>
+          <join code="xor" />
+          <split code="and" />
+          <resourcing>
+            <offer initiator="user" />
+            <allocate initiator="user" />
+            <start initiator="user" />
+          </resourcing>
+        </task>
+        <task id="Proceedings_1">
+          <name>Proceedings</name>
+          <flowsInto>
+            <nextElementRef id="C_6" />
+          </flowsInto>
+          <join code="xor" />
+          <split code="and" />
+          <resourcing>
+            <offer initiator="user" />
+            <allocate initiator="user" />
+            <start initiator="user" />
+          </resourcing>
+        </task>
+        <outputCondition id="OutputCondition" />
+      </processControlElements>
+    </decomposition>
+  </specification>
+  <layout>
+    <locale language="pt" country="BR"/>
+    <specification id="F1WorkflowIntroPetriNets">
+      <size w="56" h="26"/>
+      <net id="Net">
+        <bounds x="0" y="-249" w="1132" h="677"/>
+        <frame x="0" y="0" w="1137" h="446"/>
+        <viewport x="0" y="0" w="1137" h="446"/>
+        <container id="Reject_2">
+          <vertex>
+            <attributes>
+              <bounds x="288" y="216" w="32" h="32"/>
+            </attributes>
+          </vertex>
+          <label>
+            <attributes>
+              <bounds x="256" y="248" w="96" h="20"/>
+            </attributes>
+          </label>
+        </container>
+        <vertex id="OutputCondition">
+          <attributes>
+            <bounds x="1.052" y="216" w="32" h="32"/>
+          </attributes>
+        </vertex>
+        <vertex id="C_5">
+          <attributes>
+            <bounds x="196" y="396" w="32" h="32"/>
+          </attributes>
+        </vertex>
+        <vertex id="C_4">
+          <attributes>
+            <bounds x="524" y="368" w="32" h="33"/>
+          </attributes>
+        </vertex>
+        <vertex id="C_6">
+          <attributes>
+            <bounds x="336" y="604" w="32" h="32"/>
+          </attributes>
+        </vertex>
+        <vertex id="InputCondition">
+          <attributes>
+            <bounds x="32" y="32" w="32" h="32"/>
+          </attributes>
+        </vertex>
+        <container id="Emergency_1">
+          <vertex>
+            <attributes>
+              <bounds x="444" y="276" w="32" h="32"/>
+            </attributes>
+          </vertex>
+          <label>
+            <attributes>
+              <bounds x="412" y="320" w="97" h="21"/>
+            </attributes>
+          </label>
+          <decorator type="OR_split">
+            <position>11</position>
+            <attributes>
+              <bounds x="444" y="307" w="32" h="11"/>
+            </attributes>
+          </decorator>
+        </container>
+        <container id="Reject_3">
+          <vertex>
+            <attributes>
+              <bounds x="604" y="216" w="32" h="32"/>
+            </attributes>
+          </vertex>
+          <label>
+            <attributes>
+              <bounds x="572" y="248" w="96" h="20"/>
+            </attributes>
+          </label>
+        </container>
+        <container id="Objection_1">
+          <vertex>
+            <attributes>
+              <bounds x="332" y="492" w="32" h="32"/>
+            </attributes>
+          </vertex>
+          <label>
+            <attributes>
+              <bounds x="304" y="524" w="96" h="20"/>
+            </attributes>
+          </label>
+          <decorator type="OR_split">
+            <position>13</position>
+            <attributes>
+              <bounds x="363" y="492" w="11" h="32"/>
+            </attributes>
+          </decorator>
+        </container>
+        <container id="Establish_Type_1">
+          <vertex>
+            <attributes>
+              <bounds x="292" y="32" w="32" h="32"/>
+            </attributes>
+          </vertex>
+          <label>
+            <attributes>
+              <bounds x="260" y="76" w="96" h="20"/>
+            </attributes>
+          </label>
+          <decorator type="AND_split">
+            <position>11</position>
+            <attributes>
+              <bounds x="292" y="63" w="32" h="11"/>
+            </attributes>
+          </decorator>
+        </container>
+        <container id="Size_of_claim_1">
+          <vertex>
+            <attributes>
+              <bounds x="64" y="276" w="32" h="32"/>
+            </attributes>
+          </vertex>
+          <label>
+            <attributes>
+              <bounds x="32" y="320" w="96" h="20"/>
+            </attributes>
+          </label>
+          <decorator type="OR_split">
+            <position>11</position>
+            <attributes>
+              <bounds x="64" y="307" w="32" h="11"/>
+            </attributes>
+          </decorator>
+        </container>
+        <container id="Settlement_1">
+          <vertex>
+            <attributes>
+              <bounds x="60" y="492" w="32" h="32"/>
+            </attributes>
+          </vertex>
+          <label>
+            <attributes>
+              <bounds x="28" y="524" w="97" h="21"/>
+            </attributes>
+          </label>
+        </container>
+        <container id="Pay_1">
+          <vertex>
+            <attributes>
+              <bounds x="680" y="604" w="32" h="32"/>
+            </attributes>
+          </vertex>
+          <label>
+            <attributes>
+              <bounds x="648" y="636" w="97" h="21"/>
+            </attributes>
+          </label>
+        </container>
+        <container id="Close_1">
+          <vertex>
+            <attributes>
+              <bounds x="1.052" y="368" w="32" h="32"/>
+            </attributes>
+          </vertex>
+          <label>
+            <attributes>
+              <bounds x="1.016" y="400" w="96" h="20"/>
+            </attributes>
+          </label>
+          <decorator type="OR_join">
+            <position>12</position>
+            <attributes>
+              <bounds x="1.042" y="368" w="11" h="32"/>
+            </attributes>
+          </decorator>
+        </container>
+        <container id="Premium_1">
+          <vertex>
+            <attributes>
+              <bounds x="448" y="128" w="32" h="32"/>
+            </attributes>
+          </vertex>
+          <label>
+            <attributes>
+              <bounds x="416" y="160" w="96" h="20"/>
+            </attributes>
+          </label>
+        </container>
+        <container id="Measures_1">
+          <vertex>
+            <attributes>
+              <bounds x="348" y="368" w="32" h="33"/>
+            </attributes>
+          </vertex>
+          <label>
+            <attributes>
+              <bounds x="316" y="400" w="96" h="21"/>
+            </attributes>
+          </label>
+        </container>
+        <container id="Reaction_1">
+          <vertex>
+            <attributes>
+              <bounds x="196" y="492" w="32" h="32"/>
+            </attributes>
+          </vertex>
+          <label>
+            <attributes>
+              <bounds x="168" y="524" w="96" h="20"/>
+            </attributes>
+          </label>
+          <decorator type="OR_split">
+            <position>13</position>
+            <attributes>
+              <bounds x="227" y="492" w="11" h="32"/>
+            </attributes>
+          </decorator>
+        </container>
+        <container id="Policy_1">
+          <vertex>
+            <attributes>
+              <bounds x="136" y="128" w="32" h="32"/>
+            </attributes>
+          </vertex>
+          <label>
+            <attributes>
+              <bounds x="104" y="160" w="96" h="20"/>
+            </attributes>
+          </label>
+        </container>
+        <container id="Recording_2">
+          <vertex>
+            <attributes>
+              <bounds x="148" y="32" w="32" h="32"/>
+            </attributes>
+          </vertex>
+          <label>
+            <attributes>
+              <bounds x="116" y="68" w="97" h="21"/>
+            </attributes>
+          </label>
+        </container>
+        <container id="Proceedings_1">
+          <vertex>
+            <attributes>
+              <bounds x="464" y="492" w="32" h="32"/>
+            </attributes>
+          </vertex>
+          <label>
+            <attributes>
+              <bounds x="432" y="524" w="97" h="21"/>
+            </attributes>
+          </label>
+        </container>
+        <container id="Assessor_1">
+          <vertex>
+            <attributes>
+              <bounds x="64" y="396" w="32" h="32"/>
+            </attributes>
+          </vertex>
+          <label>
+            <attributes>
+              <bounds x="32" y="428" w="96" h="20"/>
+            </attributes>
+          </label>
+        </container>
+        <flow source="Settlement_1" target="Reaction_1">
+          <ports in="13" out="12"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+            <points>
+              <value x="91" y="507,5"/>
+              <value x="196" y="595,5"/>
+            </points>
+          </attributes>
+        </flow>
+        <flow source="Objection_1" target="Proceedings_1">
+          <ports in="2" out="12"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+          </attributes>
+        </flow>
+        <flow source="Recording_2" target="Establish_Type_1">
+          <ports in="13" out="12"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+            <points>
+              <value x="179" y="47,5"/>
+              <value x="292" y="47,5"/>
+            </points>
+          </attributes>
+        </flow>
+        <flow source="Reject_2" target="Reject_3">
+          <ports in="13" out="12"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+          </attributes>
+        </flow>
+        <flow source="Assessor_1" target="C_5">
+          <ports in="13" out="12"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+          </attributes>
+        </flow>
+        <flow source="Close_1" target="OutputCondition">
+          <ports in="10" out="11"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+          </attributes>
+        </flow>
+        <flow source="C_5" target="Settlement_1">
+          <ports in="11" out="10"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+          </attributes>
+        </flow>
+        <flow source="Reaction_1" target="Objection_1">
+          <ports in="2" out="12"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+          </attributes>
+        </flow>
+        <flow source="Establish_Type_1" target="Premium_1">
+          <ports in="1" out="10"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+          </attributes>
+        </flow>
+        <flow source="Policy_1" target="Reject_2">
+          <ports in="11" out="10"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+          </attributes>
+        </flow>
+        <flow source="C_6" target="Pay_1">
+          <ports in="13" out="12"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+          </attributes>
+        </flow>
+        <flow source="Proceedings_1" target="C_6">
+          <ports in="11" out="10"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+          </attributes>
+        </flow>
+        <flow source="Reject_2" target="Size_of_claim_1">
+          <ports in="12" out="10"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+          </attributes>
+        </flow>
+        <flow source="Objection_1" target="C_5">
+          <ports in="2" out="13"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+          </attributes>
+        </flow>
+        <flow source="Measures_1" target="C_4">
+          <ports in="13" out="12"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+          </attributes>
+        </flow>
+        <flow source="Emergency_1" target="Measures_1">
+          <ports in="2" out="10"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+          </attributes>
+        </flow>
+        <flow source="Size_of_claim_1" target="C_5">
+          <ports in="2" out="10"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+          </attributes>
+        </flow>
+        <flow source="Reject_2" target="Emergency_1">
+          <ports in="13" out="10"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+          </attributes>
+        </flow>
+        <flow source="Reject_3" target="OutputCondition">
+          <ports in="13" out="12"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+          </attributes>
+        </flow>
+        <flow source="InputCondition" target="Recording_2">
+          <ports in="13" out="12"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+            <points>
+              <value x="63" y="47,5"/>
+              <value x="148" y="47,5"/>
+            </points>
+          </attributes>
+        </flow>
+        <flow source="Size_of_claim_1" target="Assessor_1">
+          <ports in="2" out="10"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+          </attributes>
+        </flow>
+        <flow source="Pay_1" target="Close_1">
+          <ports in="13" out="2"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+          </attributes>
+        </flow>
+        <flow source="Emergency_1" target="C_4">
+          <ports in="2" out="10"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+          </attributes>
+        </flow>
+        <flow source="Reaction_1" target="C_6">
+          <ports in="2" out="10"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+          </attributes>
+        </flow>
+        <flow source="C_4" target="Close_1">
+          <ports in="13" out="2"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+          </attributes>
+        </flow>
+        <flow source="Establish_Type_1" target="Policy_1">
+          <ports in="3" out="10"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+          </attributes>
+        </flow>
+        <flow source="Premium_1" target="Reject_2">
+          <ports in="11" out="10"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+          </attributes>
+        </flow>
+      </net>
+    </specification>
+  </layout>
+</specificationSet>

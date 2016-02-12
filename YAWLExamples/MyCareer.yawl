@@ -1,0 +1,660 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<specificationSet xmlns="http://www.yawlfoundation.org/yawlschema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="3.0" xsi:schemaLocation="http://www.yawlfoundation.org/yawlschema http://www.yawlfoundation.org/yawlschema/YAWL_Schema3.0.xsd">
+  <specification uri="MyCareer">
+    <documentation />
+    <metaData>
+      <creator>Administrador</creator>
+      <description />
+      <version>0.1</version>
+      <persistent>false</persistent>
+      <identifier>UID_dc6cd9d8-8484-41e4-abbf-2e2a952c624c</identifier>
+    </metaData>
+    <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+    <decomposition id="Net" isRootNet="true" xsi:type="NetFactsType">
+      <processControlElements>
+        <inputCondition id="InputCondition">
+          <flowsInto>
+            <nextElementRef id="Begin_My_Career" />
+          </flowsInto>
+        </inputCondition>
+        <task id="Begin_My_Career">
+          <name>Begin My Career</name>
+          <flowsInto>
+            <nextElementRef id="Attend_University" />
+            <predicate ordering="0">true()</predicate>
+          </flowsInto>
+          <flowsInto>
+            <nextElementRef id="Study_Privately" />
+            <isDefaultFlow />
+          </flowsInto>
+          <join code="xor" />
+          <split code="xor" />
+          <resourcing>
+            <offer initiator="user" />
+            <allocate initiator="user" />
+            <start initiator="user" />
+          </resourcing>
+        </task>
+        <task id="Attend_University">
+          <name>Attend University</name>
+          <flowsInto>
+            <nextElementRef id="Get_a_Job" />
+            <isDefaultFlow />
+          </flowsInto>
+          <join code="and" />
+          <split code="xor" />
+          <decomposesTo id="Attend_University" />
+        </task>
+        <task id="Study_Privately" xsi:type="MultipleInstanceExternalTaskFactsType">
+          <name>Study Privately</name>
+          <flowsInto>
+            <nextElementRef id="Get_a_Job" />
+            <isDefaultFlow />
+          </flowsInto>
+          <join code="and" />
+          <split code="xor" />
+          <decomposesTo id="Study_Privately" />
+          <minimum>5</minimum>
+          <maximum>100</maximum>
+          <threshold>50</threshold>
+          <creationMode code="static" />
+          <miDataInput>
+            <expression query="null" />
+            <splittingExpression query="null" />
+            <formalInputParam />
+          </miDataInput>
+        </task>
+        <task id="Get_a_Job">
+          <name>Get a Job</name>
+          <flowsInto>
+            <nextElementRef id="Career_Started" />
+          </flowsInto>
+          <join code="xor" />
+          <split code="and" />
+          <resourcing>
+            <offer initiator="user" />
+            <allocate initiator="user" />
+            <start initiator="user" />
+          </resourcing>
+        </task>
+        <task id="Career_Started">
+          <name>Career Started</name>
+          <flowsInto>
+            <nextElementRef id="OutputCondition" />
+          </flowsInto>
+          <join code="xor" />
+          <split code="and" />
+          <resourcing>
+            <offer initiator="user" />
+            <allocate initiator="user" />
+            <start initiator="user" />
+          </resourcing>
+        </task>
+        <outputCondition id="OutputCondition" />
+      </processControlElements>
+    </decomposition>
+    <decomposition id="Attend_University" xsi:type="NetFactsType">
+      <name>Attend University</name>
+      <localVariable>
+        <index>0</index>
+        <name>StudentNumber</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+        <initialValue>001</initialValue>
+      </localVariable>
+      <localVariable>
+        <index>1</index>
+        <name>SubjectCode</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+        <initialValue>A01</initialValue>
+      </localVariable>
+      <processControlElements>
+        <inputCondition id="InputCondition_1">
+          <flowsInto>
+            <nextElementRef id="Enrol" />
+          </flowsInto>
+        </inputCondition>
+        <task id="Enrol">
+          <name>Enrol</name>
+          <flowsInto>
+            <nextElementRef id="Do_Subjects" />
+          </flowsInto>
+          <join code="xor" />
+          <split code="and" />
+          <startingMappings>
+            <mapping>
+              <expression query="&lt;SubjectCode&gt;{/Attend_University/SubjectCode/text()}&lt;/SubjectCode&gt;" />
+              <mapsTo>SubjectCode</mapsTo>
+            </mapping>
+            <mapping>
+              <expression query="&lt;StudentNumber&gt;{/Attend_University/StudentNumber/text()}&lt;/StudentNumber&gt;" />
+              <mapsTo>StudentNumber</mapsTo>
+            </mapping>
+          </startingMappings>
+          <completedMappings>
+            <mapping>
+              <expression query="&lt;SubjectCode&gt;{/Enrol/SubjectCode/text()}&lt;/SubjectCode&gt;" />
+              <mapsTo>SubjectCode</mapsTo>
+            </mapping>
+            <mapping>
+              <expression query="&lt;StudentNumber&gt;{/Enrol/StudentNumber/text()}&lt;/StudentNumber&gt;" />
+              <mapsTo>StudentNumber</mapsTo>
+            </mapping>
+          </completedMappings>
+          <resourcing>
+            <offer initiator="user" />
+            <allocate initiator="user" />
+            <start initiator="user" />
+          </resourcing>
+          <decomposesTo id="Enrol" />
+        </task>
+        <task id="Do_Subjects">
+          <name>Do Subjects</name>
+          <flowsInto>
+            <nextElementRef id="Pass_All_Subjects" />
+          </flowsInto>
+          <join code="xor" />
+          <split code="and" />
+          <resourcing>
+            <offer initiator="user" />
+            <allocate initiator="user" />
+            <start initiator="user" />
+          </resourcing>
+        </task>
+        <task id="Pass_All_Subjects">
+          <name>Pass All Subjects</name>
+          <flowsInto>
+            <nextElementRef id="Get_Degree" />
+          </flowsInto>
+          <join code="xor" />
+          <split code="and" />
+          <resourcing>
+            <offer initiator="user" />
+            <allocate initiator="user" />
+            <start initiator="user" />
+          </resourcing>
+        </task>
+        <task id="Get_Degree">
+          <name>Get Degree</name>
+          <flowsInto>
+            <nextElementRef id="OutputCondition_1" />
+          </flowsInto>
+          <join code="xor" />
+          <split code="and" />
+          <resourcing>
+            <offer initiator="user" />
+            <allocate initiator="user" />
+            <start initiator="user" />
+          </resourcing>
+        </task>
+        <outputCondition id="OutputCondition_1" />
+      </processControlElements>
+    </decomposition>
+    <decomposition id="Study_Privately" xsi:type="NetFactsType">
+      <processControlElements>
+        <inputCondition id="InputCondition_2">
+          <flowsInto>
+            <nextElementRef id="Read_a_Book" />
+          </flowsInto>
+        </inputCondition>
+        <task id="Read_a_Book">
+          <name>Read a Book</name>
+          <flowsInto>
+            <nextElementRef id="Knowlegde_Gained" />
+          </flowsInto>
+          <join code="xor" />
+          <split code="and" />
+          <resourcing>
+            <offer initiator="user" />
+            <allocate initiator="user" />
+            <start initiator="user" />
+          </resourcing>
+        </task>
+        <condition id="Knowlegde_Gained">
+          <name>Knowlegde Gained?</name>
+          <flowsInto>
+            <nextElementRef id="Look_for_Easier_Book" />
+          </flowsInto>
+          <flowsInto>
+            <nextElementRef id="Feel_Smarter" />
+          </flowsInto>
+        </condition>
+        <task id="Feel_Smarter">
+          <name>Feel Smarter</name>
+          <flowsInto>
+            <nextElementRef id="OutputCondition_2" />
+          </flowsInto>
+          <join code="xor" />
+          <split code="and" />
+          <resourcing>
+            <offer initiator="user" />
+            <allocate initiator="user" />
+            <start initiator="user" />
+          </resourcing>
+        </task>
+        <task id="Look_for_Easier_Book">
+          <name>Look for Easier Book</name>
+          <flowsInto>
+            <nextElementRef id="Read_a_Book" />
+          </flowsInto>
+          <join code="xor" />
+          <split code="and" />
+          <resourcing>
+            <offer initiator="user" />
+            <allocate initiator="user" />
+            <start initiator="user" />
+          </resourcing>
+        </task>
+        <outputCondition id="OutputCondition_2" />
+      </processControlElements>
+    </decomposition>
+    <decomposition id="Enrol" xsi:type="WebServiceGatewayFactsType">
+      <inputParam>
+        <index>0</index>
+        <name>StudentNumber</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </inputParam>
+      <inputParam>
+        <index>1</index>
+        <name>SubjectCode</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </inputParam>
+      <outputParam>
+        <index>0</index>
+        <name>StudentNumber</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </outputParam>
+      <outputParam>
+        <index>1</index>
+        <name>SubjectCode</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </outputParam>
+      <externalInteraction>manual</externalInteraction>
+    </decomposition>
+  </specification>
+  <layout>
+    <locale language="pt" country="BR"/>
+    <specification id="MyCareer">
+      <size w="615" h="323"/>
+      <net id="Attend_University">
+        <bounds x="0" y="0" w="1196" h="515"/>
+        <frame x="0" y="0" w="1199" h="518"/>
+        <viewport x="0" y="0" w="1199" h="518"/>
+        <vertex id="InputCondition_1">
+          <attributes>
+            <bounds x="44" y="252" w="32" h="32"/>
+          </attributes>
+        </vertex>
+        <vertex id="OutputCondition_1">
+          <attributes>
+            <bounds x="1.140" y="252" w="32" h="32"/>
+          </attributes>
+        </vertex>
+        <container id="Enrol">
+          <vertex>
+            <attributes>
+              <bounds x="192" y="252" w="32" h="32"/>
+            </attributes>
+          </vertex>
+          <label>
+            <attributes>
+              <bounds x="160" y="284" w="96" h="20"/>
+            </attributes>
+          </label>
+        </container>
+        <container id="Get_Degree">
+          <vertex>
+            <attributes>
+              <bounds x="892" y="252" w="32" h="32"/>
+            </attributes>
+          </vertex>
+          <label>
+            <attributes>
+              <bounds x="860" y="284" w="96" h="20"/>
+            </attributes>
+          </label>
+        </container>
+        <container id="Do_Subjects">
+          <vertex>
+            <attributes>
+              <bounds x="420" y="252" w="32" h="32"/>
+            </attributes>
+          </vertex>
+          <label>
+            <attributes>
+              <bounds x="388" y="284" w="96" h="20"/>
+            </attributes>
+          </label>
+        </container>
+        <container id="Pass_All_Subjects">
+          <vertex>
+            <attributes>
+              <bounds x="660" y="252" w="32" h="32"/>
+            </attributes>
+          </vertex>
+          <label>
+            <attributes>
+              <bounds x="628" y="284" w="96" h="40"/>
+            </attributes>
+          </label>
+        </container>
+        <flow source="Get_Degree" target="OutputCondition_1">
+          <ports in="13" out="12"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+          </attributes>
+        </flow>
+        <flow source="Pass_All_Subjects" target="Get_Degree">
+          <ports in="13" out="12"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+          </attributes>
+        </flow>
+        <flow source="InputCondition_1" target="Enrol">
+          <ports in="13" out="12"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+          </attributes>
+        </flow>
+        <flow source="Do_Subjects" target="Pass_All_Subjects">
+          <ports in="13" out="12"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+          </attributes>
+        </flow>
+        <flow source="Enrol" target="Do_Subjects">
+          <ports in="13" out="12"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+          </attributes>
+        </flow>
+      </net>
+      <net id="Study_Privately">
+        <bounds x="0" y="0" w="1196" h="515"/>
+        <frame x="0" y="0" w="1199" h="518"/>
+        <viewport x="0" y="0" w="1199" h="518"/>
+        <vertex id="InputCondition_2">
+          <attributes>
+            <bounds x="36" y="244" w="32" h="32"/>
+          </attributes>
+        </vertex>
+        <container id="Knowlegde_Gained">
+          <vertex>
+            <attributes>
+              <bounds x="476" y="244" w="32" h="32"/>
+            </attributes>
+          </vertex>
+          <label>
+            <attributes>
+              <bounds x="444" y="276" w="96" h="40"/>
+            </attributes>
+          </label>
+        </container>
+        <vertex id="OutputCondition_2">
+          <attributes>
+            <bounds x="1.124" y="244" w="32" h="32"/>
+          </attributes>
+        </vertex>
+        <container id="Look_for_Easier_Book">
+          <vertex>
+            <attributes>
+              <bounds x="360" y="92" w="32" h="32"/>
+            </attributes>
+          </vertex>
+          <label>
+            <attributes>
+              <bounds x="328" y="124" w="96" h="40"/>
+            </attributes>
+          </label>
+        </container>
+        <container id="Feel_Smarter">
+          <vertex>
+            <attributes>
+              <bounds x="764" y="244" w="32" h="32"/>
+            </attributes>
+          </vertex>
+          <label>
+            <attributes>
+              <bounds x="732" y="276" w="96" h="20"/>
+            </attributes>
+          </label>
+        </container>
+        <container id="Read_a_Book">
+          <vertex>
+            <attributes>
+              <bounds x="256" y="244" w="32" h="32"/>
+            </attributes>
+          </vertex>
+          <label>
+            <attributes>
+              <bounds x="220" y="276" w="96" h="20"/>
+            </attributes>
+          </label>
+          <decorator type="XOR_join">
+            <position>12</position>
+            <attributes>
+              <bounds x="246" y="244" w="11" h="32"/>
+            </attributes>
+          </decorator>
+        </container>
+        <flow source="Feel_Smarter" target="OutputCondition_2">
+          <ports in="13" out="12"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+            <points>
+              <value x="687" y="254,5"/>
+              <value x="1.124" y="254,5"/>
+            </points>
+          </attributes>
+        </flow>
+        <flow source="Look_for_Easier_Book" target="Read_a_Book">
+          <ports in="12" out="4"/>
+          <attributes>
+            <lineStyle>12</lineStyle>
+            <points>
+              <value x="328" y="107,5"/>
+              <value x="276" y="136"/>
+              <value x="251" y="244"/>
+            </points>
+          </attributes>
+        </flow>
+        <flow source="Read_a_Book" target="Knowlegde_Gained">
+          <ports in="13" out="12"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+          </attributes>
+        </flow>
+        <flow source="Knowlegde_Gained" target="Feel_Smarter">
+          <label>yes</label>
+          <ports in="13" out="12"/>
+          <attributes>
+            <labelposition x="479" y="13"/>
+            <lineStyle>11</lineStyle>
+            <points>
+              <value x="507" y="259,5"/>
+              <value x="764" y="259,5"/>
+            </points>
+          </attributes>
+        </flow>
+        <flow source="Knowlegde_Gained" target="Look_for_Easier_Book">
+          <label>no</label>
+          <ports in="10" out="13"/>
+          <attributes>
+            <offset x="0" y="-0"/>
+            <labelposition x="392" y="-8"/>
+            <lineStyle>12</lineStyle>
+            <points>
+              <value x="491,5" y="244"/>
+              <value x="464" y="140"/>
+              <value x="391" y="107,5"/>
+            </points>
+          </attributes>
+        </flow>
+        <flow source="InputCondition_2" target="Read_a_Book">
+          <ports in="13" out="2"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+            <points>
+              <value x="67" y="254,5"/>
+              <value x="332" y="254,5"/>
+            </points>
+          </attributes>
+        </flow>
+      </net>
+      <net id="Net">
+        <bounds x="0" y="0" w="1196" h="515"/>
+        <frame x="0" y="0" w="1199" h="518"/>
+        <viewport x="0" y="0" w="1199" h="518"/>
+        <vertex id="OutputCondition">
+          <attributes>
+            <bounds x="1.140" y="120" w="32" h="32"/>
+          </attributes>
+        </vertex>
+        <vertex id="InputCondition">
+          <attributes>
+            <bounds x="44" y="120" w="32" h="32"/>
+          </attributes>
+        </vertex>
+        <container id="Attend_University">
+          <vertex>
+            <attributes>
+              <bounds x="404" y="120" w="32" h="32"/>
+            </attributes>
+          </vertex>
+          <label>
+            <attributes>
+              <bounds x="372" y="152" w="96" h="40"/>
+            </attributes>
+          </label>
+        </container>
+        <container id="Get_a_Job">
+          <vertex>
+            <attributes>
+              <bounds x="604" y="120" w="32" h="32"/>
+            </attributes>
+          </vertex>
+          <label>
+            <attributes>
+              <bounds x="568" y="152" w="96" h="20"/>
+            </attributes>
+          </label>
+          <decorator type="XOR_join">
+            <position>12</position>
+            <attributes>
+              <bounds x="594" y="120" w="11" h="32"/>
+            </attributes>
+          </decorator>
+        </container>
+        <container id="Study_Privately">
+          <vertex>
+            <attributes>
+              <bounds x="404" y="260" w="32" h="32"/>
+            </attributes>
+          </vertex>
+          <label>
+            <attributes>
+              <bounds x="372" y="292" w="96" h="20"/>
+            </attributes>
+          </label>
+        </container>
+        <container id="Begin_My_Career">
+          <vertex>
+            <attributes>
+              <bounds x="192" y="120" w="32" h="32"/>
+            </attributes>
+          </vertex>
+          <label>
+            <attributes>
+              <bounds x="164" y="152" w="96" h="40"/>
+            </attributes>
+          </label>
+          <decorator type="XOR_split">
+            <position>13</position>
+            <attributes>
+              <bounds x="223" y="120" w="11" h="32"/>
+            </attributes>
+          </decorator>
+        </container>
+        <container id="Career_Started">
+          <vertex>
+            <attributes>
+              <bounds x="860" y="120" w="32" h="32"/>
+            </attributes>
+          </vertex>
+          <label>
+            <attributes>
+              <bounds x="828" y="152" w="96" h="20"/>
+            </attributes>
+          </label>
+        </container>
+        <flow source="InputCondition" target="Begin_My_Career">
+          <ports in="13" out="12"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+            <points>
+              <value x="75" y="135,5"/>
+              <value x="192" y="135,5"/>
+            </points>
+          </attributes>
+        </flow>
+        <flow source="Begin_My_Career" target="Study_Privately">
+          <ports in="3" out="12"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+          </attributes>
+        </flow>
+        <flow source="Attend_University" target="Get_a_Job">
+          <ports in="13" out="2"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+            <points>
+              <value x="435" y="135,5"/>
+              <value x="594" y="135,5"/>
+            </points>
+          </attributes>
+        </flow>
+        <flow source="Career_Started" target="OutputCondition">
+          <ports in="13" out="12"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+            <points>
+              <value x="891" y="135,5"/>
+              <value x="1.140" y="135,5"/>
+            </points>
+          </attributes>
+        </flow>
+        <flow source="Begin_My_Career" target="Attend_University">
+          <ports in="2" out="12"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+            <points>
+              <value x="233" y="135,5"/>
+              <value x="404" y="135,5"/>
+            </points>
+          </attributes>
+        </flow>
+        <flow source="Get_a_Job" target="Career_Started">
+          <ports in="13" out="12"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+            <points>
+              <value x="635" y="135,5"/>
+              <value x="860" y="135,5"/>
+            </points>
+          </attributes>
+        </flow>
+        <flow source="Study_Privately" target="Get_a_Job">
+          <ports in="13" out="3"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+          </attributes>
+        </flow>
+      </net>
+    </specification>
+  </layout>
+</specificationSet>

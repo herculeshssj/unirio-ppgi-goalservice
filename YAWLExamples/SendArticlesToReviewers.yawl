@@ -1,0 +1,552 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<specificationSet xmlns="http://www.yawlfoundation.org/yawlschema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="3.0" xsi:schemaLocation="http://www.yawlfoundation.org/yawlschema http://www.yawlfoundation.org/yawlschema/YAWL_Schema3.0.xsd">
+  <specification uri="SendArticlesToReviewers">
+    <name>Send Article to Reviewers</name>
+    <documentation>No description provided</documentation>
+    <metaData>
+      <title>Send Article to Reviewers</title>
+      <creator>herculeshssj</creator>
+      <description>No description provided</description>
+      <version>0.4</version>
+      <persistent>false</persistent>
+      <identifier>UID_1f4a19b7-74e8-4796-8f47-e91ff0d26198</identifier>
+    </metaData>
+    <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+    <decomposition id="Main_process" isRootNet="true" xsi:type="NetFactsType">
+      <processControlElements>
+        <inputCondition id="InputCondition">
+          <flowsInto>
+            <nextElementRef id="Choose_reviewers" />
+          </flowsInto>
+        </inputCondition>
+        <task id="Choose_reviewers">
+          <name>Choose reviewers</name>
+          <flowsInto>
+            <nextElementRef id="Send_invitation" />
+          </flowsInto>
+          <join code="xor" />
+          <split code="and" />
+          <resourcing>
+            <offer initiator="user" />
+            <allocate initiator="user" />
+            <start initiator="user" />
+          </resourcing>
+        </task>
+        <task id="Send_invitation">
+          <name>Send invitation</name>
+          <flowsInto>
+            <nextElementRef id="Log_information" />
+          </flowsInto>
+          <join code="xor" />
+          <split code="and" />
+          <resourcing>
+            <offer initiator="user" />
+            <allocate initiator="user" />
+            <start initiator="user" />
+          </resourcing>
+        </task>
+        <task id="Log_information">
+          <name>Log information</name>
+          <flowsInto>
+            <nextElementRef id="Receive_invitation" />
+          </flowsInto>
+          <join code="xor" />
+          <split code="and" />
+          <resourcing>
+            <offer initiator="user" />
+            <allocate initiator="user" />
+            <start initiator="user" />
+          </resourcing>
+        </task>
+        <task id="Receive_invitation">
+          <name>Receive invitation</name>
+          <flowsInto>
+            <nextElementRef id="Log_information_1" />
+          </flowsInto>
+          <join code="xor" />
+          <split code="and" />
+          <resourcing>
+            <offer initiator="user" />
+            <allocate initiator="user" />
+            <start initiator="user" />
+          </resourcing>
+        </task>
+        <task id="Log_information_1">
+          <name>Log information</name>
+          <flowsInto>
+            <nextElementRef id="Answer_invitation" />
+          </flowsInto>
+          <join code="xor" />
+          <split code="and" />
+          <resourcing>
+            <offer initiator="user" />
+            <allocate initiator="user" />
+            <start initiator="user" />
+          </resourcing>
+        </task>
+        <task id="Answer_invitation">
+          <name>Answer invitation</name>
+          <flowsInto>
+            <nextElementRef id="Receive_answer" />
+          </flowsInto>
+          <join code="xor" />
+          <split code="and" />
+          <resourcing>
+            <offer initiator="user" />
+            <allocate initiator="user" />
+            <start initiator="user" />
+          </resourcing>
+        </task>
+        <task id="Receive_answer">
+          <name>Receive answer</name>
+          <flowsInto>
+            <nextElementRef id="Log_information_2" />
+          </flowsInto>
+          <join code="xor" />
+          <split code="and" />
+          <resourcing>
+            <offer initiator="user" />
+            <allocate initiator="user" />
+            <start initiator="user" />
+          </resourcing>
+        </task>
+        <task id="Log_information_2">
+          <name>Log information</name>
+          <flowsInto>
+            <nextElementRef id="Answer" />
+          </flowsInto>
+          <join code="xor" />
+          <split code="and" />
+          <resourcing>
+            <offer initiator="user" />
+            <allocate initiator="user" />
+            <start initiator="user" />
+          </resourcing>
+        </task>
+        <condition id="Answer">
+          <name>Answer</name>
+          <flowsInto>
+            <nextElementRef id="Choose_reviewers" />
+          </flowsInto>
+          <flowsInto>
+            <nextElementRef id="Send_articles_to_be_reviewed" />
+          </flowsInto>
+        </condition>
+        <task id="Send_articles_to_be_reviewed">
+          <name>Send articles to be reviewed</name>
+          <flowsInto>
+            <nextElementRef id="Log_information_3" />
+          </flowsInto>
+          <join code="xor" />
+          <split code="and" />
+          <resourcing>
+            <offer initiator="user" />
+            <allocate initiator="user" />
+            <start initiator="user" />
+          </resourcing>
+        </task>
+        <task id="Log_information_3">
+          <name>Log information</name>
+          <flowsInto>
+            <nextElementRef id="OutputCondition" />
+          </flowsInto>
+          <join code="xor" />
+          <split code="and" />
+          <resourcing>
+            <offer initiator="user" />
+            <allocate initiator="user" />
+            <start initiator="user" />
+          </resourcing>
+        </task>
+        <outputCondition id="OutputCondition" />
+      </processControlElements>
+    </decomposition>
+    <decomposition id="Log_Aspect" xsi:type="NetFactsType">
+      <processControlElements>
+        <inputCondition id="InputCondition_1">
+          <flowsInto>
+            <nextElementRef id="PROCEED" />
+          </flowsInto>
+        </inputCondition>
+        <task id="PROCEED">
+          <name>PROCEED</name>
+          <flowsInto>
+            <nextElementRef id="Log_information_4" />
+          </flowsInto>
+          <join code="xor" />
+          <split code="and" />
+          <resourcing>
+            <offer initiator="user" />
+            <allocate initiator="user" />
+            <start initiator="user" />
+          </resourcing>
+        </task>
+        <task id="Log_information_4">
+          <name>Log information</name>
+          <flowsInto>
+            <nextElementRef id="OutputCondition_1" />
+          </flowsInto>
+          <join code="xor" />
+          <split code="and" />
+          <resourcing>
+            <offer initiator="user" />
+            <allocate initiator="user" />
+            <start initiator="user" />
+          </resourcing>
+        </task>
+        <outputCondition id="OutputCondition_1" />
+      </processControlElements>
+    </decomposition>
+  </specification>
+  <layout>
+    <locale language="pt" country="BR"/>
+    <specification id="SendArticlesToReviewers">
+      <size w="56" h="26"/>
+      <net id="Main_process">
+        <bounds x="0" y="0" w="895" h="516"/>
+        <frame x="0" y="0" w="898" h="519"/>
+        <viewport x="0" y="0" w="898" h="519"/>
+        <container id="Answer">
+          <vertex>
+            <attributes>
+              <bounds x="556" y="128" w="32" h="32"/>
+            </attributes>
+          </vertex>
+          <label>
+            <attributes>
+              <bounds x="524" y="160" w="96" h="20"/>
+            </attributes>
+          </label>
+        </container>
+        <vertex id="OutputCondition">
+          <attributes>
+            <bounds x="572" y="256" w="32" h="32"/>
+          </attributes>
+        </vertex>
+        <vertex id="InputCondition">
+          <attributes>
+            <bounds x="52" y="20" w="32" h="32"/>
+          </attributes>
+        </vertex>
+        <container id="Choose_reviewers">
+          <vertex>
+            <attributes>
+              <bounds x="52" y="128" w="32" h="32"/>
+            </attributes>
+          </vertex>
+          <label>
+            <attributes>
+              <bounds x="20" y="160" w="96" h="40"/>
+            </attributes>
+          </label>
+          <decorator type="XOR_join">
+            <position>10</position>
+            <attributes>
+              <bounds x="52" y="118" w="32" h="11"/>
+            </attributes>
+          </decorator>
+        </container>
+        <container id="Send_invitation">
+          <vertex>
+            <attributes>
+              <bounds x="196" y="128" w="32" h="32"/>
+            </attributes>
+          </vertex>
+          <label>
+            <attributes>
+              <bounds x="164" y="160" w="96" h="20"/>
+            </attributes>
+          </label>
+        </container>
+        <container id="Send_articles_to_be_reviewed">
+          <vertex>
+            <attributes>
+              <bounds x="728" y="128" w="32" h="32"/>
+            </attributes>
+          </vertex>
+          <label>
+            <attributes>
+              <bounds x="696" y="160" w="96" h="40"/>
+            </attributes>
+          </label>
+        </container>
+        <container id="Log_information_1">
+          <vertex>
+            <attributes>
+              <bounds x="356" y="336" w="32" h="32"/>
+            </attributes>
+          </vertex>
+          <label>
+            <attributes>
+              <bounds x="324" y="368" w="96" h="20"/>
+            </attributes>
+          </label>
+        </container>
+        <container id="Log_information_2">
+          <vertex>
+            <attributes>
+              <bounds x="444" y="128" w="32" h="32"/>
+            </attributes>
+          </vertex>
+          <label>
+            <attributes>
+              <bounds x="412" y="160" w="96" h="20"/>
+            </attributes>
+          </label>
+        </container>
+        <container id="Log_information_3">
+          <vertex>
+            <attributes>
+              <bounds x="728" y="256" w="32" h="32"/>
+            </attributes>
+          </vertex>
+          <label>
+            <attributes>
+              <bounds x="696" y="288" w="96" h="20"/>
+            </attributes>
+          </label>
+        </container>
+        <container id="Log_information">
+          <vertex>
+            <attributes>
+              <bounds x="196" y="232" w="32" h="32"/>
+            </attributes>
+          </vertex>
+          <label>
+            <attributes>
+              <bounds x="164" y="264" w="96" h="20"/>
+            </attributes>
+          </label>
+        </container>
+        <container id="Answer_invitation">
+          <vertex>
+            <attributes>
+              <bounds x="496" y="336" w="32" h="32"/>
+            </attributes>
+          </vertex>
+          <label>
+            <attributes>
+              <bounds x="464" y="368" w="96" h="40"/>
+            </attributes>
+          </label>
+        </container>
+        <container id="Receive_invitation">
+          <vertex>
+            <attributes>
+              <bounds x="196" y="336" w="32" h="32"/>
+            </attributes>
+          </vertex>
+          <label>
+            <attributes>
+              <bounds x="164" y="368" w="96" h="40"/>
+            </attributes>
+          </label>
+        </container>
+        <container id="Receive_answer">
+          <vertex>
+            <attributes>
+              <bounds x="312" y="128" w="32" h="32"/>
+            </attributes>
+          </vertex>
+          <label>
+            <attributes>
+              <bounds x="280" y="160" w="96" h="20"/>
+            </attributes>
+          </label>
+        </container>
+        <flow source="Receive_invitation" target="Log_information_1">
+          <ports in="13" out="12"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+            <points>
+              <value x="227" y="351,5"/>
+              <value x="356" y="351,5"/>
+            </points>
+          </attributes>
+        </flow>
+        <flow source="Choose_reviewers" target="Send_invitation">
+          <ports in="13" out="12"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+            <points>
+              <value x="83" y="143,5"/>
+              <value x="196" y="143,5"/>
+            </points>
+          </attributes>
+        </flow>
+        <flow source="Log_information_2" target="Answer">
+          <ports in="13" out="12"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+            <points>
+              <value x="475" y="143,5"/>
+              <value x="556" y="143,5"/>
+            </points>
+          </attributes>
+        </flow>
+        <flow source="Log_information_3" target="OutputCondition">
+          <ports in="12" out="13"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+            <points>
+              <value x="728" y="271,5"/>
+              <value x="599" y="275,5"/>
+            </points>
+          </attributes>
+        </flow>
+        <flow source="Answer_invitation" target="Receive_answer">
+          <ports in="10" out="11"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+            <points>
+              <value x="511,5" y="336"/>
+              <value x="327,5" y="159"/>
+            </points>
+          </attributes>
+        </flow>
+        <flow source="Log_information" target="Receive_invitation">
+          <ports in="11" out="10"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+            <points>
+              <value x="211,5" y="263"/>
+              <value x="211,5" y="336"/>
+            </points>
+          </attributes>
+        </flow>
+        <flow source="Send_invitation" target="Log_information">
+          <ports in="11" out="10"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+            <points>
+              <value x="211,5" y="159"/>
+              <value x="211,5" y="232"/>
+            </points>
+          </attributes>
+        </flow>
+        <flow source="Answer" target="Send_articles_to_be_reviewed">
+          <label>positive</label>
+          <ports in="13" out="12"/>
+          <attributes>
+            <labelposition x="475" y="7"/>
+            <lineStyle>11</lineStyle>
+            <points>
+              <value x="587" y="143,5"/>
+              <value x="728" y="143,5"/>
+            </points>
+          </attributes>
+        </flow>
+        <flow source="Log_information_1" target="Answer_invitation">
+          <ports in="13" out="12"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+            <points>
+              <value x="387" y="351,5"/>
+              <value x="496" y="351,5"/>
+            </points>
+          </attributes>
+        </flow>
+        <flow source="InputCondition" target="Choose_reviewers">
+          <ports in="11" out="2"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+            <points>
+              <value x="67,5" y="51"/>
+              <value x="67,5" y="118"/>
+            </points>
+          </attributes>
+        </flow>
+        <flow source="Send_articles_to_be_reviewed" target="Log_information_3">
+          <ports in="11" out="10"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+            <points>
+              <value x="743,5" y="159"/>
+              <value x="743,5" y="256"/>
+            </points>
+          </attributes>
+        </flow>
+        <flow source="Receive_answer" target="Log_information_2">
+          <ports in="13" out="12"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+            <points>
+              <value x="343" y="143,5"/>
+              <value x="444" y="143,5"/>
+            </points>
+          </attributes>
+        </flow>
+        <flow source="Answer" target="Choose_reviewers">
+          <label>negative</label>
+          <ports in="10" out="3"/>
+          <attributes>
+            <labelposition x="500" y="0"/>
+            <lineStyle>13</lineStyle>
+            <points>
+              <value x="571,5" y="128"/>
+              <value x="268" y="64"/>
+              <value x="75,25" y="118"/>
+            </points>
+          </attributes>
+        </flow>
+      </net>
+      <net id="Log_Aspect">
+        <bounds x="0" y="0" w="895" h="516"/>
+        <frame x="0" y="0" w="898" h="519"/>
+        <viewport x="0" y="0" w="898" h="519"/>
+        <vertex id="InputCondition_1">
+          <attributes>
+            <bounds x="36" y="320" w="32" h="32"/>
+          </attributes>
+        </vertex>
+        <vertex id="OutputCondition_1">
+          <attributes>
+            <bounds x="648" y="320" w="32" h="32"/>
+          </attributes>
+        </vertex>
+        <container id="PROCEED">
+          <vertex>
+            <attributes>
+              <bounds x="236" y="320" w="32" h="32"/>
+            </attributes>
+          </vertex>
+          <label>
+            <attributes>
+              <bounds x="204" y="352" w="96" h="20"/>
+            </attributes>
+          </label>
+        </container>
+        <container id="Log_information_4">
+          <vertex>
+            <attributes>
+              <bounds x="460" y="320" w="32" h="32"/>
+            </attributes>
+          </vertex>
+          <label>
+            <attributes>
+              <bounds x="428" y="352" w="96" h="20"/>
+            </attributes>
+          </label>
+        </container>
+        <flow source="InputCondition_1" target="PROCEED">
+          <ports in="13" out="12"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+          </attributes>
+        </flow>
+        <flow source="PROCEED" target="Log_information_4">
+          <ports in="13" out="12"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+          </attributes>
+        </flow>
+        <flow source="Log_information_4" target="OutputCondition_1">
+          <ports in="13" out="12"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+          </attributes>
+        </flow>
+      </net>
+    </specification>
+  </layout>
+</specificationSet>

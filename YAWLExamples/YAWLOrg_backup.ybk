@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<orgdata>
+  <participants>
+    <participant id="PA-eca4cf7f-1055-4745-a13f-3bfb0523d173">
+      <userid>user2</userid>
+      <password>oYgcBu7JbbmQHHu/5BxCo/COnLQ=</password>
+      <firstname>User 2</firstname>
+      <lastname>User 2</lastname>
+      <description>Senior Credit Officer</description>
+      <notes/>
+      <isAdministrator>false</isAdministrator>
+      <roles>
+        <role>RO-1e81e431-5ad8-4ae8-a1fd-805c75962d77</role>
+      </roles>
+      <positions/>
+      <capabilities/>
+      <privileges>11100000</privileges>
+    </participant>
+    <participant id="PA-176bdfde-192c-4ae0-afde-64bc9644bd8c">
+      <userid>user1</userid>
+      <password>s9qne0wEqVUbh4HQMZH+CY8yXmc=</password>
+      <firstname>User 1</firstname>
+      <lastname>User 1</lastname>
+      <description>Credit Officer</description>
+      <notes/>
+      <isAdministrator>false</isAdministrator>
+      <roles>
+        <role>RO-a77fe731-579c-427c-a039-6c859fbf4b73</role>
+      </roles>
+      <positions/>
+      <capabilities/>
+      <privileges>11100000</privileges>
+    </participant>
+  </participants>
+  <roles>
+    <role id="RO-a77fe731-579c-427c-a039-6c859fbf4b73">
+      <name>Credit Officer</name>
+      <description>Credit Officer</description>
+      <notes/>
+    </role>
+    <role id="RO-1e81e431-5ad8-4ae8-a1fd-805c75962d77">
+      <name>Senior Credit Officer</name>
+      <description>Senior Credit Officer</description>
+      <notes/>
+    </role>
+  </roles>
+  <positions/>
+  <capabilities/>
+  <orggroups/>
+  <nonhumanresources/>
+  <nonhumancategories/>
+</orgdata>
+
