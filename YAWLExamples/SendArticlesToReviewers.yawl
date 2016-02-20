@@ -1,20 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <specificationSet xmlns="http://www.yawlfoundation.org/yawlschema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="3.0" xsi:schemaLocation="http://www.yawlfoundation.org/yawlschema http://www.yawlfoundation.org/yawlschema/YAWL_Schema3.0.xsd">
   <specification uri="SendArticlesToReviewers">
-    <name>Send Article to Reviewers</name>
     <documentation>No description provided</documentation>
     <metaData>
-      <title>Send Article to Reviewers</title>
-      <creator>herculeshssj</creator>
+      <creator>Hercules S. S. Jose</creator>
       <description>No description provided</description>
-      <version>0.4</version>
+      <version>0.1</version>
       <persistent>false</persistent>
-      <identifier>UID_1f4a19b7-74e8-4796-8f47-e91ff0d26198</identifier>
+      <identifier>UID_86a98b26-3650-45d6-8a19-448d00d23253</identifier>
     </metaData>
     <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" />
-    <decomposition id="Main_process" isRootNet="true" xsi:type="NetFactsType">
+    <decomposition id="SendArticlesToReviewers" isRootNet="true" xsi:type="NetFactsType">
+      <localVariable>
+        <index>0</index>
+        <name>ReviewerName</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+        <initialValue>name</initialValue>
+      </localVariable>
       <processControlElements>
-        <inputCondition id="InputCondition">
+        <inputCondition id="Reviewers_listed">
+          <name>Reviewers listed</name>
           <flowsInto>
             <nextElementRef id="Choose_reviewers" />
           </flowsInto>
@@ -24,65 +30,78 @@
           <flowsInto>
             <nextElementRef id="Send_invitation" />
           </flowsInto>
-          <join code="xor" />
+          <join code="and" />
           <split code="and" />
+          <startingMappings>
+            <mapping>
+              <expression query="&lt;ReviewerName&gt;{/SendArticlesToReviewers/ReviewerName/text()}&lt;/ReviewerName&gt;" />
+              <mapsTo>ReviewerName</mapsTo>
+            </mapping>
+          </startingMappings>
+          <completedMappings>
+            <mapping>
+              <expression query="&lt;ReviewerName&gt;{/Choose_reviewers/ReviewerName/text()}&lt;/ReviewerName&gt;" />
+              <mapsTo>ReviewerName</mapsTo>
+            </mapping>
+          </completedMappings>
           <resourcing>
             <offer initiator="user" />
             <allocate initiator="user" />
             <start initiator="user" />
           </resourcing>
+          <decomposesTo id="Choose_reviewers" />
         </task>
         <task id="Send_invitation">
           <name>Send invitation</name>
-          <flowsInto>
-            <nextElementRef id="Log_information" />
-          </flowsInto>
-          <join code="xor" />
-          <split code="and" />
-          <resourcing>
-            <offer initiator="user" />
-            <allocate initiator="user" />
-            <start initiator="user" />
-          </resourcing>
-        </task>
-        <task id="Log_information">
-          <name>Log information</name>
           <flowsInto>
             <nextElementRef id="Receive_invitation" />
           </flowsInto>
           <join code="xor" />
           <split code="and" />
+          <startingMappings>
+            <mapping>
+              <expression query="&lt;ReviewerName&gt;{/SendArticlesToReviewers/ReviewerName/text()}&lt;/ReviewerName&gt;" />
+              <mapsTo>ReviewerName</mapsTo>
+            </mapping>
+          </startingMappings>
+          <completedMappings>
+            <mapping>
+              <expression query="&lt;ReviewerName&gt;{/Send_invitation/ReviewerName/text()}&lt;/ReviewerName&gt;" />
+              <mapsTo>ReviewerName</mapsTo>
+            </mapping>
+          </completedMappings>
           <resourcing>
             <offer initiator="user" />
             <allocate initiator="user" />
             <start initiator="user" />
           </resourcing>
+          <decomposesTo id="Send_invitation" />
         </task>
         <task id="Receive_invitation">
           <name>Receive invitation</name>
-          <flowsInto>
-            <nextElementRef id="Log_information_1" />
-          </flowsInto>
-          <join code="xor" />
-          <split code="and" />
-          <resourcing>
-            <offer initiator="user" />
-            <allocate initiator="user" />
-            <start initiator="user" />
-          </resourcing>
-        </task>
-        <task id="Log_information_1">
-          <name>Log information</name>
           <flowsInto>
             <nextElementRef id="Answer_invitation" />
           </flowsInto>
           <join code="xor" />
           <split code="and" />
+          <startingMappings>
+            <mapping>
+              <expression query="&lt;ReviewerName&gt;{/SendArticlesToReviewers/ReviewerName/text()}&lt;/ReviewerName&gt;" />
+              <mapsTo>ReviewerName</mapsTo>
+            </mapping>
+          </startingMappings>
+          <completedMappings>
+            <mapping>
+              <expression query="&lt;ReviewerName&gt;{/Receive_invitation/ReviewerName/text()}&lt;/ReviewerName&gt;" />
+              <mapsTo>ReviewerName</mapsTo>
+            </mapping>
+          </completedMappings>
           <resourcing>
             <offer initiator="user" />
             <allocate initiator="user" />
             <start initiator="user" />
           </resourcing>
+          <decomposesTo id="Receive_invitation" />
         </task>
         <task id="Answer_invitation">
           <name>Answer invitation</name>
@@ -91,306 +110,337 @@
           </flowsInto>
           <join code="xor" />
           <split code="and" />
+          <startingMappings>
+            <mapping>
+              <expression query="&lt;ReviewerName&gt;{/SendArticlesToReviewers/ReviewerName/text()}&lt;/ReviewerName&gt;" />
+              <mapsTo>ReviewerName</mapsTo>
+            </mapping>
+          </startingMappings>
+          <completedMappings>
+            <mapping>
+              <expression query="&lt;ReviewerName&gt;{/Answer_invitation/ReviewerName/text()}&lt;/ReviewerName&gt;" />
+              <mapsTo>ReviewerName</mapsTo>
+            </mapping>
+          </completedMappings>
           <resourcing>
             <offer initiator="user" />
             <allocate initiator="user" />
             <start initiator="user" />
           </resourcing>
+          <decomposesTo id="Answer_invitation" />
         </task>
         <task id="Receive_answer">
           <name>Receive answer</name>
           <flowsInto>
-            <nextElementRef id="Log_information_2" />
-          </flowsInto>
-          <join code="xor" />
-          <split code="and" />
-          <resourcing>
-            <offer initiator="user" />
-            <allocate initiator="user" />
-            <start initiator="user" />
-          </resourcing>
-        </task>
-        <task id="Log_information_2">
-          <name>Log information</name>
-          <flowsInto>
-            <nextElementRef id="Answer" />
-          </flowsInto>
-          <join code="xor" />
-          <split code="and" />
-          <resourcing>
-            <offer initiator="user" />
-            <allocate initiator="user" />
-            <start initiator="user" />
-          </resourcing>
-        </task>
-        <condition id="Answer">
-          <name>Answer</name>
-          <flowsInto>
-            <nextElementRef id="Choose_reviewers" />
-          </flowsInto>
-          <flowsInto>
             <nextElementRef id="Send_articles_to_be_reviewed" />
           </flowsInto>
-        </condition>
+          <join code="xor" />
+          <split code="and" />
+          <startingMappings>
+            <mapping>
+              <expression query="&lt;ReviewerName&gt;{/SendArticlesToReviewers/ReviewerName/text()}&lt;/ReviewerName&gt;" />
+              <mapsTo>ReviewerName</mapsTo>
+            </mapping>
+          </startingMappings>
+          <completedMappings>
+            <mapping>
+              <expression query="&lt;ReviewerName&gt;{/Receive_answer/ReviewerName/text()}&lt;/ReviewerName&gt;" />
+              <mapsTo>ReviewerName</mapsTo>
+            </mapping>
+          </completedMappings>
+          <resourcing>
+            <offer initiator="user" />
+            <allocate initiator="user" />
+            <start initiator="user" />
+          </resourcing>
+          <decomposesTo id="Receive_answer" />
+        </task>
         <task id="Send_articles_to_be_reviewed">
           <name>Send articles to be reviewed</name>
           <flowsInto>
-            <nextElementRef id="Log_information_3" />
+            <nextElementRef id="Articles_to_be_reviewed" />
           </flowsInto>
           <join code="xor" />
           <split code="and" />
+          <startingMappings>
+            <mapping>
+              <expression query="&lt;ReviewerName&gt;{/SendArticlesToReviewers/ReviewerName/text()}&lt;/ReviewerName&gt;" />
+              <mapsTo>ReviewerName</mapsTo>
+            </mapping>
+          </startingMappings>
+          <completedMappings>
+            <mapping>
+              <expression query="&lt;ReviewerName&gt;{/Send_articles_to_be_reviewed/ReviewerName/text()}&lt;/ReviewerName&gt;" />
+              <mapsTo>ReviewerName</mapsTo>
+            </mapping>
+          </completedMappings>
           <resourcing>
             <offer initiator="user" />
             <allocate initiator="user" />
             <start initiator="user" />
           </resourcing>
+          <decomposesTo id="Send_articles_to_be_reviewed" />
         </task>
-        <task id="Log_information_3">
-          <name>Log information</name>
-          <flowsInto>
-            <nextElementRef id="OutputCondition" />
-          </flowsInto>
-          <join code="xor" />
-          <split code="and" />
-          <resourcing>
-            <offer initiator="user" />
-            <allocate initiator="user" />
-            <start initiator="user" />
-          </resourcing>
-        </task>
-        <outputCondition id="OutputCondition" />
+        <outputCondition id="Articles_to_be_reviewed">
+          <name>Articles to be reviewed</name>
+        </outputCondition>
       </processControlElements>
     </decomposition>
-    <decomposition id="Log_Aspect" xsi:type="NetFactsType">
-      <processControlElements>
-        <inputCondition id="InputCondition_1">
-          <flowsInto>
-            <nextElementRef id="PROCEED" />
-          </flowsInto>
-        </inputCondition>
-        <task id="PROCEED">
-          <name>PROCEED</name>
-          <flowsInto>
-            <nextElementRef id="Log_information_4" />
-          </flowsInto>
-          <join code="xor" />
-          <split code="and" />
-          <resourcing>
-            <offer initiator="user" />
-            <allocate initiator="user" />
-            <start initiator="user" />
-          </resourcing>
-        </task>
-        <task id="Log_information_4">
-          <name>Log information</name>
-          <flowsInto>
-            <nextElementRef id="OutputCondition_1" />
-          </flowsInto>
-          <join code="xor" />
-          <split code="and" />
-          <resourcing>
-            <offer initiator="user" />
-            <allocate initiator="user" />
-            <start initiator="user" />
-          </resourcing>
-        </task>
-        <outputCondition id="OutputCondition_1" />
-      </processControlElements>
+    <decomposition id="Answer_invitation" xsi:type="WebServiceGatewayFactsType">
+      <name>Answer invitation</name>
+      <inputParam>
+        <index>0</index>
+        <name>ReviewerName</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </inputParam>
+      <outputParam>
+        <index>0</index>
+        <name>ReviewerName</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </outputParam>
+      <externalInteraction>manual</externalInteraction>
+    </decomposition>
+    <decomposition id="Choose_reviewers" xsi:type="WebServiceGatewayFactsType">
+      <name>Choose reviewers</name>
+      <inputParam>
+        <index>0</index>
+        <name>ReviewerName</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </inputParam>
+      <outputParam>
+        <index>0</index>
+        <name>ReviewerName</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </outputParam>
+      <externalInteraction>manual</externalInteraction>
+    </decomposition>
+    <decomposition id="Receive_answer" xsi:type="WebServiceGatewayFactsType">
+      <name>Receive answer</name>
+      <inputParam>
+        <index>0</index>
+        <name>ReviewerName</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </inputParam>
+      <outputParam>
+        <index>0</index>
+        <name>ReviewerName</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </outputParam>
+      <externalInteraction>manual</externalInteraction>
+    </decomposition>
+    <decomposition id="Receive_invitation" xsi:type="WebServiceGatewayFactsType">
+      <name>Receive invitation</name>
+      <inputParam>
+        <index>0</index>
+        <name>ReviewerName</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </inputParam>
+      <outputParam>
+        <index>0</index>
+        <name>ReviewerName</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </outputParam>
+      <yawlService id="http://localhost:8080/GoalService/ib">
+        <documentation>A implementation for applying operational semantic to aspect-oriented business process modeling.</documentation>
+      </yawlService>
+      <externalInteraction>manual</externalInteraction>
+    </decomposition>
+    <decomposition id="Send_articles_to_be_reviewed" xsi:type="WebServiceGatewayFactsType">
+      <name>Send articles to be reviewed</name>
+      <inputParam>
+        <index>0</index>
+        <name>ReviewerName</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </inputParam>
+      <outputParam>
+        <index>0</index>
+        <name>ReviewerName</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </outputParam>
+      <externalInteraction>manual</externalInteraction>
+    </decomposition>
+    <decomposition id="Send_invitation" xsi:type="WebServiceGatewayFactsType">
+      <name>Send invitation</name>
+      <inputParam>
+        <index>0</index>
+        <name>ReviewerName</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </inputParam>
+      <outputParam>
+        <index>0</index>
+        <name>ReviewerName</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </outputParam>
+      <yawlService id="http://localhost:8080/GoalService/ib">
+        <documentation>A implementation for applying operational semantic to aspect-oriented business process modeling.</documentation>
+      </yawlService>
+      <externalInteraction>manual</externalInteraction>
     </decomposition>
   </specification>
   <layout>
-    <locale language="pt" country="BR"/>
+    <locale language="en" country="US"/>
     <specification id="SendArticlesToReviewers">
       <size w="56" h="26"/>
-      <net id="Main_process">
-        <bounds x="0" y="0" w="895" h="516"/>
-        <frame x="0" y="0" w="898" h="519"/>
-        <viewport x="0" y="0" w="898" h="519"/>
-        <container id="Answer">
+      <net id="SendArticlesToReviewers">
+        <bounds x="0" y="-90" w="1111" h="408"/>
+        <frame x="0" y="0" w="1129" h="321"/>
+        <viewport x="0" y="0" w="1129" h="321"/>
+        <container id="Articles_to_be_reviewed">
           <vertex>
             <attributes>
-              <bounds x="556" y="128" w="32" h="32"/>
+              <bounds x="840" y="184" w="32" h="32"/>
             </attributes>
           </vertex>
           <label>
             <attributes>
-              <bounds x="524" y="160" w="96" h="20"/>
+              <bounds x="808" y="216" w="96" h="40"/>
             </attributes>
           </label>
         </container>
-        <vertex id="OutputCondition">
-          <attributes>
-            <bounds x="572" y="256" w="32" h="32"/>
-          </attributes>
-        </vertex>
-        <vertex id="InputCondition">
-          <attributes>
-            <bounds x="52" y="20" w="32" h="32"/>
-          </attributes>
-        </vertex>
-        <container id="Choose_reviewers">
+        <container id="Reviewers_listed">
           <vertex>
             <attributes>
-              <bounds x="52" y="128" w="32" h="32"/>
+              <bounds x="44" y="208" w="32" h="32"/>
             </attributes>
           </vertex>
           <label>
             <attributes>
-              <bounds x="20" y="160" w="96" h="40"/>
-            </attributes>
-          </label>
-          <decorator type="XOR_join">
-            <position>10</position>
-            <attributes>
-              <bounds x="52" y="118" w="32" h="11"/>
-            </attributes>
-          </decorator>
-        </container>
-        <container id="Send_invitation">
-          <vertex>
-            <attributes>
-              <bounds x="196" y="128" w="32" h="32"/>
-            </attributes>
-          </vertex>
-          <label>
-            <attributes>
-              <bounds x="164" y="160" w="96" h="20"/>
+              <bounds x="12" y="240" w="96" h="40"/>
             </attributes>
           </label>
         </container>
         <container id="Send_articles_to_be_reviewed">
           <vertex>
             <attributes>
-              <bounds x="728" y="128" w="32" h="32"/>
+              <bounds x="688" y="184" w="32" h="32"/>
             </attributes>
           </vertex>
           <label>
             <attributes>
-              <bounds x="696" y="160" w="96" h="40"/>
-            </attributes>
-          </label>
-        </container>
-        <container id="Log_information_1">
-          <vertex>
-            <attributes>
-              <bounds x="356" y="336" w="32" h="32"/>
-            </attributes>
-          </vertex>
-          <label>
-            <attributes>
-              <bounds x="324" y="368" w="96" h="20"/>
-            </attributes>
-          </label>
-        </container>
-        <container id="Log_information_2">
-          <vertex>
-            <attributes>
-              <bounds x="444" y="128" w="32" h="32"/>
-            </attributes>
-          </vertex>
-          <label>
-            <attributes>
-              <bounds x="412" y="160" w="96" h="20"/>
-            </attributes>
-          </label>
-        </container>
-        <container id="Log_information_3">
-          <vertex>
-            <attributes>
-              <bounds x="728" y="256" w="32" h="32"/>
-            </attributes>
-          </vertex>
-          <label>
-            <attributes>
-              <bounds x="696" y="288" w="96" h="20"/>
-            </attributes>
-          </label>
-        </container>
-        <container id="Log_information">
-          <vertex>
-            <attributes>
-              <bounds x="196" y="232" w="32" h="32"/>
-            </attributes>
-          </vertex>
-          <label>
-            <attributes>
-              <bounds x="164" y="264" w="96" h="20"/>
+              <bounds x="656" y="216" w="96" h="40"/>
             </attributes>
           </label>
         </container>
         <container id="Answer_invitation">
           <vertex>
             <attributes>
-              <bounds x="496" y="336" w="32" h="32"/>
+              <bounds x="520" y="316" w="32" h="32"/>
             </attributes>
           </vertex>
           <label>
             <attributes>
-              <bounds x="464" y="368" w="96" h="40"/>
+              <bounds x="488" y="348" w="96" h="40"/>
             </attributes>
           </label>
         </container>
         <container id="Receive_invitation">
           <vertex>
             <attributes>
-              <bounds x="196" y="336" w="32" h="32"/>
+              <bounds x="392" y="316" w="32" h="32"/>
+              <backgroundColor>-6710785</backgroundColor>
             </attributes>
           </vertex>
           <label>
             <attributes>
-              <bounds x="164" y="368" w="96" h="40"/>
+              <bounds x="360" y="348" w="96" h="40"/>
+            </attributes>
+          </label>
+        </container>
+        <container id="Choose_reviewers">
+          <vertex>
+            <attributes>
+              <bounds x="152" y="316" w="32" h="32"/>
+            </attributes>
+          </vertex>
+          <label>
+            <attributes>
+              <bounds x="120" y="348" w="96" h="40"/>
+            </attributes>
+          </label>
+          <decorator type="AND_join">
+            <position>10</position>
+            <attributes>
+              <bounds x="152" y="306" w="32" h="11"/>
+            </attributes>
+          </decorator>
+        </container>
+        <container id="Send_invitation">
+          <vertex>
+            <attributes>
+              <bounds x="280" y="316" w="32" h="32"/>
+              <backgroundColor>-6710785</backgroundColor>
+            </attributes>
+          </vertex>
+          <label>
+            <attributes>
+              <bounds x="248" y="348" w="96" h="20"/>
             </attributes>
           </label>
         </container>
         <container id="Receive_answer">
           <vertex>
             <attributes>
-              <bounds x="312" y="128" w="32" h="32"/>
+              <bounds x="520" y="204" w="32" h="32"/>
             </attributes>
           </vertex>
           <label>
             <attributes>
-              <bounds x="280" y="160" w="96" h="20"/>
+              <bounds x="488" y="236" w="96" h="20"/>
             </attributes>
           </label>
+          <decorator type="AND_split">
+            <position>10</position>
+            <attributes>
+              <bounds x="520" y="194" w="32" h="11"/>
+            </attributes>
+          </decorator>
         </container>
-        <flow source="Receive_invitation" target="Log_information_1">
+        <flow source="Send_articles_to_be_reviewed" target="Articles_to_be_reviewed">
+          <ports in="13" out="12"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+          </attributes>
+        </flow>
+        <flow source="Receive_invitation" target="Answer_invitation">
           <ports in="13" out="12"/>
           <attributes>
             <lineStyle>11</lineStyle>
             <points>
-              <value x="227" y="351,5"/>
-              <value x="356" y="351,5"/>
+              <value x="423" y="331.5"/>
+              <value x="520" y="331.5"/>
             </points>
           </attributes>
         </flow>
-        <flow source="Choose_reviewers" target="Send_invitation">
-          <ports in="13" out="12"/>
+        <flow source="Receive_answer" target="Send_articles_to_be_reviewed">
+          <ports in="2" out="12"/>
           <attributes>
-            <lineStyle>11</lineStyle>
+            <lineStyle>12</lineStyle>
             <points>
-              <value x="83" y="143,5"/>
-              <value x="196" y="143,5"/>
+              <value x="535.5" y="194"/>
+              <value x="584" y="160"/>
+              <value x="664" y="183.5"/>
             </points>
           </attributes>
         </flow>
-        <flow source="Log_information_2" target="Answer">
-          <ports in="13" out="12"/>
+        <flow source="Reviewers_listed" target="Choose_reviewers">
+          <ports in="13" out="1"/>
           <attributes>
             <lineStyle>11</lineStyle>
             <points>
-              <value x="475" y="143,5"/>
-              <value x="556" y="143,5"/>
-            </points>
-          </attributes>
-        </flow>
-        <flow source="Log_information_3" target="OutputCondition">
-          <ports in="12" out="13"/>
-          <attributes>
-            <lineStyle>11</lineStyle>
-            <points>
-              <value x="728" y="271,5"/>
-              <value x="599" y="275,5"/>
+              <value x="75" y="223.5"/>
+              <value x="159.75" y="306"/>
             </points>
           </attributes>
         </flow>
@@ -399,151 +449,29 @@
           <attributes>
             <lineStyle>11</lineStyle>
             <points>
-              <value x="511,5" y="336"/>
-              <value x="327,5" y="159"/>
+              <value x="535.5" y="316"/>
+              <value x="535.5" y="235"/>
             </points>
           </attributes>
         </flow>
-        <flow source="Log_information" target="Receive_invitation">
-          <ports in="11" out="10"/>
-          <attributes>
-            <lineStyle>11</lineStyle>
-            <points>
-              <value x="211,5" y="263"/>
-              <value x="211,5" y="336"/>
-            </points>
-          </attributes>
-        </flow>
-        <flow source="Send_invitation" target="Log_information">
-          <ports in="11" out="10"/>
-          <attributes>
-            <lineStyle>11</lineStyle>
-            <points>
-              <value x="211,5" y="159"/>
-              <value x="211,5" y="232"/>
-            </points>
-          </attributes>
-        </flow>
-        <flow source="Answer" target="Send_articles_to_be_reviewed">
-          <label>positive</label>
-          <ports in="13" out="12"/>
-          <attributes>
-            <labelposition x="475" y="7"/>
-            <lineStyle>11</lineStyle>
-            <points>
-              <value x="587" y="143,5"/>
-              <value x="728" y="143,5"/>
-            </points>
-          </attributes>
-        </flow>
-        <flow source="Log_information_1" target="Answer_invitation">
+        <flow source="Send_invitation" target="Receive_invitation">
           <ports in="13" out="12"/>
           <attributes>
             <lineStyle>11</lineStyle>
             <points>
-              <value x="387" y="351,5"/>
-              <value x="496" y="351,5"/>
+              <value x="311" y="331.5"/>
+              <value x="392" y="331.5"/>
             </points>
           </attributes>
         </flow>
-        <flow source="InputCondition" target="Choose_reviewers">
-          <ports in="11" out="2"/>
-          <attributes>
-            <lineStyle>11</lineStyle>
-            <points>
-              <value x="67,5" y="51"/>
-              <value x="67,5" y="118"/>
-            </points>
-          </attributes>
-        </flow>
-        <flow source="Send_articles_to_be_reviewed" target="Log_information_3">
-          <ports in="11" out="10"/>
-          <attributes>
-            <lineStyle>11</lineStyle>
-            <points>
-              <value x="743,5" y="159"/>
-              <value x="743,5" y="256"/>
-            </points>
-          </attributes>
-        </flow>
-        <flow source="Receive_answer" target="Log_information_2">
+        <flow source="Choose_reviewers" target="Send_invitation">
           <ports in="13" out="12"/>
           <attributes>
             <lineStyle>11</lineStyle>
             <points>
-              <value x="343" y="143,5"/>
-              <value x="444" y="143,5"/>
+              <value x="183" y="331.5"/>
+              <value x="280" y="331.5"/>
             </points>
-          </attributes>
-        </flow>
-        <flow source="Answer" target="Choose_reviewers">
-          <label>negative</label>
-          <ports in="10" out="3"/>
-          <attributes>
-            <labelposition x="500" y="0"/>
-            <lineStyle>13</lineStyle>
-            <points>
-              <value x="571,5" y="128"/>
-              <value x="268" y="64"/>
-              <value x="75,25" y="118"/>
-            </points>
-          </attributes>
-        </flow>
-      </net>
-      <net id="Log_Aspect">
-        <bounds x="0" y="0" w="895" h="516"/>
-        <frame x="0" y="0" w="898" h="519"/>
-        <viewport x="0" y="0" w="898" h="519"/>
-        <vertex id="InputCondition_1">
-          <attributes>
-            <bounds x="36" y="320" w="32" h="32"/>
-          </attributes>
-        </vertex>
-        <vertex id="OutputCondition_1">
-          <attributes>
-            <bounds x="648" y="320" w="32" h="32"/>
-          </attributes>
-        </vertex>
-        <container id="PROCEED">
-          <vertex>
-            <attributes>
-              <bounds x="236" y="320" w="32" h="32"/>
-            </attributes>
-          </vertex>
-          <label>
-            <attributes>
-              <bounds x="204" y="352" w="96" h="20"/>
-            </attributes>
-          </label>
-        </container>
-        <container id="Log_information_4">
-          <vertex>
-            <attributes>
-              <bounds x="460" y="320" w="32" h="32"/>
-            </attributes>
-          </vertex>
-          <label>
-            <attributes>
-              <bounds x="428" y="352" w="96" h="20"/>
-            </attributes>
-          </label>
-        </container>
-        <flow source="InputCondition_1" target="PROCEED">
-          <ports in="13" out="12"/>
-          <attributes>
-            <lineStyle>11</lineStyle>
-          </attributes>
-        </flow>
-        <flow source="PROCEED" target="Log_information_4">
-          <ports in="13" out="12"/>
-          <attributes>
-            <lineStyle>11</lineStyle>
-          </attributes>
-        </flow>
-        <flow source="Log_information_4" target="OutputCondition_1">
-          <ports in="13" out="12"/>
-          <attributes>
-            <lineStyle>11</lineStyle>
           </attributes>
         </flow>
       </net>
