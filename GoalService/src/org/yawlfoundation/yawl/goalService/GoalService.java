@@ -41,7 +41,7 @@ public class GoalService extends InterfaceBWebsideController {
 
 	@Override
 	public void handleEnabledWorkItemEvent(WorkItemRecord workItem) {
-		System.out.println("/******************************************************");
+		System.out.println("/******************************************************/");
 		System.out.println();
 		try {
 			// Conecta ao engine caso não exista conexão prévia
@@ -105,16 +105,13 @@ public class GoalService extends InterfaceBWebsideController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println("/******************************************************");
+		System.out.println("/******************************************************/");
 		System.out.println();
 	}
 	
 	private String getAdviceGoal(String specName, String taskName) {
 		String ruleFileName = _ruleFolder + "\\aobpm_goal.xml";
 		String adviceGoal = null;
-		
-		//System.out.println("spec name : " + specName);
-		//System.out.println("task name : " + taskName);
 		
 		File file = new File(ruleFileName);
 		if (file.exists()) {
@@ -135,19 +132,13 @@ public class GoalService extends InterfaceBWebsideController {
 			
 			doc.getDocumentElement().normalize();
 			
-			//System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
-			
 			NodeList nList = doc.getElementsByTagName("advice");
 			
 			for (int i = 0; i < nList.getLength(); i++) {
 				Node nNode = nList.item(i);
-				//System.out.println("\nCurrent Element :" + nNode.getNodeName());
 				
 				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 					Element eElement = (Element) nNode;
-					//System.out.println(eElement.getAttribute("name"));
-					//System.out.println(eElement.getAttribute("process"));
-					//System.out.println(eElement.getAttribute("goal"));
 					
 					if (specName.equals(eElement.getAttribute("process")) && taskName.equals(eElement.getAttribute("name"))) {
 						adviceGoal = eElement.getAttribute("goal");
@@ -171,105 +162,4 @@ public class GoalService extends InterfaceBWebsideController {
 	private boolean connected() throws IOException {
         return _handle != null && checkConnection(_handle);
     }
-	
-	/*
-	
-/*
-    // holds a session handle to the engine
-    private String _handle = null;
-
-    public void handleEnabledWorkItemEvent(WorkItemRecord wir) {
-        try {
-
-            // connect only if not already connected
-            if (! connected()) _handle = connect(engineLogonName, engineLogonPassword);
-
-            // checkout ... process ... checkin
-            wir = checkOut(wir.getID(), _handle);
-            String result = updateStatus(wir);
-            checkInWorkItem(wir.getID(), wir.getDataList(),
-                            getOutputData(wir.getTaskID(), result), null,  _handle);
-        }
-        catch (Exception ioe) {
-            ioe.printStackTrace();
-        }
-    }
-
-    // have to implement abstract method, but have no need for this event
-    public void handleCancelledWorkItemEvent(WorkItemRecord workItemRecord) {    }
-
-
-    // these parameters are automatically inserted (in the Editor) into a task
-    // decomposition when this service is selected from the list
-    public YParameter[] describeRequiredParams() {
-        YParameter[] params = new YParameter[2];
-        params[0] = new YParameter(null, YParameter._INPUT_PARAM_TYPE);
-        params[0].setDataTypeAndName("string", "status", XSD_NAMESPACE);
-        params[0].setDocumentation("The status message to send to WSMX");
-
-        params[1] = new YParameter(null, YParameter._OUTPUT_PARAM_TYPE);
-        params[1].setDataTypeAndName("string", "result", XSD_NAMESPACE);
-        params[1].setDocumentation("The status result or error message returned from WSMX");
-        return params;
-    }
-
-    
-    //********************* PRIVATE METHODS *************************************
-
-    private String updateStatus(WorkItemRecord workItemRecord) {
-        String result ;
-        String msg = getStatus(workItemRecord);
-        if (msg != null) {
-            result = updateStatus(msg);
-        }
-        else result = "Null status passed - Service invocation cancelled.";
-        return result;
-    }
-
-
-    private String updateStatus(String msg) {
-        String result;
-       
-        	System.out.println("/******************************************************");
-        	System.out.println(msg);
-        	System.out.println();
-            result = "Service invocation from WSMX successful ";
-            System.out.println(result);
-            System.out.println("/******************************************************");
-       
-        return result;
-    }
-
-
-    private String getStatus(WorkItemRecord workItemRecord) {
-        String result = null;
-        String status = getDataValue(workItemRecord.getDataList(), "status");
-        if (status != null) {
-            StringBuilder msg = new StringBuilder(workItemRecord.getID());
-            msg.append(":: ").append(status);
-            result = msg.toString();
-        }
-        return result;
-    }
-
-
-    private String getDataValue(Element data, String name) {
-        return (data != null) ? data.getChildText(name) : null;
-    }
-
-
-    private Element getOutputData(String taskName, String data) {
-        Element output = new Element(taskName);
-        Element result = new Element("result");
-        result.setText(data);
-        output.addContent(result);
-        return output;
-    }
-
-    
-    private boolean connected() throws IOException {
-        return _handle != null && checkConnection(_handle);
-    }
-*/
-
 }
