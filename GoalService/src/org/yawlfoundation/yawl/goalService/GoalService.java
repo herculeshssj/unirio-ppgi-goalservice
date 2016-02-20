@@ -54,7 +54,6 @@ public class GoalService extends InterfaceBWebsideController {
 			
 			if (wsmxEnvironment == null) {
 				System.out.println("Ambiente WSMX não inicializado. Inicializando...\n");
-				//Thread.sleep(1000); // No lugar dessa thread, colocar a chamada ao ambiente WSMX
 				wsmxEnvironment = new WSMXExecution();
 				System.out.println("Ambiente WSMX inicializado!\n");
 			} else {
@@ -82,7 +81,7 @@ public class GoalService extends InterfaceBWebsideController {
 			List<String> selectedServices = wsmxEnvironment.runDiscovery(goalIRIStr, goalOntoIRIStr);
 			
 			if (selectedServices != null & !selectedServices.isEmpty()) {
-				System.out.println("Serviços encontrados que atendem ao objetivo: \n"); // Colocar no nome do serviço encontrado a partir do objetivo informado
+				System.out.println("Serviços encontrados que atendem ao objetivo: \n"); // Colocar o nome do serviço encontrado a partir do objetivo informado
 				
 				// Lista os serviços encontrados
 				for (String service : selectedServices) {
