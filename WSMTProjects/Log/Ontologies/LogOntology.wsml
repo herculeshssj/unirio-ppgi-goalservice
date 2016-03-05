@@ -34,6 +34,7 @@ concept LogEffect
 	messageLogged ofType _boolean
 	mailSent ofType _boolean
 	logPersisted ofType _boolean
+	messageShowed ofType _boolean
 
 instance DEBUG memberOf Severity
 	name hasValue "Debug"

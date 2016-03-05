@@ -26,7 +26,8 @@ postcondition SimpleLogPostcond
 		?logEffect[
 			onto#messageLogged hasValue ?a,
 			onto#mailSent hasValue ?b,
-			onto#logPersisted hasValue ?c
+			onto#logPersisted hasValue ?c,
+			onto#messageShowed hasValue ?d
 		] memberOf onto#LogEffect.
 
 interface SimpleLogInterface
