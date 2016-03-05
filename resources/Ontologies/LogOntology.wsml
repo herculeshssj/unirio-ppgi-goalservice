@@ -1,6 +1,6 @@
 wsmlVariant _"http://www.wsmo.org/wsml/wsml-syntax/wsml-flight"
 
-namespace { _"http://www.uniriotec.br/aspect/logging#",
+namespace { _"http://www.uniriotec.br/aspect#",
 	dc _"http://purl.org/dc/elements/1.1#"
  }
 
@@ -34,19 +34,20 @@ concept LogEffect
 	messageLogged ofType _boolean
 	mailSent ofType _boolean
 	logPersisted ofType _boolean
+	messageShowed ofType _boolean
 
 instance DEBUG memberOf Severity
-	name hasValue "DEBUG"
+	name hasValue "Debug"
 	level hasValue 1
 	
 instance INFO memberOf Severity
-	name hasValue "INFO"
+	name hasValue "Information"
 	level hasValue 2
 	
 instance WARN memberOf Severity
-	name hasValue "WARNING"
+	name hasValue "Warning"
 	level hasValue 3
 	
 instance ERROR memberOf Severity
-	name hasValue "ERROR"
+	name hasValue "Error"
 	level hasValue 4

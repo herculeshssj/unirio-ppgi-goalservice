@@ -74,8 +74,8 @@ public class GoalService extends InterfaceBWebsideController {
 			
 			System.out.println("Realizando a descoberta do serviço... \n");
 			
-			String goalIRIStr     = "http://www.uniriotec.br/aspect/goal/logging#" + adviceGoal + "Goal";
-			String goalOntoIRIStr = "http://www.uniriotec.br/aspect/goal/logging#" + adviceGoal + "GoalOntology";			
+			String goalIRIStr     = "http://www.uniriotec.br/aspect#" + adviceGoal + "Goal";
+			String goalOntoIRIStr = "http://www.uniriotec.br/aspect#" + adviceGoal + "GoalOntology";			
 			
 			// Realiza a descoberta dos serviços que atendem ao objetivo definido
 			List<String> selectedServices = wsmxEnvironment.runDiscovery(goalIRIStr, goalOntoIRIStr);

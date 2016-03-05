@@ -589,7 +589,7 @@ public class Invoker implements org.wsmo.execution.common.component.Invoker {
 				e.printStackTrace();
 				return new Pair(null,null);
 			}
-		} else if (theOwner.equalsIgnoreCase("http://www.uniriotec.br/aspect/ws/logging")) {
+		} else if (theOwner.equalsIgnoreCase("http://www.uniriotec.br/aspect/logging")) {
 			logger.info("Achou meu Adapter! :D");
 			
 			try {
@@ -681,7 +681,7 @@ public class Invoker implements org.wsmo.execution.common.component.Invoker {
 				return shuttleAdapter.getWSML(xmlString, endpoint);
 			} else if (theOwner.equals("http://Swing")) {
 				xsltPath = "resources"+File.separator+"communicationmanager"+File.separator+"SWING2WSML.xsl";
-			} else if (theOwner.equalsIgnoreCase("http://www.uniriotec.br/aspect/ws/logging")) {
+			} else if (theOwner.equalsIgnoreCase("http://www.uniriotec.br/aspect/logging")) {
 				return loggingAdapter.getWSML(xmlString, endpoint);
 			} else
 				return null;

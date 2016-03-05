@@ -1,9 +1,10 @@
-wsmlVariant _"http://www.wsmo.org/wsml/wsml-syntax/wsml-rule"
+wsmlVariant _"http://www.wsmo.org/wsml/wsml-syntax/wsml-flight"
 
-namespace { _"http://www.uniriotec.br/aspect/SimpleLog#",
-	log _"http://www.uniriotec.br/aspect/LogOntology#",
+namespace { _"http://www.uniriotec.br/aspect#",
+	onto _"http://www.uniriotec.br/aspect#",
 	wsml _"http://www.wsmo.org/wsml/wsml-syntax#",
-	dc _"http://purl.org/dc/elements/1.1#"
+	dc _"http://purl.org/dc/elements/1.1#",
+	discovery _"http://wiki.wsmx.org/index.php?title=DiscoveryOntology#"
  }
  
 goal DBLogGoal
@@ -13,12 +14,37 @@ goal DBLogGoal
 		dc#description hasValue "Achieve the goal of registering the log on the database"
 	endnfp
 	importsOntology {
-		log#LogOntology
+		onto#LogOntology
 	}
 	capability DBLogGoalCapability
+		nfp
+  			discovery#discoveryStrategy hasValue discovery#LightweightDiscovery
+  			discovery#discoveryStrategy hasValue discovery#NoPreFilter
+		endnfp
+		
 		postcondition
 			definedBy
-				?logEffect[
-					messageLogged hasValue _boolean("true"),
-					logPersisted hasValue _boolean("true")				
-				] memberOf log#LogEffect.
+				?logEffect memberOf onto#LogEffect
+					and ?logEffect[messageLogged hasValue _boolean("true")]
+					and ?logEffect[logPersisted hasValue _boolean("true")].
+
+interface DBLogGoalInterface
+	choreography DBLogGoalChoreography
+	stateSignature DBLogGoalStateSignature
+		importsOntology onto#LogOntology
+		in
+			onto#LogRequest
+		out
+			onto#LogEffect
+	
+	transitionRules DBLogGoalTransitionRules
+		forall {?request} with (?request memberOf onto#LogRequest) do
+			add (_# memberOf onto#LogEffect)
+		endForall
+		
+ontology DBLogGoalOntology
+	importsOntology onto#LogOntology
+	
+	instance logDB memberOf onto#LogRequest
+		severity hasValue onto#INFO
+		message hasValue "Third test with log using WSMX."	

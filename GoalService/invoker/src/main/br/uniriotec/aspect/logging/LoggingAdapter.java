@@ -54,7 +54,7 @@ public class LoggingAdapter extends Adapter {
 				Set<Concept> concepts = instance.listConcepts();
 				for (Concept concept : concepts) {
 					String conceptName = concept.getIdentifier().toString();
-					if (conceptName.equalsIgnoreCase("http://www.uniriotec.br/aspect/logging#LogRequest")) {
+					if (conceptName.equalsIgnoreCase("http://www.uniriotec.br/aspect#LogRequest")) {
 						sDoc = getRequestURLReqXML(instance, id);
 						found = true;
 						logger.info("Instância " + instance.getIdentifier().toString() + " encontrada!");
@@ -221,8 +221,8 @@ public class LoggingAdapter extends Adapter {
 			
 			Ontology tempOntology = this.createTempOntology();
 			
-			Ontology loggingOntology = Helper.getOntology("http://www.uniriotec.br/aspect/logging#LogOntology");
-			Concept concept = loggingOntology.findConcept(loadIRI("http://www.uniriotec.br/aspect/logging#LogEffect"));
+			Ontology loggingOntology = Helper.getOntology("http://www.uniriotec.br/aspect#LogOntology");
+			Concept concept = loggingOntology.findConcept(loadIRI("http://www.uniriotec.br/aspect#LogEffect"));
 			 
 			Instance instanceResult = createInstance(loggingOntology, concept);
 			
@@ -233,6 +233,9 @@ public class LoggingAdapter extends Adapter {
 			instanceResult.addAttributeValue(attributeIRI, dataFactory.createWsmlBoolean("false"));
 			
 			attributeIRI = wsmoFactory.createIRI(loggingOntology.getDefaultNamespace(), "logPersisted");
+			instanceResult.addAttributeValue(attributeIRI, dataFactory.createWsmlBoolean("false"));
+			
+			attributeIRI = wsmoFactory.createIRI(loggingOntology.getDefaultNamespace(), "messageShowed");
 			instanceResult.addAttributeValue(attributeIRI, dataFactory.createWsmlBoolean("false"));
 			
 			tempOntology.addInstance(instanceResult);
@@ -285,7 +288,7 @@ public class LoggingAdapter extends Adapter {
 			Ontology anOntology = wsmoFactory.createOntology(wsmoFactory.createIRI("http://www.example.org/ontologies/example#"));
 			
 			// 3. Setup a namespace
-			IRI iriOnto = wsmoFactory.createIRI("http://www.uniriotec.br/aspect/logging#");
+			IRI iriOnto = wsmoFactory.createIRI("http://www.uniriotec.br/aspect#");
 			Namespace nameSpace = wsmoFactory.createNamespace("onto", iriOnto);
 			anOntology.addNamespace(wsmoFactory.createNamespace("wsml", wsmoFactory.createIRI("http://www.wsmo.org/wsml/wsml-syntax#")));
 			anOntology.addNamespace(nameSpace);

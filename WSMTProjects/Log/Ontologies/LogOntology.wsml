@@ -1,6 +1,6 @@
 wsmlVariant _"http://www.wsmo.org/wsml/wsml-syntax/wsml-flight"
 
-namespace { _"http://www.uniriotec.br/aspect/logging#",
+namespace { _"http://www.uniriotec.br/aspect#",
 	dc _"http://purl.org/dc/elements/1.1#"
  }
 
