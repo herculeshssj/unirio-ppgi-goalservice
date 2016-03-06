@@ -46,5 +46,5 @@ ontology DBLogGoalOntology
 	importsOntology onto#LogOntology
 	
 	instance logDB memberOf onto#LogRequest
-		severity hasValue onto#INFO
+		severity hasValue onto#ERROR
 		message hasValue "Third test with log using WSMX."	
