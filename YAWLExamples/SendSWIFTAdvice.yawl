@@ -56,13 +56,13 @@
     </decomposition>
   </specification>
   <layout>
-    <locale language="pt" country="BR"/>
+    <locale language="en" country="US"/>
     <specification id="Send_SWIFT_Advice">
       <size w="58" h="26"/>
       <net id="Net">
-        <bounds x="0" y="0" w="1204" h="660"/>
-        <frame x="0" y="0" w="1207" h="663"/>
-        <viewport x="0" y="0" w="1207" h="663"/>
+        <bounds x="0" y="0" w="1204" h="653"/>
+        <frame x="0" y="0" w="1207" h="656"/>
+        <viewport x="0" y="0" w="1207" h="656"/>
         <vertex id="OutputCondition">
           <attributes>
             <bounds x="440" y="320" w="32" h="32"/>
@@ -77,11 +77,12 @@
           <vertex>
             <attributes>
               <bounds x="164" y="320" w="32" h="32"/>
+              <backgroundColor>-13108</backgroundColor>
             </attributes>
           </vertex>
           <label>
             <attributes>
-              <bounds x="132" y="352" w="97" h="17"/>
+              <bounds x="132" y="352" w="96" h="20"/>
             </attributes>
           </label>
         </container>
@@ -94,7 +95,7 @@
           </vertex>
           <label>
             <attributes>
-              <bounds x="272" y="352" w="97" h="17"/>
+              <bounds x="272" y="352" w="96" h="20"/>
             </attributes>
           </label>
         </container>
@@ -119,4 +120,4 @@
       </net>
     </specification>
   </layout>
-</specificationSet>
+</specificationSet>
