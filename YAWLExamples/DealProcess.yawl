@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<specificationSet xmlns="http://www.yawlfoundation.org/yawlschema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="3.0" xsi:schemaLocation="http://www.yawlfoundation.org/yawlschema http://www.yawlfoundation.org/yawlschema/YAWL_Schema3.0.xsd">
+  <specification uri="Deal_Process">
+    <documentation>No description provided</documentation>
+    <metaData>
+      <creator>herculeshssj</creator>
+      <description>No description provided</description>
+      <version>0.1</version>
+      <persistent>false</persistent>
+      <identifier>UID_71df019e-2e5a-406d-a4a6-7ec7d80ece94</identifier>
+    </metaData>
+    <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+    <decomposition id="Net" isRootNet="true" xsi:type="NetFactsType">
+      <processControlElements>
+        <inputCondition id="InputCondition">
+          <flowsInto>
+            <nextElementRef id="Make_a_Request" />
+          </flowsInto>
+        </inputCondition>
+        <task id="Make_a_Request">
+          <name>Make a Request</name>
+          <flowsInto>
+            <nextElementRef id="Make_a_Deal" />
+          </flowsInto>
+          <join code="xor" />
+          <split code="and" />
+          <resourcing>
+            <offer initiator="user" />
+            <allocate initiator="user" />
+            <start initiator="user" />
+          </resourcing>
+          <decomposesTo id="Make_a_Request" />
+        </task>
+        <task id="Make_a_Deal">
+          <name>Make a Deal</name>
+          <flowsInto>
+            <nextElementRef id="Receive_MT300" />
+          </flowsInto>
+          <flowsInto>
+            <nextElementRef id="Fill_Deal_Slip" />
+          </flowsInto>
+          <join code="xor" />
+          <split code="and" />
+          <resourcing>
+            <offer initiator="user" />
+            <allocate initiator="user" />
+            <start initiator="user" />
+          </resourcing>
+          <decomposesTo id="Make_a_Deal" />
+        </task>
+        <task id="Fill_Deal_Slip">
+          <name>Fill Deal Slip</name>
+          <flowsInto>
+            <nextElementRef id="Provide_Swift_Draft" />
+          </flowsInto>
+          <join code="xor" />
+          <split code="and" />
+          <resourcing>
+            <offer initiator="user" />
+            <allocate initiator="user" />
+            <start initiator="user" />
+          </resourcing>
+          <decomposesTo id="Fill_Deal_Slip" />
+        </task>
+        <task id="Receive_MT300">
+          <name>Receive MT300</name>
+          <flowsInto>
+            <nextElementRef id="Register_Vouche" />
+          </flowsInto>
+          <join code="xor" />
+          <split code="and" />
+          <resourcing>
+            <offer initiator="user" />
+            <allocate initiator="user" />
+            <start initiator="user" />
+          </resourcing>
+          <decomposesTo id="Receive_MT300" />
+        </task>
+        <task id="Provide_Swift_Draft">
+          <name>Provide Swift Draft</name>
+          <flowsInto>
+            <nextElementRef id="Send_Swift" />
+          </flowsInto>
+          <join code="xor" />
+          <split code="and" />
+          <resourcing>
+            <offer initiator="user" />
+            <allocate initiator="user" />
+            <start initiator="user" />
+          </resourcing>
+          <decomposesTo id="Provide_Swift_Draft" />
+        </task>
+        <task id="Register_Vouche">
+          <name>Register Vouche</name>
+          <flowsInto>
+            <nextElementRef id="OutputCondition" />
+            <isDefaultFlow />
+          </flowsInto>
+          <join code="xor" />
+          <split code="xor" />
+          <resourcing>
+            <offer initiator="user" />
+            <allocate initiator="user" />
+            <start initiator="user" />
+          </resourcing>
+          <decomposesTo id="Register_Vouche" />
+        </task>
+        <task id="Send_Swift">
+          <name>Send Swift</name>
+          <flowsInto>
+            <nextElementRef id="Register_Vouche" />
+          </flowsInto>
+          <join code="xor" />
+          <split code="and" />
+          <resourcing>
+            <offer initiator="user" />
+            <allocate initiator="user" />
+            <start initiator="user" />
+          </resourcing>
+          <decomposesTo id="Send_Swift" />
+        </task>
+        <outputCondition id="OutputCondition" />
+      </processControlElements>
+    </decomposition>
+    <decomposition id="Fill_Deal_Slip" xsi:type="WebServiceGatewayFactsType">
+      <name>Fill Deal Slip</name>
+      <externalInteraction>manual</externalInteraction>
+    </decomposition>
+    <decomposition id="Make_a_Deal" xsi:type="WebServiceGatewayFactsType">
+      <name>Make a Deal</name>
+      <externalInteraction>manual</externalInteraction>
+    </decomposition>
+    <decomposition id="Make_a_Request" xsi:type="WebServiceGatewayFactsType">
+      <name>Make a Request</name>
+      <externalInteraction>manual</externalInteraction>
+    </decomposition>
+    <decomposition id="Provide_Swift_Draft" xsi:type="WebServiceGatewayFactsType">
+      <name>Provide Swift Draft</name>
+      <externalInteraction>manual</externalInteraction>
+    </decomposition>
+    <decomposition id="Receive_MT300" xsi:type="WebServiceGatewayFactsType">
+      <name>Receive MT300</name>
+      <externalInteraction>manual</externalInteraction>
+    </decomposition>
+    <decomposition id="Register_Vouche" xsi:type="WebServiceGatewayFactsType">
+      <name>Register Vouche</name>
+      <externalInteraction>manual</externalInteraction>
+    </decomposition>
+    <decomposition id="Send_Swift" xsi:type="WebServiceGatewayFactsType">
+      <name>Send Swift</name>
+      <externalInteraction>manual</externalInteraction>
+    </decomposition>
+  </specification>
+  <layout>
+    <locale language="pt" country="BR"/>
+    <specification id="Deal_Process">
+      <size w="58" h="26"/>
+      <net id="Net">
+        <bounds x="0" y="0" w="1204" h="521"/>
+        <frame x="0" y="0" w="1207" h="524"/>
+        <viewport x="0" y="0" w="1207" h="524"/>
+        <vertex id="OutputCondition">
+          <attributes>
+            <bounds x="964" y="320" w="32" h="32"/>
+          </attributes>
+        </vertex>
+        <vertex id="InputCondition">
+          <attributes>
+            <bounds x="36" y="320" w="32" h="32"/>
+          </attributes>
+        </vertex>
+        <container id="Make_a_Deal">
+          <vertex>
+            <attributes>
+              <bounds x="244" y="320" w="32" h="32"/>
+              <backgroundColor>-103</backgroundColor>
+            </attributes>
+          </vertex>
+          <label>
+            <attributes>
+              <bounds x="216" y="352" w="96" h="16"/>
+            </attributes>
+          </label>
+          <decorator type="AND_split">
+            <position>13</position>
+            <attributes>
+              <bounds x="275" y="320" w="11" h="32"/>
+              <backgroundColor>-103</backgroundColor>
+            </attributes>
+          </decorator>
+        </container>
+        <container id="Fill_Deal_Slip">
+          <vertex>
+            <attributes>
+              <bounds x="424" y="240" w="32" h="32"/>
+              <backgroundColor>-6697729</backgroundColor>
+            </attributes>
+          </vertex>
+          <label>
+            <attributes>
+              <bounds x="392" y="272" w="96" h="16"/>
+            </attributes>
+          </label>
+        </container>
+        <container id="Register_Vouche">
+          <vertex>
+            <attributes>
+              <bounds x="832" y="320" w="32" h="32"/>
+            </attributes>
+          </vertex>
+          <label>
+            <attributes>
+              <bounds x="796" y="352" w="96" h="32"/>
+            </attributes>
+          </label>
+          <decorator type="XOR_join">
+            <position>12</position>
+            <attributes>
+              <bounds x="822" y="320" w="11" h="32"/>
+            </attributes>
+          </decorator>
+        </container>
+        <container id="Send_Swift">
+          <vertex>
+            <attributes>
+              <bounds x="692" y="240" w="32" h="32"/>
+              <backgroundColor>-13108</backgroundColor>
+            </attributes>
+          </vertex>
+          <label>
+            <attributes>
+              <bounds x="660" y="272" w="96" h="16"/>
+            </attributes>
+          </label>
+        </container>
+        <container id="Provide_Swift_Draft">
+          <vertex>
+            <attributes>
+              <bounds x="560" y="240" w="32" h="32"/>
+            </attributes>
+          </vertex>
+          <label>
+            <attributes>
+              <bounds x="528" y="272" w="96" h="32"/>
+            </attributes>
+          </label>
+        </container>
+        <container id="Make_a_Request">
+          <vertex>
+            <attributes>
+              <bounds x="136" y="320" w="32" h="32"/>
+            </attributes>
+          </vertex>
+          <label>
+            <attributes>
+              <bounds x="104" y="352" w="96" h="32"/>
+            </attributes>
+          </label>
+        </container>
+        <container id="Receive_MT300">
+          <vertex>
+            <attributes>
+              <bounds x="560" y="380" w="32" h="32"/>
+            </attributes>
+          </vertex>
+          <label>
+            <attributes>
+              <bounds x="528" y="412" w="96" h="32"/>
+            </attributes>
+          </label>
+        </container>
+        <flow source="Make_a_Deal" target="Fill_Deal_Slip">
+          <ports in="1" out="12"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+          </attributes>
+        </flow>
+        <flow source="Send_Swift" target="Register_Vouche">
+          <ports in="13" out="1"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+          </attributes>
+        </flow>
+        <flow source="Fill_Deal_Slip" target="Provide_Swift_Draft">
+          <ports in="13" out="12"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+          </attributes>
+        </flow>
+        <flow source="InputCondition" target="Make_a_Request">
+          <ports in="13" out="12"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+          </attributes>
+        </flow>
+        <flow source="Receive_MT300" target="Register_Vouche">
+          <ports in="13" out="3"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+          </attributes>
+        </flow>
+        <flow source="Register_Vouche" target="OutputCondition">
+          <ports in="13" out="12"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+          </attributes>
+        </flow>
+        <flow source="Make_a_Request" target="Make_a_Deal">
+          <ports in="13" out="12"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+          </attributes>
+        </flow>
+        <flow source="Make_a_Deal" target="Receive_MT300">
+          <ports in="3" out="12"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+          </attributes>
+        </flow>
+        <flow source="Provide_Swift_Draft" target="Send_Swift">
+          <ports in="13" out="12"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+          </attributes>
+        </flow>
+      </net>
+    </specification>
+  </layout>
+</specificationSet>

@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<specificationSet xmlns="http://www.yawlfoundation.org/yawlschema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="3.0" xsi:schemaLocation="http://www.yawlfoundation.org/yawlschema http://www.yawlfoundation.org/yawlschema/YAWL_Schema3.0.xsd">
+  <specification uri="Issue_LC_Process">
+    <documentation>No description provided</documentation>
+    <metaData>
+      <creator>herculeshssj</creator>
+      <description>No description provided</description>
+      <version>0.1</version>
+      <persistent>false</persistent>
+      <identifier>UID_2a27091e-64ea-47ca-9d53-89270c61f6ab</identifier>
+    </metaData>
+    <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+    <decomposition id="Net" isRootNet="true" xsi:type="NetFactsType">
+      <processControlElements>
+        <inputCondition id="InputCondition">
+          <flowsInto>
+            <nextElementRef id="Register_Order" />
+          </flowsInto>
+        </inputCondition>
+        <task id="Register_Order">
+          <name>Register Order</name>
+          <flowsInto>
+            <nextElementRef id="Register_LC_Document" />
+            <predicate ordering="0">true()</predicate>
+          </flowsInto>
+          <flowsInto>
+            <nextElementRef id="Exchange_Money" />
+            <isDefaultFlow />
+          </flowsInto>
+          <join code="xor" />
+          <split code="xor" />
+          <resourcing>
+            <offer initiator="user" />
+            <allocate initiator="user" />
+            <start initiator="user" />
+          </resourcing>
+          <decomposesTo id="Register_Order" />
+        </task>
+        <task id="Exchange_Money">
+          <name>Exchange Money</name>
+          <flowsInto>
+            <nextElementRef id="Register_LC_Document" />
+          </flowsInto>
+          <join code="xor" />
+          <split code="and" />
+          <resourcing>
+            <offer initiator="user" />
+            <allocate initiator="user" />
+            <start initiator="user" />
+          </resourcing>
+          <decomposesTo id="Exchange_Money" />
+        </task>
+        <task id="Register_LC_Document">
+          <name>Register LC Document</name>
+          <flowsInto>
+            <nextElementRef id="Provide_and_Send_the_SWIFT_Draft_MT700" />
+          </flowsInto>
+          <join code="xor" />
+          <split code="and" />
+          <resourcing>
+            <offer initiator="user" />
+            <allocate initiator="user" />
+            <start initiator="user" />
+          </resourcing>
+          <decomposesTo id="Register_LC_Document" />
+        </task>
+        <task id="Provide_and_Send_the_SWIFT_Draft_MT700">
+          <name>Provide and Send the SWIFT Draft (MT700)</name>
+          <flowsInto>
+            <nextElementRef id="Receive_SWIFT_Draft" />
+          </flowsInto>
+          <join code="xor" />
+          <split code="and" />
+          <resourcing>
+            <offer initiator="user" />
+            <allocate initiator="user" />
+            <start initiator="user" />
+          </resourcing>
+          <decomposesTo id="Provide_and_Send_the_SWIFT_Draft_MT700" />
+        </task>
+        <task id="Receive_SWIFT_Draft">
+          <name>Receive SWIFT Draft</name>
+          <flowsInto>
+            <nextElementRef id="Send_SWIFT" />
+          </flowsInto>
+          <join code="xor" />
+          <split code="and" />
+          <resourcing>
+            <offer initiator="user" />
+            <allocate initiator="user" />
+            <start initiator="user" />
+          </resourcing>
+          <decomposesTo id="Receive_SWIFT_Draft" />
+        </task>
+        <task id="Send_SWIFT">
+          <name>Send SWIFT</name>
+          <flowsInto>
+            <nextElementRef id="Register_Vouche" />
+          </flowsInto>
+          <join code="xor" />
+          <split code="and" />
+          <resourcing>
+            <offer initiator="user" />
+            <allocate initiator="user" />
+            <start initiator="user" />
+          </resourcing>
+          <decomposesTo id="Send_SWIFT" />
+        </task>
+        <task id="Register_Vouche">
+          <name>Register Vouche</name>
+          <flowsInto>
+            <nextElementRef id="OutputCondition" />
+          </flowsInto>
+          <join code="xor" />
+          <split code="and" />
+          <resourcing>
+            <offer initiator="user" />
+            <allocate initiator="user" />
+            <start initiator="user" />
+          </resourcing>
+          <decomposesTo id="Register_Vouche" />
+        </task>
+        <outputCondition id="OutputCondition" />
+      </processControlElements>
+    </decomposition>
+    <decomposition id="Exchange_Money" xsi:type="WebServiceGatewayFactsType">
+      <name>Exchange Money</name>
+      <externalInteraction>manual</externalInteraction>
+    </decomposition>
+    <decomposition id="Provide_and_Send_the_SWIFT_Draft_MT700" xsi:type="WebServiceGatewayFactsType">
+      <name>Provide and Send the SWIFT Draft (MT700)</name>
+      <externalInteraction>manual</externalInteraction>
+    </decomposition>
+    <decomposition id="Receive_SWIFT_Draft" xsi:type="WebServiceGatewayFactsType">
+      <name>Receive SWIFT Draft</name>
+      <externalInteraction>manual</externalInteraction>
+    </decomposition>
+    <decomposition id="Register_LC_Document" xsi:type="WebServiceGatewayFactsType">
+      <name>Register LC Document</name>
+      <externalInteraction>manual</externalInteraction>
+    </decomposition>
+    <decomposition id="Register_Order" xsi:type="WebServiceGatewayFactsType">
+      <name>Register Order</name>
+      <externalInteraction>manual</externalInteraction>
+    </decomposition>
+    <decomposition id="Register_Vouche" xsi:type="WebServiceGatewayFactsType">
+      <name>Register Vouche</name>
+      <externalInteraction>manual</externalInteraction>
+    </decomposition>
+    <decomposition id="Send_SWIFT" xsi:type="WebServiceGatewayFactsType">
+      <name>Send SWIFT</name>
+      <externalInteraction>manual</externalInteraction>
+    </decomposition>
+  </specification>
+  <layout>
+    <locale language="pt" country="BR"/>
+    <specification id="Issue_LC_Process">
+      <size w="58" h="26"/>
+      <net id="Net">
+        <bounds x="0" y="0" w="1204" h="521"/>
+        <frame x="0" y="0" w="1207" h="524"/>
+        <viewport x="0" y="0" w="1207" h="524"/>
+        <vertex id="OutputCondition">
+          <attributes>
+            <bounds x="1.112" y="320" w="32" h="32"/>
+          </attributes>
+        </vertex>
+        <vertex id="InputCondition">
+          <attributes>
+            <bounds x="36" y="320" w="32" h="32"/>
+          </attributes>
+        </vertex>
+        <container id="Exchange_Money">
+          <vertex>
+            <attributes>
+              <bounds x="292" y="216" w="32" h="32"/>
+            </attributes>
+          </vertex>
+          <label>
+            <attributes>
+              <bounds x="260" y="248" w="97" h="33"/>
+            </attributes>
+          </label>
+        </container>
+        <container id="Provide_and_Send_the_SWIFT_Draft_MT700">
+          <vertex>
+            <attributes>
+              <bounds x="556" y="320" w="32" h="32"/>
+            </attributes>
+          </vertex>
+          <label>
+            <attributes>
+              <bounds x="524" y="352" w="97" h="65"/>
+            </attributes>
+          </label>
+        </container>
+        <container id="Register_LC_Document">
+          <vertex>
+            <attributes>
+              <bounds x="416" y="320" w="32" h="32"/>
+            </attributes>
+          </vertex>
+          <label>
+            <attributes>
+              <bounds x="380" y="352" w="97" h="33"/>
+            </attributes>
+          </label>
+          <decorator type="XOR_join">
+            <position>12</position>
+            <attributes>
+              <bounds x="406" y="320" w="11" h="32"/>
+            </attributes>
+          </decorator>
+        </container>
+        <container id="Register_Order">
+          <vertex>
+            <attributes>
+              <bounds x="144" y="320" w="32" h="32"/>
+            </attributes>
+          </vertex>
+          <label>
+            <attributes>
+              <bounds x="116" y="352" w="96" h="16"/>
+            </attributes>
+          </label>
+          <decorator type="XOR_split">
+            <position>13</position>
+            <attributes>
+              <bounds x="175" y="320" w="11" h="32"/>
+            </attributes>
+          </decorator>
+        </container>
+        <container id="Register_Vouche">
+          <vertex>
+            <attributes>
+              <bounds x="976" y="320" w="32" h="32"/>
+            </attributes>
+          </vertex>
+          <label>
+            <attributes>
+              <bounds x="944" y="352" w="97" h="33"/>
+            </attributes>
+          </label>
+        </container>
+        <container id="Receive_SWIFT_Draft">
+          <vertex>
+            <attributes>
+              <bounds x="696" y="320" w="32" h="32"/>
+            </attributes>
+          </vertex>
+          <label>
+            <attributes>
+              <bounds x="664" y="352" w="97" h="33"/>
+            </attributes>
+          </label>
+        </container>
+        <container id="Send_SWIFT">
+          <vertex>
+            <attributes>
+              <bounds x="836" y="320" w="32" h="32"/>
+              <backgroundColor>-13108</backgroundColor>
+            </attributes>
+          </vertex>
+          <label>
+            <attributes>
+              <bounds x="804" y="352" w="96" h="16"/>
+              <font>
+                <name>Lucida Grande</name>
+                <style>0</style>
+                <size>13</size>
+              </font>
+            </attributes>
+          </label>
+        </container>
+        <flow source="Provide_and_Send_the_SWIFT_Draft_MT700" target="Receive_SWIFT_Draft">
+          <ports in="13" out="12"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+          </attributes>
+        </flow>
+        <flow source="Receive_SWIFT_Draft" target="Send_SWIFT">
+          <ports in="13" out="12"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+          </attributes>
+        </flow>
+        <flow source="Register_Order" target="Exchange_Money">
+          <ports in="1" out="12"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+          </attributes>
+        </flow>
+        <flow source="Register_Vouche" target="OutputCondition">
+          <ports in="13" out="12"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+          </attributes>
+        </flow>
+        <flow source="InputCondition" target="Register_Order">
+          <ports in="13" out="12"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+          </attributes>
+        </flow>
+        <flow source="Exchange_Money" target="Register_LC_Document">
+          <ports in="13" out="1"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+          </attributes>
+        </flow>
+        <flow source="Register_LC_Document" target="Provide_and_Send_the_SWIFT_Draft_MT700">
+          <ports in="13" out="12"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+          </attributes>
+        </flow>
+        <flow source="Send_SWIFT" target="Register_Vouche">
+          <ports in="13" out="12"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+          </attributes>
+        </flow>
+        <flow source="Register_Order" target="Register_LC_Document">
+          <ports in="3" out="3"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+          </attributes>
+        </flow>
+      </net>
+    </specification>
+  </layout>
+</specificationSet>

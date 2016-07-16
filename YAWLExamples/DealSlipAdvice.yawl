@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<specificationSet xmlns="http://www.yawlfoundation.org/yawlschema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="3.0" xsi:schemaLocation="http://www.yawlfoundation.org/yawlschema http://www.yawlfoundation.org/yawlschema/YAWL_Schema3.0.xsd">
+  <specification uri="Deal_Slip_Advice">
+    <documentation>No description provided</documentation>
+    <metaData>
+      <creator>herculeshssj</creator>
+      <description>No description provided</description>
+      <version>0.1</version>
+      <persistent>false</persistent>
+      <identifier>UID_232cb783-aa2e-4ea2-865f-0bf315b0d8ac</identifier>
+    </metaData>
+    <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+    <decomposition id="Net" isRootNet="true" xsi:type="NetFactsType">
+      <processControlElements>
+        <inputCondition id="InputCondition">
+          <flowsInto>
+            <nextElementRef id="PROCEED" />
+          </flowsInto>
+        </inputCondition>
+        <task id="PROCEED">
+          <name>PROCEED</name>
+          <flowsInto>
+            <nextElementRef id="Sign" />
+          </flowsInto>
+          <join code="xor" />
+          <split code="and" />
+          <resourcing>
+            <offer initiator="user" />
+            <allocate initiator="user" />
+            <start initiator="user" />
+          </resourcing>
+          <decomposesTo id="PROCEED" />
+        </task>
+        <task id="Sign">
+          <name>Sign</name>
+          <flowsInto>
+            <nextElementRef id="Register_Vouche" />
+          </flowsInto>
+          <join code="xor" />
+          <split code="and" />
+          <resourcing>
+            <offer initiator="user" />
+            <allocate initiator="user" />
+            <start initiator="user" />
+          </resourcing>
+          <decomposesTo id="Sign" />
+        </task>
+        <task id="Register_Vouche">
+          <name>Register Vouche</name>
+          <flowsInto>
+            <nextElementRef id="Archive" />
+          </flowsInto>
+          <join code="xor" />
+          <split code="and" />
+          <resourcing>
+            <offer initiator="user" />
+            <allocate initiator="user" />
+            <start initiator="user" />
+          </resourcing>
+          <decomposesTo id="Register_Vouche" />
+        </task>
+        <task id="Archive">
+          <name>Archive</name>
+          <flowsInto>
+            <nextElementRef id="OutputCondition" />
+          </flowsInto>
+          <join code="xor" />
+          <split code="and" />
+          <resourcing>
+            <offer initiator="user" />
+            <allocate initiator="user" />
+            <start initiator="user" />
+          </resourcing>
+          <decomposesTo id="Archive" />
+        </task>
+        <outputCondition id="OutputCondition" />
+      </processControlElements>
+    </decomposition>
+    <decomposition id="Archive" xsi:type="WebServiceGatewayFactsType">
+      <externalInteraction>manual</externalInteraction>
+    </decomposition>
+    <decomposition id="PROCEED" xsi:type="WebServiceGatewayFactsType">
+      <externalInteraction>manual</externalInteraction>
+    </decomposition>
+    <decomposition id="Register_Vouche" xsi:type="WebServiceGatewayFactsType">
+      <name>Register Vouche</name>
+      <externalInteraction>manual</externalInteraction>
+    </decomposition>
+    <decomposition id="Sign" xsi:type="WebServiceGatewayFactsType">
+      <externalInteraction>manual</externalInteraction>
+    </decomposition>
+  </specification>
+  <layout>
+    <locale language="en" country="US"/>
+    <specification id="Deal_Slip_Advice">
+      <size w="58" h="26"/>
+      <net id="Net">
+        <bounds x="0" y="0" w="1204" h="653"/>
+        <frame x="0" y="0" w="1207" h="656"/>
+        <viewport x="0" y="0" w="1207" h="656"/>
+        <vertex id="OutputCondition">
+          <attributes>
+            <bounds x="624" y="320" w="32" h="32"/>
+          </attributes>
+        </vertex>
+        <vertex id="InputCondition">
+          <attributes>
+            <bounds x="36" y="320" w="32" h="32"/>
+          </attributes>
+        </vertex>
+        <container id="Archive">
+          <vertex>
+            <attributes>
+              <bounds x="508" y="320" w="32" h="32"/>
+              <backgroundColor>-6697729</backgroundColor>
+            </attributes>
+          </vertex>
+          <label>
+            <attributes>
+              <bounds x="476" y="352" w="96" h="20"/>
+            </attributes>
+          </label>
+        </container>
+        <container id="PROCEED">
+          <vertex>
+            <attributes>
+              <bounds x="152" y="320" w="32" h="32"/>
+              <backgroundColor>-3355444</backgroundColor>
+            </attributes>
+          </vertex>
+          <label>
+            <attributes>
+              <bounds x="120" y="352" w="96" h="20"/>
+            </attributes>
+          </label>
+        </container>
+        <container id="Register_Vouche">
+          <vertex>
+            <attributes>
+              <bounds x="396" y="320" w="32" h="32"/>
+              <backgroundColor>-6697729</backgroundColor>
+            </attributes>
+          </vertex>
+          <label>
+            <attributes>
+              <bounds x="364" y="352" w="96" h="40"/>
+            </attributes>
+          </label>
+        </container>
+        <container id="Sign">
+          <vertex>
+            <attributes>
+              <bounds x="272" y="320" w="32" h="32"/>
+              <backgroundColor>-6697729</backgroundColor>
+            </attributes>
+          </vertex>
+          <label>
+            <attributes>
+              <bounds x="240" y="352" w="96" h="20"/>
+            </attributes>
+          </label>
+        </container>
+        <flow source="Archive" target="OutputCondition">
+          <ports in="13" out="12"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+          </attributes>
+        </flow>
+        <flow source="Register_Vouche" target="Archive">
+          <ports in="13" out="12"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+          </attributes>
+        </flow>
+        <flow source="Sign" target="Register_Vouche">
+          <ports in="13" out="12"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+          </attributes>
+        </flow>
+        <flow source="PROCEED" target="Sign">
+          <ports in="13" out="12"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+          </attributes>
+        </flow>
+        <flow source="InputCondition" target="PROCEED">
+          <ports in="13" out="12"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+          </attributes>
+        </flow>
+      </net>
+    </specification>
+  </layout>
+</specificationSet>
