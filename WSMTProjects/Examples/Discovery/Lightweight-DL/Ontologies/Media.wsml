@@ -1,0 +1,28 @@
+wsmlVariant _"http://www.wsmo.org/wsml/wsml-syntax/wsml-dl"
+namespace { _"http://www.sti-innsbruck.at/ontologies#"
+ }
+
+ontology MediaOntology
+
+axiom disjointnessAxiom
+     definedBy 
+          ?x memberOf Disc
+implies
+neg ?x memberOf Book. 
+          ?x memberOf DVD
+implies
+neg ?x memberOf CD. 
+
+concept Media
+     hasPrice ofType _integer
+     hasGiftWrap ofType _boolean
+
+concept Disc subConceptOf Media
+
+concept DVD subConceptOf Disc
+
+concept Book subConceptOf Media
+
+concept CD subConceptOf Disc
+
+instance i memberOf CD

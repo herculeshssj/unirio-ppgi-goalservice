@@ -1,0 +1,116 @@
+wsmlVariant _"http://www.wsmo.org/wsml/wsml-syntax/wsml-rule"
+namespace { _"http://traveltests.org#", 
+            munit _"wsmt://munit#",
+     		travel1 _"http://deri.org/iswc2005tutorial/ontologies/travel1#",
+     		travel2 _"http://deri.org/iswc2005tutorial/ontologies/travel2#"}
+
+ontology traveltests
+
+     importsOntology{_"http://deri.org/iswc2005tutorial/ontologies/travel1#travel1",
+		       	     _"http://deri.org/iswc2005tutorial/ontologies/travel2#travel2",
+            		 _"wsmt://munit#munit"}
+
+instance testsuite1 memberOf munit#testsuite
+	munit#sourceOntology hasValue referencetotravel1
+	munit#targetOntology hasValue referencetotravel2
+	munit#hasTest hasValue {test_ticket_travelvoucher, test_arrival_date, test_departure_date, test_departure_time, test_arrival_time}
+
+instance referencetotravel1 memberOf munit#ontologyreference
+	munit#stringRepresentation hasValue "http://deri.org/iswc2005tutorial/ontologies/travel1#travel1"
+
+instance referencetotravel2 memberOf munit#ontologyreference
+	munit#stringRepresentation hasValue "http://deri.org/iswc2005tutorial/ontologies/travel2#travel2"
+
+instance test_ticket_travelvoucher memberOf munit#test
+     munit#hasSourceInstance hasValue my_ticket
+     munit#hasTargetInstance hasValue expected_travelVoucher 		
+     
+instance test_arrival_date memberOf munit#test
+     munit#hasSourceInstance hasValue my_arrival_date
+     munit#hasTargetInstance hasValue expected_arrivalDate 	
+     
+instance test_departure_date memberOf munit#test
+     munit#hasSourceInstance hasValue my_departure_date
+     munit#hasTargetInstance hasValue expected_departureDate
+     
+instance test_departure_time memberOf munit#test
+     munit#hasSourceInstance hasValue my_departure_time
+     munit#hasTargetInstance hasValue expected_departureTime  
+     
+instance test_arrival_time memberOf munit#test
+     munit#hasSourceInstance hasValue my_arrival_time
+     munit#hasTargetInstance hasValue expected_arrivalTime  
+
+instance my_ticket memberOf travel1#ticket
+     travel1#type hasValue "flight"
+     travel1#firstName hasValue "Adrian"
+     travel1#lastName hasValue "Mocan"
+     travel1#arrival_date hasValue my_arrival_date
+     travel1#departure_date hasValue my_departure_date
+     travel1#arrival_time hasValue my_arrival_time
+     travel1#departure_time hasValue my_departure_time
+     travel1#departure_city hasValue "Innsbruck"
+     travel1#departure_code hasValue "INN"
+     travel1#arrival_city hasValue "Rome"
+     travel1#arrival_code hasValue "RO"
+     travel1#issuing_terms hasValue my_terms
+
+instance my_arrival_date memberOf travel1#date
+     travel1#day hasValue 15
+     travel1#month hasValue 9
+     travel1#year hasValue 2006
+
+instance my_departure_date memberOf travel1#date
+     travel1#day hasValue 14
+     travel1#month hasValue 9
+     travel1#year hasValue 2006
+
+instance my_arrival_time memberOf travel1#time
+     travel1#hour hasValue 6
+     travel1#minutes hasValue 0
+
+instance my_departure_time memberOf travel1#time
+     travel1#hour hasValue 11
+     travel1#minutes hasValue 0
+
+instance my_terms memberOf travel1#terms
+     travel1#price hasValue my_ticket_cost
+
+instance my_ticket_cost memberOf travel1#cost
+     travel1#amount hasValue 200
+     travel1#hasCurrency hasValue travel1#euro	
+	
+instance expected_travelVoucher memberOf travel2#travelVoucher
+	travel2#departureDate hasValue expected_departureDate
+	travel2#terms hasValue expected_payment
+	travel2#arrivalDate hasValue expected_arrivalDate
+	travel2#bearer hasValue expected_name
+	travel2#departureTime hasValue expected_departureTime
+	travel2#arrivalTime hasValue expected_arrivalTime
+	travel2#type hasValue "flight"
+
+instance expected_departureDate memberOf travel2#date
+	travel2#year hasValue 2006
+	travel2#month hasValue 9
+	travel2#day hasValue 14
+
+instance expected_payment memberOf travel2#payment
+	travel2#ammount hasValue 200
+	travel2#inEuro hasValue _boolean("true")
+
+instance expected_arrivalDate memberOf travel2#date
+	travel2#year hasValue 2006
+	travel2#month hasValue 9
+	travel2#day hasValue 15
+
+instance expected_name memberOf travel2#name
+	travel2#last hasValue "Mocan"
+	travel2#first hasValue "Adrian"
+
+instance expected_departureTime memberOf travel2#time
+	travel2#minutes hasValue 0
+	travel2#hour hasValue 11
+
+instance expected_arrivalTime memberOf travel2#time
+	travel2#minutes hasValue 0
+	travel2#hour hasValue 6

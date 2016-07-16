@@ -1,0 +1,60 @@
+wsmlVariant _"http://www.wsmo.org/wsml/wsml-syntax/wsml-rule"
+namespace { _"http://www.humantopersontests.org#", 
+	 ho _"http://www.human-ontology.org#",
+	 po _"http://www.people-ontology.org#",
+     munit _"wsmt://munit#" }
+
+ontology human_to_person
+
+     importsOntology
+          { _"http://www.human-ontology.org#human_ontology", 
+            _"http://www.people-ontology.org#people_ontology", 
+            _"wsmt://munit#munit"}
+
+//The Test suite and ontology references
+
+instance simple_test_suite memberOf munit#testsuite
+	munit#sourceOntology hasValue human_ontology_reference
+	munit#targetOntology hasValue people_ontology_reference
+	munit#hasTest hasValue simple_test
+	munit#hasTest hasValue cyclical_test
+
+instance human_ontology_reference memberOf munit#ontologyreference
+    munit#stringRepresentation hasValue "http://www.human-ontology.org#human_ontology"
+
+instance people_ontology_reference memberOf munit#ontologyreference
+    munit#stringRepresentation hasValue "http://www.people-ontology.org#people_ontology"
+
+// Simple test for class and one attribute
+
+instance simple_test memberOf munit#test
+	munit#hasSourceInstance hasValue john1
+	munit#hasTargetInstance hasValue expected_john1
+	
+instance john1 memberOf ho#human
+	ho#hasName hasValue "John Smith"
+
+instance expected_john1 memberOf po#person
+	po#identification hasValue "John Smith"
+	
+// More complex test thats involves a cyclical graph
+
+instance cyclical_test memberOf munit#test
+	munit#hasSourceInstance hasValue john2
+	munit#hasTargetInstance hasValue expected_john2
+	
+instance john2 memberOf ho#human
+	ho#hasName hasValue "John Smith"
+	ho#hasFriend hasValue bob2
+	
+instance bob2 memberOf ho#human
+	ho#hasName hasValue "Bob Jones"
+	ho#hasFriend hasValue john2
+
+instance expected_john2 memberOf po#person
+	po#identification hasValue "John Smith"
+	po#knows hasValue expected_bob2
+	
+instance expected_bob2 memberOf po#person
+	po#identification hasValue "Bob Jones"
+	po#knows hasValue expected_john2

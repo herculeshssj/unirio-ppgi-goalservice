@@ -1,0 +1,32 @@
+wsmlVariant _"http://www.wsmo.org/wsml/wsml-syntax/wsml-rule"
+namespace { _"http://www.sti-innsbruck.at/services#",
+		vehicle _"http://www.sti-innsbruck.at/ontologies/vehicle#",
+		discovery _"http://wiki.wsmx.org/index.php?title=DiscoveryOntology#"
+ }
+
+
+webService BicycleVendor
+
+importsOntology {vehicle#VehicleOntology}
+
+capability BicycleCapability
+
+nonFunctionalProperties
+  discovery#discoveryStrategy hasValue discovery#HeavyweightDiscovery
+  discovery#discoveryStrategy hasValue discovery#NoPreFilter
+endNonFunctionalProperties
+
+sharedVariables ?x
+
+precondition bicyclePre 
+	definedBy
+		?x memberOf vehicle#TwoWheeler.
+
+postcondition bicyclePost 
+	definedBy 
+		?x memberOf vehicle#TwoWheeler and ?x[vehicle#hasMotor hasValue _boolean("false")].
+		
+		
+		
+
+          

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>Examples</name>
+	<comment></comment>
+	<projects>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>org.deri.wsml.eclipse.org.deri.wsml.eclipse.nature.WSMLBuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+			<name>org.deri.mapping.eclipse.org.deri.mapping.eclipse.nature.MappingBuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>org.deri.wsml.eclipse.nature.WSMLNature</nature>
+		<nature>org.deri.mapping.eclipse.nature.MappingNature</nature>
+	</natures>
+</projectDescription>

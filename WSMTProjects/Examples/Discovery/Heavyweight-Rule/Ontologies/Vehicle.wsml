@@ -1,0 +1,38 @@
+wsmlVariant _"http://www.wsmo.org/wsml/wsml-syntax/wsml-flight"
+namespace { _"http://www.sti-innsbruck.at/ontologies/vehicle#"
+ }
+
+ontology VehicleOntology
+
+concept Vehicle
+	hasTires ofType _integer
+	hasMotor ofType _boolean
+
+concept Automobile subConceptOf Vehicle
+	hasLimitSpeed ofType _integer
+	
+concept Car subConceptOf Automobile
+	hasDoors ofType _integer
+	
+concept TwoWheeler subConceptOf Vehicle
+
+concept Motorcycle subConceptOf {Automobile, TwoWheeler}
+
+concept Bicycle subConceptOf TwoWheeler
+
+axiom definedBy	
+	// a vehicle with a motor is an automobile
+	?x memberOf Vehicle and ?x[hasMotor hasValue _boolean("true")] implies ?x memberOf Automobile.
+	
+	// an automobile with 4 tires is a car
+	?x memberOf Automobile and ?x[hasTires hasValue 4] implies ?x memberOf Car.
+	
+	// a vehicle with 2 tires is a TwoWheeler
+	?x memberOf Vehicle and ?x[hasTires hasValue 2] implies ?x memberOf TwoWheeler.
+	
+	// a two-wheeler with motor is a motorcycle
+	?x memberOf TwoWheeler and ?x[hasMotor hasValue _boolean("true")] 
+		implies ?x memberOf Motorcycle.
+	
+	// a two-wheeler without motor is a bicycle.
+	?x memberOf TwoWheeler and ?x[hasMotor hasValue _boolean("false")] implies ?x memberOf Bicycle.

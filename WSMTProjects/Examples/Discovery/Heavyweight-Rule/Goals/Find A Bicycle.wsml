@@ -1,0 +1,29 @@
+wsmlVariant _"http://www.wsmo.org/wsml/wsml-syntax/wsml-rule"
+namespace { _"http://www.sti-innsbruck.at/goals#",
+		vehicle _"http://www.sti-innsbruck.at/ontologies/vehicle#",
+		discovery _"http://wiki.wsmx.org/index.php?title=DiscoveryOntology#"
+}
+
+
+goal FindABicycle
+
+importsOntology {vehicle#VehicleOntology}
+
+capability FindABicycleCapability
+
+nonFunctionalProperties
+  discovery#discoveryStrategy hasValue discovery#HeavyweightDiscovery
+  discovery#discoveryStrategy hasValue discovery#NoPreFilter
+endNonFunctionalProperties
+
+sharedVariables ?x
+
+precondition findABicyclePre
+	definedBy
+		?x memberOf vehicle#Vehicle and ?x[vehicle#hasTires hasValue 2].
+		
+postcondition findABicyclePost
+	definedBy 
+		?x memberOf vehicle#Bicycle.
+
+	  	

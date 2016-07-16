@@ -1,0 +1,28 @@
+wsmlVariant _"http://www.wsmo.org/wsml/wsml-syntax/wsml-rule"
+namespace { _"http://www.sti-innsbruck.at/services#",
+		vehicle _"http://www.sti-innsbruck.at/ontologies/vehicle#",
+		discovery _"http://wiki.wsmx.org/index.php?title=DiscoveryOntology#"
+ }
+
+
+webService CarVendor
+
+importsOntology {vehicle#VehicleOntology}
+
+capability CarCapability
+
+nonFunctionalProperties
+  discovery#discoveryStrategy hasValue discovery#HeavyweightDiscovery
+  discovery#discoveryStrategy hasValue discovery#NoPreFilter
+endNonFunctionalProperties
+
+sharedVariables ?x
+
+precondition carPre 
+	definedBy
+		?x memberOf vehicle#Automobile.
+
+postcondition carPost 
+	definedBy 
+    	?x memberOf vehicle#Automobile and ?x[vehicle#hasTires hasValue 4].
+          

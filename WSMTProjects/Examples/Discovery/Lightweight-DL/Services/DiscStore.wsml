@@ -1,0 +1,22 @@
+wsmlVariant _"http://www.wsmo.org/wsml/wsml-syntax/wsml-dl"
+namespace { _"http://www.sti-innsbruck.at/services#",
+	media _"http://www.sti-innsbruck.at/ontologies#",
+		discovery _"http://wiki.wsmx.org/index.php?title=DiscoveryOntology#"
+}
+
+webService DiscStore
+
+importsOntology {media#MediaOntology}
+
+capability DiscStoreCapability
+
+nonFunctionalProperties
+  discovery#discoveryStrategy hasValue discovery#LightweightDLDiscovery
+  discovery#discoveryStrategy hasValue discovery#NoPreFilter
+endNonFunctionalProperties
+
+sharedVariables ?x
+
+postcondition discPost
+     definedBy 
+          ?x memberOf media#Disc.

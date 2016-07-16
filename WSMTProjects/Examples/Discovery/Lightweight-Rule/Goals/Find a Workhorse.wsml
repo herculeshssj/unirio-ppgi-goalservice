@@ -1,0 +1,23 @@
+wsmlVariant _"http://www.wsmo.org/wsml/wsml-syntax/wsml-rule"
+namespace { _"http://www.sti-innsbruck.at/goals#",
+		farm _"http://www.sti-innsbruck.at/ontologies/farm#",
+		discovery _"http://wiki.wsmx.org/index.php?title=DiscoveryOntology#"
+ }
+
+
+goal FindAWorkhorse
+
+importsOntology {farm#FarmOntology}
+
+capability FindAWorkhorseCapability
+
+nonFunctionalProperties
+  discovery#discoveryStrategy hasValue discovery#LightweightRuleDiscovery
+  discovery#discoveryStrategy hasValue discovery#NoPreFilter
+endNonFunctionalProperties
+
+sharedVariables ?x
+
+postcondition findWorkhorsePost
+     definedBy 
+          ?x memberOf farm#Horse and ?x[farm#isWorkingAnimal hasValue _boolean("true")].         

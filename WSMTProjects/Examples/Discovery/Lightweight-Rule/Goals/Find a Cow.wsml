@@ -1,0 +1,23 @@
+wsmlVariant _"http://www.wsmo.org/wsml/wsml-syntax/wsml-rule"
+namespace { _"http://www.sti-innsbruck.at/goals#",
+		farm _"http://www.sti-innsbruck.at/ontologies/farm#",
+		discovery _"http://wiki.wsmx.org/index.php?title=DiscoveryOntology#"
+ }
+
+
+goal FindACow
+
+importsOntology {farm#FarmOntology}
+
+capability FindACowCapability
+
+nonFunctionalProperties
+  discovery#discoveryStrategy hasValue discovery#LightweightRuleDiscovery
+  discovery#discoveryStrategy hasValue discovery#NoPreFilter
+endNonFunctionalProperties
+
+sharedVariables ?x
+
+postcondition findCowPost
+     definedBy 
+          ?x memberOf farm#Cow.

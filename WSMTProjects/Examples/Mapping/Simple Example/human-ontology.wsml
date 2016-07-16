@@ -1,0 +1,9 @@
+wsmlVariant _"http://www.wsmo.org/wsml/wsml-syntax/wsml-rule"
+namespace { _"http://www.human-ontology.org#"
+ }
+
+ontology human_ontology
+
+concept human
+	hasName ofType _string
+	hasFriend ofType human

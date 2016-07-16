@@ -1,0 +1,23 @@
+wsmlVariant _"http://www.wsmo.org/wsml/wsml-syntax/wsml-dl"
+namespace { _"http://www.sti-innsbruck.at/goals#",
+			media _"http://www.sti-innsbruck.at/ontologies#",
+		discovery _"http://wiki.wsmx.org/index.php?title=DiscoveryOntology#"
+}
+
+goal FindACD
+
+importsOntology {media#MediaOntology}
+
+capability FindACDCapability
+
+nonFunctionalProperties
+  discovery#discoveryStrategy hasValue discovery#LightweightDLDiscovery
+  discovery#discoveryStrategy hasValue discovery#NoPreFilter
+endNonFunctionalProperties
+
+sharedVariables ?x
+
+postcondition findCDPost
+     definedBy 
+          ?x memberOf media#CD.
+      

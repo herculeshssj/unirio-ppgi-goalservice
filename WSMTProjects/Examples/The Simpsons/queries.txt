@@ -1,0 +1,48 @@
+Query 1
+-------
+
+To find all the students and the principle of the school they attend:
+
+?child[attends hasValue ?school] and ?principle[principleOf hasValue ?school]
+
+Query 2
+-------
+
+To find all the people that work at springfield_elementary:
+
+?employee[hasWorkingPlace hasValue springfield_elementary]
+
+Note: because of the priniciples_work_too axiom, the instance seymour_skinner 
+is included in the result set even though he does not have hasWorkingPlace 
+explictly set to springfield_elementary
+
+Query 3
+-------
+
+To find out who is the reverant of the church that each character attends:
+
+?worshiper[worshipsAt hasValue ?church] and ?reverant[reverantOf hasValue ?church]
+
+Query 4
+-------
+
+To find all the characters that Dan Castellanata does the voices for on the simpsons:
+
+?character[hasActor hasValue dan_castellanata]
+
+Query 5
+-------
+
+To find out who is in love with who in the simpsons world:
+
+?character1[inLoveWith hasValue ?charachter2]
+
+Note: the only character who has an explicit value for the attribute inLoveWith is 
+the instance waylon_smithers. The other results are due to the spouses_are_in_love axiom.
+
+Query 6
+-------
+
+To find all actors who play characters of the opposite sex:
+
+?actor[hasGender hasValue ?actorgender] memberOf actor and ?character[hasGender hasValue ?charactergender] memberOf character and ?character[hasActor hasValue ?actor] and ?actorgender != ?charactergender

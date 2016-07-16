@@ -1,0 +1,23 @@
+wsmlVariant _"http://www.wsmo.org/wsml/wsml-syntax/wsml-rule"
+namespace { _"http://www.sti-innsbruck.at/ontologies/farm#"
+ }
+
+ontology FarmOntology
+
+concept FarmElement
+
+concept LiveStock subConceptOf FarmElement
+	isWorkingAnimal ofType _boolean
+
+concept Cow subConceptOf LiveStock
+concept Pig subConceptOf LiveStock
+concept Sheep subConceptOf LiveStock
+concept Goat subConceptOf LiveStock
+concept Horse subConceptOf LiveStock
+concept Donkey subConceptOf LiveStock
+
+axiom horseImpliesLivestock definedBy
+
+?x memberOf Horse implies ?x memberOf LiveStock.
+
+ 

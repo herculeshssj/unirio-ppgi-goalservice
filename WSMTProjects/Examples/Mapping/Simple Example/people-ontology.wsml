@@ -1,0 +1,9 @@
+wsmlVariant _"http://www.wsmo.org/wsml/wsml-syntax/wsml-rule"
+namespace { _"http://www.people-ontology.org#"
+ }
+
+ontology people_ontology
+
+concept person
+	identification ofType _string
+	knows ofType person

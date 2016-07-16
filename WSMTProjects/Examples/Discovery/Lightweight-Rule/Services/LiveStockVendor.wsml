@@ -1,0 +1,24 @@
+wsmlVariant _"http://www.wsmo.org/wsml/wsml-syntax/wsml-rule"
+namespace { _"http://www.sti-innsbruck.at/services#",
+		farm _"http://www.sti-innsbruck.at/ontologies/farm#",
+		discovery _"http://wiki.wsmx.org/index.php?title=DiscoveryOntology#"
+ }
+
+
+webService LiveStockVendor
+
+importsOntology {farm#FarmOntology}
+
+capability LiveStockCapability
+
+nonFunctionalProperties
+  discovery#discoveryStrategy hasValue discovery#LightweightRuleDiscovery
+  discovery#discoveryStrategy hasValue discovery#NoPreFilter
+endNonFunctionalProperties
+
+sharedVariables ?x
+
+postcondition liveStockPost
+     definedBy 
+          ?x memberOf farm#LiveStock.
+          

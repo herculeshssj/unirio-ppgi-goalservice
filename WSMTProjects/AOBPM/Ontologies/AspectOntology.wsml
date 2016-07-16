@@ -1,0 +1,29 @@
+wsmlVariant _"http://www.wsmo.org/wsml/wsml-syntax/wsml-flight"
+
+namespace { _"http://www.uniriotec.br/aobpm#",
+	dc _"http://purl.org/dc/elements/1.1#"
+ }
+
+ontology AspectOntology
+	nfp
+		dc#title hasValue "Aspect Ontology"
+		dc#contributor hasValue "Hercules S. S. Jose"
+		dc#date hasValue _date(2016,07,16)
+		dc#format hasValue "text/plain"
+		dc#language hasValue "en-US"
+	endnfp
+
+concept RequestMessage
+	nfp
+		dc#description hasValue "Object represeting the request message to Web Service"
+	endnfp
+	user ofType _string
+	dateTime ofType _datetime
+	message ofType _string
+
+concept ResponseMessage
+	nfp
+		dc#description hasValue "Object represeting the response message to Web Service"
+	endnfp
+	messageReceived ofType _boolean
+	messageReturned ofType _string

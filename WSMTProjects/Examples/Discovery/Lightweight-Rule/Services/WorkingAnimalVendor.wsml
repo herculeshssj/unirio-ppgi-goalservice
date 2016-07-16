@@ -1,0 +1,24 @@
+wsmlVariant _"http://www.wsmo.org/wsml/wsml-syntax/wsml-rule"
+namespace { _"http://www.sti-innsbruck.at/services#",
+		farm _"http://www.sti-innsbruck.at/ontologies/farm#",
+		discovery _"http://wiki.wsmx.org/index.php?title=DiscoveryOntology#"
+ }
+
+
+webService WorkingAnimalVendor
+
+importsOntology {farm#FarmOntology}
+
+capability WorkingAnimalCapability
+
+nonFunctionalProperties
+  discovery#discoveryStrategy hasValue discovery#LightweightRuleDiscovery
+  discovery#discoveryStrategy hasValue discovery#NoPreFilter
+endNonFunctionalProperties
+
+sharedVariables ?x
+
+postcondition workingAnimalPost
+     definedBy 
+          ?x memberOf farm#LiveStock and ?x[farm#isWorkingAnimal hasValue _boolean("true")].
+          

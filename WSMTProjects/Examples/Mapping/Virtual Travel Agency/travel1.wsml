@@ -1,0 +1,80 @@
+wsmlVariant _"http://www.wsmo.org/wsml/wsml-syntax/wsml-flight"
+namespace { _"http://deri.org/iswc2005tutorial/ontologies/travel1#"
+, 
+     wsml _"http://www.wsmo.org/wsml/wsml-syntax#" }
+
+ontology travel1
+
+//concept Purchase_Order
+
+concept ticket
+     type ofType _string
+     departure_city ofType _string
+     departure_code ofType _string
+     arrival_city ofType _string
+     arrival_code ofType _string
+     departure_date ofType date
+     arrival_date ofType date
+     departure_time ofType time
+     arrival_time ofType time
+     issuing_terms ofType terms
+     firstName ofType _string
+     lastName ofType _string
+
+concept date
+     year ofType _integer
+     month ofType _integer
+     day ofType _integer
+
+concept time
+     hour ofType _integer
+     minutes ofType _integer
+
+concept terms
+     price ofType cost
+     paymant_method ofType _string
+     delivery_type ofType delivery
+
+concept cost
+     amount ofType _integer
+     hasCurrency ofType currency
+
+concept delivery
+     type ofType _string
+     due_to ofType date
+
+concept customer
+     firstName ofType _string
+     lastName ofType _string
+     street ofType _string
+     city ofType _string
+     zipCode ofType _string
+     country ofType _string
+
+concept trainTimeTable
+     departure_city ofType _string
+     arrival_city ofType _string
+     travel_date ofType date
+     
+concept currency 
+     
+instance euro memberOf currency
+
+instance dolar memberOf currency
+
+/*
+concept person
+    name ofType _string
+    age ofType _integer
+    hasGender ofType gender
+    hasChild ofType person
+    marriedTo ofType person	
+concept gender
+    value ofType _string
+instance male memberOf gender
+    value hasValue "male"
+instance female memberOf gender
+    value hasValue "female"
+
+
+*/
