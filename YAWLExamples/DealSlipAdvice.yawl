@@ -80,6 +80,9 @@
       <externalInteraction>manual</externalInteraction>
     </decomposition>
     <decomposition id="PROCEED" xsi:type="WebServiceGatewayFactsType">
+      <yawlService id="http://localhost:8080/aspectService/ib">
+        <documentation>A implementation for aspect-oriented business process modeling.</documentation>
+      </yawlService>
       <externalInteraction>manual</externalInteraction>
     </decomposition>
     <decomposition id="Register_Vouche" xsi:type="WebServiceGatewayFactsType">
