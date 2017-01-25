@@ -1,0 +1,22 @@
+wsmlVariant _"http://www.wsmo.org/wsml/wsml-syntax/wsml-flight"
+namespace {
+	_"http://example.org/bookOntology#",
+	dc _"http://purl.org/dc/elements/1.1/"
+}
+
+webService _"http://example.org/bookService"
+	nonFunctionalProperties
+		dc#title hasValue "Example book buying Web service"
+		dc#description hasValue "A simple example for adding items to a shopping cart"
+	endNonFunctionalProperties
+	
+	importsOntology _"http://example.org/bookOntology"
+	capability bookServiceCapability
+		sharedVariables {?cartId, ?item}
+		precondition
+			definedBy
+				?cartId memberOf _string and ?item memberOf book.
+		postcondition
+			definedBy
+				forall ?cart (?cart[id hasValue ?cartId] memberOf cart implies
+					?cart[items hasValue ?item]).

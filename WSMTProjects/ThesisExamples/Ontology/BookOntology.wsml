@@ -1,0 +1,34 @@
+wsmlVariant _"http://www.wsmo.org/wsml/wsml-syntax/wsml-flight"
+namespace {
+	_"http://example.org/bookOntology#",
+	dc _"http://purl.org/dc/elements/1.1/"
+}
+ontology _"http://example.org/bookOntology"
+	nonFunctionalProperties
+		dc#title hasValue "Example Book ontology"
+		dc#description hasValue "Example ontology about books and shopping carts"
+	endNonFunctionalProperties
+	concept person
+		name ofType _string
+	concept book
+		title ofType _string
+		hasAuthor ofType author
+	concept author subConceptOf person
+		authorOf inverseOf(hasAuthor) ofType book
+	concept cart
+		id ofType (1) _string
+		items ofType book
+
+	instance crimeAndPunishment memberOf book
+		title hasValue "Crime and Punishment"
+		hasAuthor hasValue dostoyevsky
+		
+	relation authorship(impliesType author, impliesType document)
+		nonFunctionalProperties
+			dc#relation hasValue authorshipFromAuthor
+		endNonFunctionalProperties
+	
+	axiom authorshipFromAuthor
+		definedBy
+			authorship(?x,?y) :- ?x[authorOf hasValue ?y] memberOf author.
+			
