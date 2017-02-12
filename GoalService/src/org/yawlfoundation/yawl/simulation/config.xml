@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Config file for YSimulator. All times are expressed as msecs.
+    Attributes: view - one of workitem, resource or process
+                instances - number of instances to run
+                interval - how long to pause between each case start (ms)
+-->
+<simulation view="workitem" instances="10" interval="1000">
+
+    <!-- host name, e.g. example.com, defaults to localhost -->
+    <host>localhost</host>
+
+    <!-- id of spec to use - MUST already be loaded in the engine -->
+    <specification>
+        <id>UID_bd4fd95d-59c3-4f10-8868-207d2bcb8063</id>
+        <version>0.1</version>
+        <name>TestSimulation</name>
+    </specification>
+
+    <!-- all the tasks of the spec -->
+    <tasks>
+
+        <!-- Attribute id: task name -->
+        <task id="A">
+        	<resource role="userA" time="1000"/>
+        </task>
+        <task id="B">
+        	<resource role="userA" time="1000"/>
+        </task>
+        <task id="C">
+        	<resource role="userA" time="1000"/>
+        </task>
+    </tasks>
+    <limits default="15000">
+        <resource role="userA" limit="-1"/>
+    </limits>
+</simulation>

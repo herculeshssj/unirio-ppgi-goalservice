@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<specificationSet xmlns="http://www.yawlfoundation.org/yawlschema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="3.0" xsi:schemaLocation="http://www.yawlfoundation.org/yawlschema http://www.yawlfoundation.org/yawlschema/YAWL_Schema3.0.xsd">
+  <specification uri="TestSimulation">
+    <documentation>No description provided</documentation>
+    <metaData>
+      <creator>Win7HP</creator>
+      <description>No description provided</description>
+      <version>0.1</version>
+      <persistent>false</persistent>
+      <identifier>UID_bd4fd95d-59c3-4f10-8868-207d2bcb8063</identifier>
+    </metaData>
+    <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+    <decomposition id="Net" isRootNet="true" xsi:type="NetFactsType">
+      <processControlElements>
+        <inputCondition id="InputCondition">
+          <flowsInto>
+            <nextElementRef id="A" />
+          </flowsInto>
+        </inputCondition>
+        <task id="A">
+          <name>A</name>
+          <flowsInto>
+            <nextElementRef id="B" />
+          </flowsInto>
+          <join code="xor" />
+          <split code="and" />
+          <resourcing>
+            <offer initiator="system">
+              <distributionSet>
+                <initialSet>
+                  <participant>PA-fc9abaa3-0fb6-4134-bc03-84ff303c9cb6</participant>
+                  <role>RO-228b79cd-2944-4ab4-a6ed-379e3b874ef6</role>
+                </initialSet>
+              </distributionSet>
+            </offer>
+            <allocate initiator="system">
+              <allocator>
+                <name>RandomChoice</name>
+              </allocator>
+            </allocate>
+            <start initiator="system" />
+          </resourcing>
+          <decomposesTo id="A" />
+        </task>
+        <task id="B">
+          <name>B</name>
+          <flowsInto>
+            <nextElementRef id="C" />
+          </flowsInto>
+          <join code="xor" />
+          <split code="and" />
+          <resourcing>
+            <offer initiator="system">
+              <distributionSet>
+                <initialSet>
+                  <participant>PA-fc9abaa3-0fb6-4134-bc03-84ff303c9cb6</participant>
+                  <role>RO-228b79cd-2944-4ab4-a6ed-379e3b874ef6</role>
+                </initialSet>
+              </distributionSet>
+            </offer>
+            <allocate initiator="system">
+              <allocator>
+                <name>RandomChoice</name>
+              </allocator>
+            </allocate>
+            <start initiator="system" />
+          </resourcing>
+          <decomposesTo id="B" />
+        </task>
+        <task id="C">
+          <name>C</name>
+          <flowsInto>
+            <nextElementRef id="OutputCondition" />
+          </flowsInto>
+          <join code="xor" />
+          <split code="and" />
+          <resourcing>
+            <offer initiator="system">
+              <distributionSet>
+                <initialSet>
+                  <participant>PA-fc9abaa3-0fb6-4134-bc03-84ff303c9cb6</participant>
+                  <role>RO-228b79cd-2944-4ab4-a6ed-379e3b874ef6</role>
+                </initialSet>
+              </distributionSet>
+            </offer>
+            <allocate initiator="system">
+              <allocator>
+                <name>RandomChoice</name>
+              </allocator>
+            </allocate>
+            <start initiator="system" />
+          </resourcing>
+          <decomposesTo id="C" />
+        </task>
+        <outputCondition id="OutputCondition" />
+      </processControlElements>
+    </decomposition>
+    <decomposition id="A" xsi:type="WebServiceGatewayFactsType">
+      <externalInteraction>automated</externalInteraction>
+    </decomposition>
+    <decomposition id="B" xsi:type="WebServiceGatewayFactsType">
+      <externalInteraction>automated</externalInteraction>
+    </decomposition>
+    <decomposition id="C" xsi:type="WebServiceGatewayFactsType">
+      <externalInteraction>automated</externalInteraction>
+    </decomposition>
+  </specification>
+  <layout>
+    <locale language="en" country="US"/>
+    <specification id="TestSimulation">
+      <size w="56" h="26"/>
+      <net id="Net">
+        <bounds x="0" y="0" w="1204" h="515"/>
+        <frame x="0" y="0" w="1207" h="518"/>
+        <viewport x="0" y="0" w="1207" h="518"/>
+        <vertex id="OutputCondition">
+          <attributes>
+            <bounds x="460" y="320" w="32" h="32"/>
+          </attributes>
+        </vertex>
+        <vertex id="InputCondition">
+          <attributes>
+            <bounds x="32" y="320" w="32" h="32"/>
+          </attributes>
+        </vertex>
+        <container id="A">
+          <vertex>
+            <attributes>
+              <bounds x="128" y="320" w="32" h="32"/>
+            </attributes>
+          </vertex>
+          <label>
+            <attributes>
+              <bounds x="96" y="352" w="96" h="20"/>
+            </attributes>
+          </label>
+        </container>
+        <container id="B">
+          <vertex>
+            <attributes>
+              <bounds x="248" y="320" w="32" h="32"/>
+            </attributes>
+          </vertex>
+          <label>
+            <attributes>
+              <bounds x="216" y="352" w="96" h="20"/>
+            </attributes>
+          </label>
+        </container>
+        <container id="C">
+          <vertex>
+            <attributes>
+              <bounds x="356" y="320" w="32" h="32"/>
+            </attributes>
+          </vertex>
+          <label>
+            <attributes>
+              <bounds x="324" y="352" w="96" h="20"/>
+            </attributes>
+          </label>
+        </container>
+        <flow source="InputCondition" target="A">
+          <ports in="13" out="12"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+            <points>
+              <value x="67" y="370.5"/>
+              <value x="128" y="350.5"/>
+            </points>
+          </attributes>
+        </flow>
+        <flow source="C" target="OutputCondition">
+          <ports in="13" out="12"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+            <points>
+              <value x="387" y="349.5"/>
+              <value x="452" y="369.5"/>
+            </points>
+          </attributes>
+        </flow>
+        <flow source="A" target="B">
+          <ports in="13" out="12"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+            <points>
+              <value x="159" y="366.5"/>
+              <value x="248" y="366.5"/>
+            </points>
+          </attributes>
+        </flow>
+        <flow source="B" target="C">
+          <ports in="13" out="12"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+            <points>
+              <value x="279" y="366.5"/>
+              <value x="356" y="366.5"/>
+            </points>
+          </attributes>
+        </flow>
+      </net>
+    </specification>
+  </layout>
+</specificationSet>
