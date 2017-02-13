@@ -1,11 +1,18 @@
 wsmlVariant _"http://www.wsmo.org/wsml/wsml-syntax/wsml-flight"
+
 namespace { _"http://www.uniriotec.br/aspect#",
 	onto _"http://www.uniriotec.br/aspect#",
 	wsml _"http://www.wsmo.org/wsml/wsml-syntax#",
 	dc _"http://purl.org/dc/elements/1.1#",
 	discovery _"http://wiki.wsmx.org/index.php?title=DiscoveryOntology#"
  }
+ 
 goal MailLogGoal
+	nfp
+		dc#title hasValue "Mail log goal"
+		dc#contributor hasValue "Hercules S. S. Jose"
+		dc#description hasValue "Achieve the goal of send the log by e-mail"
+	endnfp
 	importsOntology {
 		onto#LogOntology
 	}
@@ -14,14 +21,30 @@ goal MailLogGoal
   			discovery#discoveryStrategy hasValue discovery#LightweightDiscovery
   			discovery#discoveryStrategy hasValue discovery#NoPreFilter
 		endnfp
+		
 		postcondition
 			definedBy
 				?logEffect memberOf onto#LogEffect
 					and ?logEffect[messageLogged hasValue _boolean("true")]
 					and ?logEffect[mailSent hasValue _boolean("true")].
+
+interface MailLogGoalInterface
+	choreography MailLogGoalChoreography
+	stateSignature MailLogGoalStateSignature
+		importsOntology onto#LogOntology
+		in
+			onto#LogRequest
+		out
+			onto#LogEffect
+	
+	transitionRules MailLogGoalTransitionRules
+		forall {?request} with (?request memberOf onto#LogRequest) do
+			add (_# memberOf onto#LogEffect)
+		endForall
 		
 ontology MailLogGoalOntology
 	importsOntology onto#LogOntology
+	
 	instance logMail memberOf onto#LogRequest
 		severity hasValue onto#WARN
-		message hasValue "Test mail log using SWS."
+		message hasValue "Second test with log using WSMX."

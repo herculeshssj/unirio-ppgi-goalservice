@@ -2,32 +2,31 @@ wsmlVariant _"http://www.wsmo.org/wsml/wsml-syntax/wsml-flight"
 
 namespace { _"http://www.uniriotec.br/aspect#",
 	onto _"http://www.uniriotec.br/aspect#",
-	dc _"http://purl.org/dc/elements/1.1#"
+	wsml _"http://www.wsmo.org/wsml/wsml-syntax#",
+	dc _"http://purl.org/dc/elements/1.1#",
+	discovery _"http://wiki.wsmx.org/index.php?title=DiscoveryOntology#"
  }
  
 goal SimpleLogGoal
 	nfp
 		dc#title hasValue "Simple log goal"
 		dc#contributor hasValue "Hercules S. S. Jose"
-		dc#description hasValue "Achieve the goal of simple log the information on the console"
+		dc#description hasValue "Achieve the goal of show the log on console"
 	endnfp
-	
-capability SimpleLogGoalCapability
-	importsOntology onto#LogOntology
-	
-postcondition
-	definedBy
-		?logRequest[
-			onto#message hasValue ?x,
-			onto#severity hasValue ?y
-		] memberOf onto#LogRequest
-			and
-		?logEffect[
-			onto#messageLogged hasValue ?a,
-			onto#mailSent hasValue ?b,
-			onto#logPersisted hasValue ?c,
-			onto#messageShowed hasValue ?d
-		] memberOf onto#LogEffect.		
+	importsOntology {
+		onto#LogOntology
+	}
+	capability SimpleLogGoalCapability
+		nfp
+  			discovery#discoveryStrategy hasValue discovery#LightweightDiscovery
+  			discovery#discoveryStrategy hasValue discovery#NoPreFilter
+		endnfp
+		
+		postcondition
+			definedBy
+				?logEffect memberOf onto#LogEffect
+					and ?logEffect[messageLogged hasValue _boolean("true")]
+					and ?logEffect[messageShowed hasValue _boolean("true")].
 
 interface SimpleLogGoalInterface
 	choreography SimpleLogGoalChoreography
@@ -47,5 +46,5 @@ ontology SimpleLogGoalOntology
 	importsOntology onto#LogOntology
 	
 	instance logConsole memberOf onto#LogRequest
-		severity hasValue onto#INFO
-		message hasValue "First test with log using WSMX"	
+		severity hasValue onto#WARN
+		message hasValue "First test with log using WSMX."
