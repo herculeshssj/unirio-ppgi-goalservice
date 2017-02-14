@@ -21,7 +21,7 @@ capability _"http://DateandTimeCapability"
           discovery#discoveryStrategy hasValue discovery#NoPreFilter
      endNonFunctionalProperties
 
-sharedVariables ?x 
+sharedVariables { ?x, ?y } 
 
 postcondition
 		definedBy

@@ -1,31 +1,34 @@
 wsmlVariant _"http://www.wsmo.org/wsml/wsml-syntax/wsml-dl"
 
-namespace { _"http://127.0.0.1/services/AddressBook.owl#",
+namespace { _"http://127.0.0.1/services/DecryptionService.owl#", 
      dc _"http://purl.org/dc/elements/1.1/", 
      wsml _"http://www.wsmo.org/wsml/wsml-syntax#", 
      xsd _"http://www.w3.org/2001/XMLSchema#",
      discovery _"http://wiki.wsmx.org/index.php?title=DiscoveryOntology#" }
 
-webService _"http://127.0.0.1/services/AddressBook.owl"
+webService _"http://127.0.0.1/services/DecryptionService.owl"
 	nfp
-		dc#title hasValue "Web Service 003"
+		dc#title hasValue "Web Service 041"
 		dc#description hasValue "Web Service used only to simulation"
 	endnfp
 
 importsOntology
             _"http://127.0.0.1/ontology/Concepts.owl"
 
-capability _"http://AddressBookCapability"
+capability _"http://DecryptionServiceCapability"
      nonFunctionalProperties
      	  discovery#discoveryStrategy hasValue discovery#LightweightDLDiscovery
           discovery#discoveryStrategy hasValue discovery#NoPreFilter
      endNonFunctionalProperties
 
-sharedVariables { ?x, ?y }
+sharedVariables { ?x, ?y, ?z } 
 
 postcondition
 		definedBy
-			?x memberOf _"http://127.0.0.1/ontology/Concepts.owl#Address"
+			?x memberOf _"http://127.0.0.1/ontology/Concepts.owl#Text"
 			and
-			?y memberOf _"http://127.0.0.1/ontology/Concepts.owl#Person".
+			?y memberOf _"http://127.0.0.1/ontology/Concepts.owl#EncryptedText"
+			and
+			?z memberOf _"http://127.0.0.1/ontology/Concepts.owl#CryptographyKey".
+		
 			

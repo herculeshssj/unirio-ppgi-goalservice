@@ -1,30 +1,35 @@
 wsmlVariant _"http://www.wsmo.org/wsml/wsml-syntax/wsml-dl"
 
-namespace { _"http://127.0.0.1/services/BookLookup.owl#", 
+namespace { _"http://127.0.0.1/services/DomainRegister.owl#", 
      dc _"http://purl.org/dc/elements/1.1/", 
      wsml _"http://www.wsmo.org/wsml/wsml-syntax#", 
      xsd _"http://www.w3.org/2001/XMLSchema#",
      discovery _"http://wiki.wsmx.org/index.php?title=DiscoveryOntology#" }
 
-webService _"http://127.0.0.1/services/BookLookup.owl"
+webService _"http://127.0.0.1/services/DomainRegister.owl"
 	nfp
-		dc#title hasValue "Web Service 016"
+		dc#title hasValue "Web Service 049"
 		dc#description hasValue "Web Service used only to simulation"
 	endnfp
 
 importsOntology
             _"http://127.0.0.1/ontology/Concepts.owl"
 
-capability _"http://BookLookupCapability"
+capability _"http://DomainRegisterCapability"
      nonFunctionalProperties
      	  discovery#discoveryStrategy hasValue discovery#LightweightDLDiscovery
           discovery#discoveryStrategy hasValue discovery#NoPreFilter
      endNonFunctionalProperties
 
-sharedVariables { ?x, ?y }
+sharedVariables { ?w, ?x, ?y, ?z }  
 
 postcondition
 		definedBy
-			?x memberOf _"http://127.0.0.1/ontology/Concepts.owl#Text"
+			?w memberOf _"http://127.0.0.1/ontology/Concepts.owl#Person"
 			and
-			?y memberOf _"http://127.0.0.1/ontology/Concepts.owl#ISBN".
+			?x memberOf _"http://127.0.0.1/ontology/Concepts.owl#DomainName"
+			and
+			?y memberOf _"http://127.0.0.1/ontology/Concepts.owl#DomainRegistrar"
+			and
+			?z memberOf _"http://127.0.0.1/ontology/Concepts.owl#NameServer".			
+			
