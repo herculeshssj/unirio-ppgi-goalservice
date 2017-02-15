@@ -1,0 +1,42 @@
+wsmlVariant _"http://www.wsmo.org/wsml/wsml-syntax/wsml-dl"
+
+namespace { _"http://127.0.0.1/services/EMailSender.owl#", 
+     dc _"http://purl.org/dc/elements/1.1/", 
+     wsml _"http://www.wsmo.org/wsml/wsml-syntax#", 
+     xsd _"http://www.w3.org/2001/XMLSchema#",
+     discovery _"http://wiki.wsmx.org/index.php?title=DiscoveryOntology#" }
+
+webService _"http://127.0.0.1/services/EMailSender.owl"
+	nfp
+		dc#title hasValue "Web Service 051"
+		dc#description hasValue "Web Service used only to simulation"
+	endnfp
+
+importsOntology
+            _"http://127.0.0.1/ontology/Concepts.owl"
+
+capability _"http://EMailSenderCapability"
+     nonFunctionalProperties
+     	  discovery#discoveryStrategy hasValue discovery#LightweightDLDiscovery
+          discovery#discoveryStrategy hasValue discovery#NoPreFilter
+     endNonFunctionalProperties
+
+sharedVariables { ?t, ?u, ?v, ?w, ?x, ?y, ?z }
+
+postcondition
+		definedBy
+			?t memberOf _"http://127.0.0.1/ontology/Concepts.owl#EMailAddress"
+			and
+			?u memberOf _"http://127.0.0.1/ontology/Concepts.owl#Text"
+			and
+			?v memberOf _"http://127.0.0.1/ontology/Concepts.owl#EMailAddress"
+			and
+			?w memberOf _"http://127.0.0.1/ontology/Concepts.owl#File"
+			and
+			?x memberOf _"http://127.0.0.1/ontology/Concepts.owl#Text"
+			and
+			?y memberOf _"http://127.0.0.1/ontology/Concepts.owl#EMailAddress"
+			and
+			?z memberOf _"http://127.0.0.1/ontology/Concepts.owl#EMailAddress".
+			
+			

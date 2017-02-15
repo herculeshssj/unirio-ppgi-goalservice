@@ -1,0 +1,33 @@
+wsmlVariant _"http://www.wsmo.org/wsml/wsml-syntax/wsml-dl"
+
+namespace { _"http://127.0.0.1/services/FindBookStore.owl#", 
+     dc _"http://purl.org/dc/elements/1.1/", 
+     wsml _"http://www.wsmo.org/wsml/wsml-syntax#", 
+     xsd _"http://www.w3.org/2001/XMLSchema#",
+     discovery _"http://wiki.wsmx.org/index.php?title=DiscoveryOntology#" }
+
+webService _"http://127.0.0.1/services/FindBookStore.owl"
+	nfp
+		dc#title hasValue "Web Service 060"
+		dc#description hasValue "Web Service used only to simulation"
+	endnfp
+
+importsOntology
+            _"http://127.0.0.1/ontology/Concepts.owl"
+
+capability _"http://FindBookStoreCapability"
+     nonFunctionalProperties
+     	  discovery#discoveryStrategy hasValue discovery#LightweightDLDiscovery
+          discovery#discoveryStrategy hasValue discovery#NoPreFilter
+     endNonFunctionalProperties
+
+sharedVariables { ?x, ?y, ?z }
+
+postcondition
+		definedBy
+			?x memberOf _"http://127.0.0.1/ontology/Concepts.owl#Price"
+			and
+			?y memberOf _"http://127.0.0.1/ontology/Concepts.owl#Store"
+			and
+			?z memberOf _"http://127.0.0.1/ontology/Concepts.owl#ISBN".
+			
