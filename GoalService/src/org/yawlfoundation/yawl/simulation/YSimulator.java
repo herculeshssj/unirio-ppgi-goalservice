@@ -133,13 +133,27 @@ public class YSimulator {
     }
 
 
+    /**
+     * Method rewrited to lauch the cases in sequence, not in parallel
+     * @throws IOException
+     * @throws ResourceGatewayException
+     */
     private void start() throws IOException, ResourceGatewayException {
         _startTime = System.currentTimeMillis();
         for (int i = 1; i <= _props.getCaseCount(); i++) {
-            TimedCaseLauncher launcher = new TimedCaseLauncher(i);
-            _timer.schedule(launcher, _props.getInterval() * i);
+        	try {
+                String caseID = _wqAdapter.launchCase(_props.getSpecID(), null, _handle);                
+                if (!successful(caseID)) 
+                	fail("Failed to launch case: " + caseID);
+                print(MessageFormat.format("{0} - Started case {1} ({2}/{3})",
+                        now(), caseID, i, _props.getCaseCount()));
+                Thread.sleep(5000);
+            } catch (Exception e) {
+                fail("Failed to launch case: " + e.getMessage());
+            }
         }
-        startPoller();
+        cancelAllCases();
+        System.exit(0);
     }
 
 
@@ -274,7 +288,6 @@ public class YSimulator {
         public void run() {
             try {
                 if (hasRunningCases()) { 
-                	/*
                     boolean startedOne = false;
                     for (String pid : _props.getResources()) {
                         for (WorkItemRecord wir : getAllocated(pid)) {
@@ -283,7 +296,7 @@ public class YSimulator {
                     }
                     if (!startedOne && deadlocked()) {
                         summariseAndExit(false);
-                    }*/
+                    }
                 } else {
                     summariseAndExit(true);
                 }
@@ -307,7 +320,7 @@ public class YSimulator {
                 print(summary.getSummary());
             }
             print(getCaseSummary());
-            */
+           */
             System.exit(0);
         }
 

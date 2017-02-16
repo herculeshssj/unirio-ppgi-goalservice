@@ -44,61 +44,67 @@ public class GoalService extends InterfaceBWebsideController {
 		System.out.println("/******************************************************/");
 		System.out.println();
 		try {
-			// Conecta ao engine caso não exista conexão prévia
+			// Connect to engine in case do not exists previous connection
 			if (!connected()) _handle = connect(engineLogonName, engineLogonPassword);
 			
-			// Faz o checkout do WorkItem
+			// Checkout the WorkItem
 			workItem = checkOut(workItem.getID(), _handle);
 			
-			System.out.println("WorkItem selecionado: " + workItem.getCaseID() + " : " + workItem.getTaskName() + "\n");
+			System.out.println("Selected WorkItem: " + workItem.getCaseID() + " : " + workItem.getTaskName() + "\n");
 			
 			if (wsmxEnvironment == null) {
-				System.out.println("Ambiente WSMX não inicializado. Inicializando...\n");
+				System.out.println("WSMX Environment not started. Starting...\n");
 				wsmxEnvironment = new WSMXExecution();
-				System.out.println("Ambiente WSMX inicializado!\n");
+				System.out.println("WSMX Environment started!\n");
 			} else {
-				System.out.println("Ambiente WSMX já inicializado!\n");
+				System.out.println("WSMX Environment yet started!\n");
 			}
 			
 			String adviceGoal = getAdviceGoal(workItem.getSpecURI(), workItem.getTaskName());
 			
 			if (adviceGoal == null) {
-				System.out.println("Nenhum objetivo definido ao Advice. Saindo...\n");
+				System.out.println("No goal defined to Advice. Quitting...\n");
 				checkInWorkItem(workItem.getID(), workItem.getDataList(), getOutputData(workItem.getTaskID(), ""), null,  _handle);
 				return;
 			}
 			
-			System.out.println("Objetivo a ser atingido pelo Advice: " + adviceGoal + "\n");
+			System.out.println("Goal to the achieve by Advice: " + adviceGoal + "\n");
 			
-			/* A partir desse ponto será feito a descoberta e invocação do serviço */
+			/* In this point will be done the discovery and invocation of service */
 			
-			System.out.println("Realizando a descoberta do serviço... \n");
+			System.out.println("Discovering the service... \n");
 			
-			String goalIRIStr     = "http://www.uniriotec.br/aspect#" + adviceGoal + "Goal";
-			String goalOntoIRIStr = "http://www.uniriotec.br/aspect#" + adviceGoal + "GoalOntology";			
+			//String goalIRIStr     = "http://www.uniriotec.br/aspect#" + adviceGoal; // Proof of concept
+			//String goalOntoIRIStr = "http://www.uniriotec.br/aspect#LogOntology"; // Proof of concept		
 			
-			// Realiza a descoberta dos serviços que atendem ao objetivo definido
+			String goalIRIStr     = "http://127.0.0.1/goals#" + adviceGoal; // Simulation
+			String goalOntoIRIStr = "http://127.0.0.1/ontology/Concepts.owl"; // Simulation
+			
+			// Discovery the services that achieve the defined operational goal
 			List<String> selectedServices = wsmxEnvironment.runDiscovery(goalIRIStr, goalOntoIRIStr);
 			
+			 
 			if (selectedServices != null & !selectedServices.isEmpty()) {
-				System.out.println("Serviços encontrados que atendem ao objetivo: \n"); // Colocar o nome do serviço encontrado a partir do objetivo informado
+				System.out.println("Services found that achieve the operational goal: \n");
 				
-				// Lista os serviços encontrados
+				// List of found services
 				for (String service : selectedServices) {
 					System.out.println(service);
 				}
-				
-				System.out.println("Realizando a invocação do serviço... \n");
+				/* commented for execute simulations
+				System.out.println("Doing the invocation of service... \n");
 				
 				wsmxEnvironment.runDataMediationAndChoreography(goalIRIStr, goalOntoIRIStr, selectedServices.get(0));
 				
-				System.out.println("Invocação do serviço finalizada! Continuando o processo principal...\n");
+				System.out.println("Invocation of service completed! Continuing the main process...\n");
+				*/ //commented for execute simulations
 				
 			} else {
-				System.out.println("Nenhum serviço encontrado! Continuando o processo principal...\n");
+				System.out.println("None service found! Continuing the main process...\n");
 			}
 			
-			// Retornando o controle a Engine
+			
+			// Returning the control to YAWL Engine
 			checkInWorkItem(workItem.getID(), workItem.getDataList(), getOutputData(workItem.getTaskID(), ""), null,  _handle);
 			
 		} catch (Exception e) {

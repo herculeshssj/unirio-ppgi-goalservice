@@ -8,8 +8,9 @@ public class AchieveGoalExecutionSemanticsTest {
 	public static WSMXExecution run = new WSMXExecution();
 
 	/**
-	 * Classe de teste que irá invocar um serviço Web a partir de um objetivo
-	 * estabelecido usando os recursos semânticos oferecidos pelo WSMX.
+	 * Class teste that will invoke a Web Service from a stablished goal
+	 * using the sematics resources of WSMX
+	 * 
 	 * @param args
 	 */
 	public static void main(String[] args) throws Exception {

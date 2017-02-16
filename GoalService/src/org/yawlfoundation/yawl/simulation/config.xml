@@ -5,33 +5,27 @@
                 instances - number of instances to run
                 interval - how long to pause between each case start (ms)
 -->
-<simulation view="workitem" instances="10" interval="1000">
+<simulation view="process" instances="10" interval="1000">
 
     <!-- host name, e.g. example.com, defaults to localhost -->
     <host>localhost</host>
 
     <!-- id of spec to use - MUST already be loaded in the engine -->
     <specification>
-        <id>UID_bd4fd95d-59c3-4f10-8868-207d2bcb8063</id>
+        <id>UID_ea1eb7de-529f-47bf-9eb7-8c2ed12b9fac</id>
         <version>0.1</version>
-        <name>TestSimulation</name>
+        <name>LogInformationSimulation</name>
     </specification>
 
     <!-- all the tasks of the spec -->
     <tasks>
 
         <!-- Attribute id: task name -->
-        <task id="A">
-        	<resource role="userA" time="1000"/>
-        </task>
-        <task id="B">
-        	<resource role="userA" time="1000"/>
-        </task>
-        <task id="C">
-        	<resource role="userA" time="1000"/>
+        <task id="Log Information">
+        	<resource userId="user1" time="1000"/>
         </task>
     </tasks>
     <limits default="15000">
-        <resource role="userA" limit="-1"/>
+        <resource userId="user1" limit="-1"/>
     </limits>
 </simulation>

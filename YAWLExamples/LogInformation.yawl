@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<specificationSet xmlns="http://www.yawlfoundation.org/yawlschema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="3.0" xsi:schemaLocation="http://www.yawlfoundation.org/yawlschema http://www.yawlfoundation.org/yawlschema/YAWL_Schema3.0.xsd">
+  <specification uri="LogInformation">
+    <documentation>No description provided</documentation>
+    <metaData>
+      <creator>Hercules S. S. Jose</creator>
+      <description>No description provided</description>
+      <version>0.1</version>
+      <persistent>false</persistent>
+      <identifier>UID_ea1eb7de-529f-47bf-9eb7-8c2ed12b9fac</identifier>
+    </metaData>
+    <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+    <decomposition id="LogInformation" isRootNet="true" xsi:type="NetFactsType">
+      <localVariable>
+        <index>0</index>
+        <name>ReviewerName</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+        <initialValue>name</initialValue>
+      </localVariable>
+      <processControlElements>
+        <inputCondition id="InputCondition">
+          <flowsInto>
+            <nextElementRef id="PROCEED" />
+          </flowsInto>
+        </inputCondition>
+        <task id="PROCEED">
+          <name>PROCEED</name>
+          <flowsInto>
+            <nextElementRef id="Log_Information" />
+          </flowsInto>
+          <join code="xor" />
+          <split code="and" />
+          <startingMappings>
+            <mapping>
+              <expression query="&lt;ReviewerName&gt;{/LogInformation/ReviewerName/text()}&lt;/ReviewerName&gt;" />
+              <mapsTo>ReviewerName</mapsTo>
+            </mapping>
+          </startingMappings>
+          <completedMappings>
+            <mapping>
+              <expression query="&lt;ReviewerName&gt;{/PROCEED/ReviewerName/text()}&lt;/ReviewerName&gt;" />
+              <mapsTo>ReviewerName</mapsTo>
+            </mapping>
+          </completedMappings>
+          <resourcing>
+            <offer initiator="user" />
+            <allocate initiator="user" />
+            <start initiator="user" />
+          </resourcing>
+          <decomposesTo id="PROCEED" />
+        </task>
+        <task id="Log_Information">
+          <name>Log Information</name>
+          <flowsInto>
+            <nextElementRef id="OutputCondition" />
+          </flowsInto>
+          <join code="xor" />
+          <split code="and" />
+          <startingMappings>
+            <mapping>
+              <expression query="&lt;ReviewerName&gt;{/LogInformation/ReviewerName/text()}&lt;/ReviewerName&gt;" />
+              <mapsTo>ReviewerName</mapsTo>
+            </mapping>
+          </startingMappings>
+          <completedMappings>
+            <mapping>
+              <expression query="&lt;ReviewerName&gt;{/Log_Information/ReviewerName/text()}&lt;/ReviewerName&gt;" />
+              <mapsTo>ReviewerName</mapsTo>
+            </mapping>
+          </completedMappings>
+          <resourcing>
+            <offer initiator="user" />
+            <allocate initiator="user" />
+            <start initiator="user" />
+          </resourcing>
+          <decomposesTo id="Log_Information" />
+        </task>
+        <outputCondition id="OutputCondition" />
+      </processControlElements>
+    </decomposition>
+    <decomposition id="Log_Information" xsi:type="WebServiceGatewayFactsType">
+      <name>Log Information</name>
+      <inputParam>
+        <index>0</index>
+        <name>ReviewerName</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </inputParam>
+      <outputParam>
+        <index>0</index>
+        <name>ReviewerName</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </outputParam>
+      <yawlService id="http://localhost:8080/GoalService/ib" />
+      <externalInteraction>manual</externalInteraction>
+    </decomposition>
+    <decomposition id="PROCEED" xsi:type="WebServiceGatewayFactsType">
+      <inputParam>
+        <index>0</index>
+        <name>ReviewerName</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </inputParam>
+      <outputParam>
+        <index>0</index>
+        <name>ReviewerName</name>
+        <type>string</type>
+        <namespace>http://www.w3.org/2001/XMLSchema</namespace>
+      </outputParam>
+      <yawlService id="http://localhost:8080/aspectService/ib">
+        <documentation>AspectService - A implementation for aspect-oriented business process modeling</documentation>
+      </yawlService>
+      <externalInteraction>manual</externalInteraction>
+    </decomposition>
+  </specification>
+  <layout>
+    <locale language="en" country="US"/>
+    <specification id="LogInformation">
+      <size w="56" h="26"/>
+      <net id="LogInformation">
+        <bounds x="0" y="0" w="1200" h="515"/>
+        <frame x="0" y="0" w="1203" h="518"/>
+        <viewport x="0" y="0" w="1203" h="518"/>
+        <vertex id="OutputCondition">
+          <attributes>
+            <bounds x="364" y="84" w="32" h="32"/>
+          </attributes>
+        </vertex>
+        <vertex id="InputCondition">
+          <attributes>
+            <bounds x="52" y="84" w="32" h="32"/>
+          </attributes>
+        </vertex>
+        <container id="Log_Information">
+          <vertex>
+            <attributes>
+              <bounds x="264" y="84" w="32" h="32"/>
+            </attributes>
+          </vertex>
+          <label>
+            <attributes>
+              <bounds x="232" y="116" w="96" h="20"/>
+            </attributes>
+          </label>
+        </container>
+        <container id="PROCEED">
+          <vertex>
+            <attributes>
+              <bounds x="152" y="84" w="32" h="32"/>
+            </attributes>
+          </vertex>
+          <label>
+            <attributes>
+              <bounds x="120" y="116" w="96" h="20"/>
+            </attributes>
+          </label>
+        </container>
+        <flow source="PROCEED" target="Log_Information">
+          <ports in="13" out="12"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+          </attributes>
+        </flow>
+        <flow source="Log_Information" target="OutputCondition">
+          <ports in="13" out="12"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+          </attributes>
+        </flow>
+        <flow source="InputCondition" target="PROCEED">
+          <ports in="13" out="12"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+          </attributes>
+        </flow>
+      </net>
+    </specification>
+  </layout>
+</specificationSet>
