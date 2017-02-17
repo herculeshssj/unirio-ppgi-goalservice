@@ -132,7 +132,8 @@ public class LightweightDiscovery extends  AbstractWSMODiscoveryImpl{
 		 */
 		List<String> webServices = new ArrayList<>();
 		for (WebService ws : searchSpace) {
-			webServices.add(ws.getIdentifier().toString());
+			String[] temp = ws.getIdentifier().toString().split("/");
+			webServices.add(temp[5]);
 		}
 		SimulationHelper.saveIdentifiedSWS(webServices);
 		/* End of code for operationa goal simulation */

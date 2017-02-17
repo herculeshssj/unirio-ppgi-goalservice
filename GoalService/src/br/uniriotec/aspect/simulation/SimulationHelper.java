@@ -109,7 +109,7 @@ public class SimulationHelper {
 			Class.forName("org.postgresql.Driver");
 		    Connection conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/simulation?user=simulation&password=simulation");
 		    
-		    String sql = "update simulation set identified_sws = ?, qtd_selected_sws = ? where running = ?";
+		    String sql = "update simulation set identified_sws = ?, qtd_identified_sws = ? where running = ?";
 		    
 		    PreparedStatement pstm = conn.prepareStatement(sql);
 		    

@@ -163,7 +163,8 @@ public class YSimulator {
                 fail("Failed to launch case: " + e.getMessage());
             }
         }
-        //cancelAllCases();
+        cancelAllCases();
+        System.out.println("Finish simulation!");
         System.exit(0);
     }
 

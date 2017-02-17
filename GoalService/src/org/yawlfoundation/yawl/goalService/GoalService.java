@@ -80,7 +80,7 @@ public class GoalService extends InterfaceBWebsideController {
 			//String goalIRIStr     = "http://www.uniriotec.br/aspect#" + adviceGoal; // Proof of concept
 			//String goalOntoIRIStr = "http://www.uniriotec.br/aspect#LogOntology"; // Proof of concept		
 			
-			String goalIRIStr     = "http://www.uniriotec.br/wsmo/goals#" + adviceGoal; // Simulation
+			String goalIRIStr     = "http://www.uniriotec.br/wsmo/goals/" + adviceGoal; // Simulation
 			String goalOntoIRIStr = "http://www.uniriotec.br/wsmo/ontology/Concepts.owl"; // Simulation
 			
 			// Discovery the services that achieve the defined operational goal
