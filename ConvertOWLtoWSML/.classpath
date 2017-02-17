@@ -8,9 +8,20 @@
 	<classpathentry kind="lib" path="libs/commons-logging-1.0.4.jar"/>
 	<classpathentry kind="lib" path="libs/jaxrpc.jar"/>
 	<classpathentry kind="lib" path="libs/log4j-1.2.8.jar"/>
-	<classpathentry kind="lib" path="libs/log4j.properties"/>
 	<classpathentry kind="lib" path="libs/mail.jar"/>
 	<classpathentry kind="lib" path="libs/saaj.jar"/>
 	<classpathentry kind="lib" path="libs/wsdl4j-1.5.1.jar"/>
+	<classpathentry kind="lib" path="libs/ad-api-0.0.1.jar"/>
+	<classpathentry kind="lib" path="libs/ad-impl-0.0.1.jar"/>
+	<classpathentry kind="lib" path="libs/bpmo-api-0.1.0.jar"/>
+	<classpathentry kind="lib" path="libs/bpmo-impl-0.1.0.jar"/>
+	<classpathentry kind="lib" path="libs/choreography-0.0.2RC.jar"/>
+	<classpathentry kind="lib" path="libs/grounding-api-0.1.0.jar"/>
+	<classpathentry kind="lib" path="libs/grounding-impl-0.1.0.jar"/>
+	<classpathentry kind="lib" path="libs/sbpel-api-0.1.0.jar"/>
+	<classpathentry kind="lib" path="libs/sbpel-impl-0.1.0.jar"/>
+	<classpathentry kind="lib" path="libs/WSML-grammar-20070417.jar"/>
+	<classpathentry kind="lib" path="libs/wsmo-api-0.6.1.jar"/>
+	<classpathentry kind="lib" path="libs/wsmo4j-0.6.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
