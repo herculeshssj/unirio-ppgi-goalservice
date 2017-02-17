@@ -41,7 +41,7 @@ public class ConvertOWLtoWSML {
 			String wsmoSWSName = "";
 			
 			// List of parameters of WebService
-			List<String> wsmoSWSParameters = new ArrayList<>();
+			List<String> wsmoSWSParameters;
 			
 			// Iterate the list of files to convert one by one
 			for (int i = 0; i < listOfOwlServices.length; i++) {
@@ -51,7 +51,7 @@ public class ConvertOWLtoWSML {
 				if (owlFile.isFile()) {
 					
 					// Message
-					System.out.print("Converting " + owlFile.getName() + "...");
+					System.out.print("Converting " + owlFile.getName() + "... ");
 					
 					// Read the content of OWL file
 					owlContent = new Scanner(owlFile).useDelimiter("\\Z").next();
@@ -64,6 +64,8 @@ public class ConvertOWLtoWSML {
 				// definitive file.
 				BufferedReader reader = new BufferedReader(new StringReader(conversionResult));
 				line = reader.readLine();
+				
+				wsmoSWSParameters = new ArrayList<>();
 				
 				while (line != null) {
 					
@@ -82,11 +84,10 @@ public class ConvertOWLtoWSML {
 				}
 				
 				// Create final WSML WebService file
-				new CreateWsmoFile(wsmoSWSName, wsmoSWSParameters, i).create();
-				
-				wsmoSWSParameters.clear();
+				new CreateWsmoFile(wsmoSWSName, wsmoSWSParameters, i).createWebService();
 				
 				// Finish
+				System.out.print(" Saved as Web Service " + i + ". ");
 				System.out.println("OK!");
 			}
 			
