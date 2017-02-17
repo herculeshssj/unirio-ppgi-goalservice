@@ -13,7 +13,6 @@ import java.util.TreeSet;
 public class SimulationHelper {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		System.out.println(SimulationHelper.raffleNumbers(10, 60));
 	}
 
@@ -30,6 +29,9 @@ public class SimulationHelper {
 		return random;
 	}
 	
+	/*
+	 * Raffle 'quantity' random numbers, from 1 to 'limit'
+	 */
 	private static String raffleNumbers(int quantity, int limit) {
 		
 		Set<Integer> raffledNumbers = new TreeSet<>();
