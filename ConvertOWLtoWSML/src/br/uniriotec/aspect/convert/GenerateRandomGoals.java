@@ -43,13 +43,13 @@ public class GenerateRandomGoals {
 			
 			System.out.print("Creating goals with one variable...");
 			// Generate 10 goals with one variable on postconditions
-			int i = 10;
+			int i = 11;
 			List<String> parameters = new ArrayList<>();
-			while (i < 20) {
+			while (i <= 20) {
 				
 				parameters.clear();
 				
-				parameters.add("http://127.0.0.1/ontology/Concepts.owl#" 
+				parameters.add("http://www.uniriotec.br/wsmo/ontology/Concepts.owl#" 
 						+ concepts.get(GenerateRandomGoals.generateRandomNumber(240)));
 				
 				new CreateWsmoFile("Goal"+i, parameters, i).createGoal();
@@ -60,13 +60,13 @@ public class GenerateRandomGoals {
 			
 			System.out.print("Creating goals with two variable...");
 			// Generate 10 goals with two variables on postconditions
-			while (i < 30) {
+			while (i <= 30) {
 				
 				parameters.clear();
 				
-				parameters.add("http://127.0.0.1/ontology/Concepts.owl#" 
+				parameters.add("http://www.uniriotec.br/wsmo/ontology/Concepts.owl#" 
 						+ concepts.get(GenerateRandomGoals.generateRandomNumber(240)));
-				parameters.add("http://127.0.0.1/ontology/Concepts.owl#" 
+				parameters.add("http://www.uniriotec.br/wsmo/ontology/Concepts.owl#" 
 						+ concepts.get(GenerateRandomGoals.generateRandomNumber(240)));
 				
 				new CreateWsmoFile("Goal"+i, parameters, i).createGoal();
@@ -77,15 +77,15 @@ public class GenerateRandomGoals {
 			
 			System.out.print("Creating goals with three variable...");
 			// Generate 10 goals with three variable on postconditions
-			while (i < 40) {
+			while (i <= 40) {
 				
 				parameters.clear();
 				
-				parameters.add("http://127.0.0.1/ontology/Concepts.owl#" 
+				parameters.add("http://www.uniriotec.br/wsmo/ontology/Concepts.owl#" 
 						+ concepts.get(GenerateRandomGoals.generateRandomNumber(240)));
-				parameters.add("http://127.0.0.1/ontology/Concepts.owl#" 
+				parameters.add("http://www.uniriotec.br/wsmo/ontology/Concepts.owl#" 
 						+ concepts.get(GenerateRandomGoals.generateRandomNumber(240)));
-				parameters.add("http://127.0.0.1/ontology/Concepts.owl#" 
+				parameters.add("http://www.uniriotec.br/wsmo/ontology/Concepts.owl#" 
 						+ concepts.get(GenerateRandomGoals.generateRandomNumber(240)));
 				
 				new CreateWsmoFile("Goal"+i, parameters, i).createGoal();

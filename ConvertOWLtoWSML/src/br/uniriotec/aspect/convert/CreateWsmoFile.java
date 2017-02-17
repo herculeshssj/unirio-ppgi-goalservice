@@ -48,7 +48,7 @@ public class CreateWsmoFile {
 		do {
 			swsRepositories.put( i, CreateWsmoFile.raffleNumbers(20 * i, 240));
 			i++;
-		} while (i == 12);
+		} while (i <= 12);
 	}
 	
 	public CreateWsmoFile(String swsName, List<String> parameterList, int index) {

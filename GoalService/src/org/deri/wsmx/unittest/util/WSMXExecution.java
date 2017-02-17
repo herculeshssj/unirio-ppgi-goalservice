@@ -142,7 +142,7 @@ public class WSMXExecution {
 	    	Logger.getLogger("net").setLevel(Level.FATAL); 	
         	logger.warn("Property configuration of log4j failed, falling back to default configuration.");        
         }
-        logger.info("Repositório WSML: " + configFile.getAbsolutePath());
+        logger.info("Location of WSML Repository: " + configFile.getAbsolutePath());
 	}	
 
 	/*

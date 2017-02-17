@@ -1,5 +1,18 @@
 package org.yawlfoundation.yawl.simulation;
 
+import java.io.IOException;
+import java.text.MessageFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Hashtable;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.Timer;
+import java.util.TimerTask;
+
 import org.yawlfoundation.yawl.engine.interfce.SpecificationData;
 import org.yawlfoundation.yawl.engine.interfce.WorkItemRecord;
 import org.yawlfoundation.yawl.resourcing.WorkQueue;
@@ -12,11 +25,6 @@ import org.yawlfoundation.yawl.util.XNode;
 import org.yawlfoundation.yawl.util.XNodeParser;
 
 import br.uniriotec.aspect.simulation.SimulationHelper;
-
-import java.io.IOException;
-import java.text.MessageFormat;
-import java.text.SimpleDateFormat;
-import java.util.*;
 
 /**
  * @author Michael Adams
@@ -147,16 +155,15 @@ public class YSimulator {
                 String caseID = _wqAdapter.launchCase(_props.getSpecID(), null, _handle);                
                 if (!successful(caseID)) 
                 	fail("Failed to launch case: " + caseID);
+                SimulationHelper.saveCaseSimulation(caseID+".1", "Goal" + i, "Repository1");
                 print(MessageFormat.format("{0} - Started case {1} ({2}/{3})",
-                        now(), caseID, i, _props.getCaseCount()));
-                SimulationHelper.setGoal("Goal" + (i - 1));
-                SimulationHelper.setRepository("Repository01");
+                        now(), caseID, i, _props.getCaseCount()));                
                 Thread.sleep(5000);
             } catch (Exception e) {
                 fail("Failed to launch case: " + e.getMessage());
             }
         }
-        cancelAllCases();
+        //cancelAllCases();
         System.exit(0);
     }
 

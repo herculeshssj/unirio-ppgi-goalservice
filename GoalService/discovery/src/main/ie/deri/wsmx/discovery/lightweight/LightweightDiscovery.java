@@ -38,6 +38,8 @@ import org.wsmo.factory.*;
 import org.wsmo.service.*;
 import org.wsmo.wsml.*;
 
+import br.uniriotec.aspect.simulation.SimulationHelper;
+
 /**
  * A lightweight discovery engine.
  * 
@@ -124,6 +126,17 @@ public class LightweightDiscovery extends  AbstractWSMODiscoveryImpl{
 	 */
 	public List<WebService> discover(Goal goal, Set<WebService> searchSpace) 
 			throws DiscoveryException {
+		
+		/*
+		 * Code for operational goal simulation
+		 */
+		List<String> webServices = new ArrayList<>();
+		for (WebService ws : searchSpace) {
+			webServices.add(ws.getIdentifier().toString());
+		}
+		SimulationHelper.saveIdentifiedSWS(webServices);
+		/* End of code for operationa goal simulation */
+		
 		List<WebService> matchingServices = new ArrayList<WebService>();
 		
 		Set<LogicalExpression> goalQueries = this.getServiceQueries(goal);

@@ -63,7 +63,7 @@ public class GoalService extends InterfaceBWebsideController {
 			}
 			
 			//String adviceGoal = getAdviceGoal(workItem.getSpecURI(), workItem.getTaskName());
-			String adviceGoal = SimulationHelper.getGoal(); // Get the current goal to achieve
+			String adviceGoal = SimulationHelper.findGoal(workItem.getCaseID()); // Get the current goal to achieve
 			
 			if (adviceGoal == null) {
 				System.out.println("No goal defined to Advice. Quitting...\n");
@@ -80,7 +80,7 @@ public class GoalService extends InterfaceBWebsideController {
 			//String goalIRIStr     = "http://www.uniriotec.br/aspect#" + adviceGoal; // Proof of concept
 			//String goalOntoIRIStr = "http://www.uniriotec.br/aspect#LogOntology"; // Proof of concept		
 			
-			String goalIRIStr     = "http://www.uniriotec.br/goals#" + adviceGoal; // Simulation
+			String goalIRIStr     = "http://www.uniriotec.br/wsmo/goals#" + adviceGoal; // Simulation
 			String goalOntoIRIStr = "http://www.uniriotec.br/wsmo/ontology/Concepts.owl"; // Simulation
 			
 			// Discovery the services that achieve the defined operational goal
@@ -93,10 +93,9 @@ public class GoalService extends InterfaceBWebsideController {
 				// List of found services
 				for (String service : selectedServices) {
 					System.out.println(service);
-					SimulationHelper.setSelectedSWS(selectedServices);
 				}
 				
-				SimulationHelper.saveSimulationData(); // save the simulation data
+				SimulationHelper.saveSimulationData(workItem.getCaseID(), selectedServices); // save the simulation data
 				
 				/* commented for execute simulations
 				System.out.println("Doing the invocation of service... \n");

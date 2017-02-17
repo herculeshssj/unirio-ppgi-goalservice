@@ -44,7 +44,9 @@ public class ConvertOWLtoWSML {
 			// List of parameters of WebService
 			List<String> wsmoSWSParameters;
 			
+			// Selected goals
 			Set<Integer> manualGoals = CreateWsmoFile.raffleNumbers(10, 240);
+			int j = 1;
 			
 			// Iterate the list of files to convert one by one
 			for (int i = 0; i < listOfOwlServices.length; i++) {
@@ -90,8 +92,10 @@ public class ConvertOWLtoWSML {
 				new CreateWsmoFile(wsmoSWSName, wsmoSWSParameters, i).createWebService();
 				
 				// Create goal 
-				if (manualGoals.contains(i))
-					new CreateWsmoFile(wsmoSWSName, wsmoSWSParameters, i).createGoal();
+				if (manualGoals.contains(i)) {
+					new CreateWsmoFile("Goal"+j, wsmoSWSParameters, j).createGoal();
+					j++;
+				}
 				
 				// Finish
 				System.out.print(" Saved as Web Service " + i + ". ");
