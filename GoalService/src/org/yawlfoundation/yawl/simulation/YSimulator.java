@@ -11,6 +11,8 @@ import org.yawlfoundation.yawl.util.StringUtil;
 import org.yawlfoundation.yawl.util.XNode;
 import org.yawlfoundation.yawl.util.XNodeParser;
 
+import br.uniriotec.aspect.simulation.SimulationHelper;
+
 import java.io.IOException;
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
@@ -147,6 +149,8 @@ public class YSimulator {
                 	fail("Failed to launch case: " + caseID);
                 print(MessageFormat.format("{0} - Started case {1} ({2}/{3})",
                         now(), caseID, i, _props.getCaseCount()));
+                SimulationHelper.setGoal("Goal" + (i - 1));
+                SimulationHelper.setRepository("Repository01");
                 Thread.sleep(5000);
             } catch (Exception e) {
                 fail("Failed to launch case: " + e.getMessage());
