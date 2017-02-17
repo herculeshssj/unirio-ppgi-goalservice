@@ -5,6 +5,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Random;
+import java.util.Set;
+import java.util.TreeSet;
 
 import org.omwg.logicalexpression.LogicalExpression;
 import org.omwg.ontology.Axiom;
@@ -36,6 +40,16 @@ public class CreateWsmoFile {
 	private int index = 0;
 	
 	private String[] alphabet = new String[]{"a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"};
+	
+	private static Map<Integer, Set<Integer>> swsRepositories = new HashMap<>();
+	
+	static {		
+		int i = 1;
+		do {
+			swsRepositories.put( i, CreateWsmoFile.raffleNumbers(20 * i, 240));
+			i++;
+		} while (i == 12);
+	}
 	
 	public CreateWsmoFile(String swsName, List<String> parameterList, int index) {
 		this.wsmoName = swsName;
@@ -99,6 +113,12 @@ public class CreateWsmoFile {
 		
 		Serializer serializer = Factory.createSerializer(new HashMap<String, Object>(0));
 		serializer.serialize(new TopEntity[] {service}, new FileWriter("C:\\CustomServiceWorkspace\\unirio-ppgi-webservices\\SWS-WSML\\Services\\WebService_" + index + ".wsml"));
+		
+		// Save the SWS on others folders to build the repositories
+		for (Integer repositoryNumber : CreateWsmoFile.swsRepositories.keySet()) {
+			if (CreateWsmoFile.swsRepositories.get(repositoryNumber).contains(index)) 
+				serializer.serialize(new TopEntity[] {service}, new FileWriter("C:\\CustomServiceWorkspace\\unirio-ppgi-webservices\\SWS-WSML\\Services\\Repository" + repositoryNumber + "\\WebService_" + index + ".wsml"));	
+		}
 	}
 	
 	public void createGoal() throws IOException {
@@ -184,5 +204,33 @@ public class CreateWsmoFile {
 			sb.append(" ");
 		}
 		return sb.toString();
+	}
+		
+	/*
+	 * Generate random number, from 1 to limit
+	 */
+	private static int generateRandomNumber(int limit) {
+		
+		int random = new Random().nextInt(limit);
+		
+		return random;
+	}
+		
+	/*
+	 * Raffle 'quantity' random numbers, from 1 to 'limit'
+	 */
+	public static Set<Integer> raffleNumbers(int quantity, int limit) {
+		
+		Set<Integer> raffledNumbers = new TreeSet<>();
+		
+		do {
+			int number = CreateWsmoFile.generateRandomNumber(limit);
+			
+			raffledNumbers.add(number);
+			
+		} while (raffledNumbers.size() < quantity);
+		
+		return raffledNumbers;
+		
 	}
 }

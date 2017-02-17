@@ -5,9 +5,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
-import java.util.Set;
-import java.util.TreeSet;
 
 /**
  * Helper created for grouping useful methods for simulation
@@ -21,41 +18,6 @@ public class SimulationHelper {
 	private static String goal;
 	private static List<String> identifiedSWS = new ArrayList<>(); 
 	private static List<String> selectedSWS = new ArrayList<>();
-
-	public static void main(String[] args) {
-		System.out.println(SimulationHelper.raffleNumbers(10, 60));
-	}
-
-	// static class
-	private SimulationHelper() {}
-	
-	/*
-	 * Generate random number, from 1 to limit
-	 */
-	private static int generateRandomNumber(int limit) {
-		
-		int random = new Random().nextInt(limit);
-		
-		return random;
-	}
-	
-	/*
-	 * Raffle 'quantity' random numbers, from 1 to 'limit'
-	 */
-	private static String raffleNumbers(int quantity, int limit) {
-		
-		Set<Integer> raffledNumbers = new TreeSet<>();
-		
-		do {
-			int number = SimulationHelper.generateRandomNumber(limit);
-			
-			raffledNumbers.add(number);
-			
-		} while (raffledNumbers.size() < quantity);
-		
-		return raffledNumbers.toString();
-		
-	}
 	
 	public static void saveSimulationData() {
 		try {
@@ -63,7 +25,7 @@ public class SimulationHelper {
 		    Connection conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/simulation?user=simulation&password=simulation");
 		    
 		    String sql = "insert into horario (repository, goal, identified_sws, selected_sws, qtd_identified_sql, qtd_selected_sql) values (?,?,?,?,?,?)";
-		    String sqlDelete = "delete from simulation";
+		    String sqlDelete = "delete from simulation where repository = '" + repository + "'";
 		    
 		    // Delete the table
 		    PreparedStatement pstmDelete = conn.prepareStatement(sqlDelete);

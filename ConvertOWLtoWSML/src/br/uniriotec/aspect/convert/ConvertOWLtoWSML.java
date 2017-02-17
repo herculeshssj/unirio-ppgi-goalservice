@@ -7,6 +7,7 @@ import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Set;
 
 import javax.xml.rpc.ServiceException;
 
@@ -42,6 +43,8 @@ public class ConvertOWLtoWSML {
 			
 			// List of parameters of WebService
 			List<String> wsmoSWSParameters;
+			
+			Set<Integer> manualGoals = CreateWsmoFile.raffleNumbers(10, 240);
 			
 			// Iterate the list of files to convert one by one
 			for (int i = 0; i < listOfOwlServices.length; i++) {
@@ -83,8 +86,12 @@ public class ConvertOWLtoWSML {
 					line = reader.readLine();
 				}
 				
-				// Create final WSML WebService file
+				// Create final WSML WebService file and separate in repositories
 				new CreateWsmoFile(wsmoSWSName, wsmoSWSParameters, i).createWebService();
+				
+				// Create goal 
+				if (manualGoals.contains(i))
+					new CreateWsmoFile(wsmoSWSName, wsmoSWSParameters, i).createGoal();
 				
 				// Finish
 				System.out.print(" Saved as Web Service " + i + ". ");

@@ -43,9 +43,9 @@ public class GenerateRandomGoals {
 			
 			System.out.print("Creating goals with one variable...");
 			// Generate 10 goals with one variable on postconditions
-			int i = 0;
+			int i = 10;
 			List<String> parameters = new ArrayList<>();
-			while (i < 10) {
+			while (i < 20) {
 				
 				parameters.clear();
 				
@@ -60,7 +60,7 @@ public class GenerateRandomGoals {
 			
 			System.out.print("Creating goals with two variable...");
 			// Generate 10 goals with two variables on postconditions
-			while (i < 20) {
+			while (i < 30) {
 				
 				parameters.clear();
 				
@@ -77,7 +77,7 @@ public class GenerateRandomGoals {
 			
 			System.out.print("Creating goals with three variable...");
 			// Generate 10 goals with three variable on postconditions
-			while (i < 30) {
+			while (i < 40) {
 				
 				parameters.clear();
 				
