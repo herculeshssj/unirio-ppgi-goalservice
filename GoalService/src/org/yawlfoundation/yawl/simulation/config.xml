@@ -5,7 +5,7 @@
                 instances - number of instances to run
                 interval - how long to pause between each case start (ms)
 -->
-<simulation view="process" instances="40" interval="1000"> <!-- 40 goals will be sent to built repository -->
+<simulation view="process" instances="70" interval="1000"> <!-- 70 goals will be sent to built repository -->
 
     <!-- host name, e.g. example.com, defaults to localhost -->
     <host>localhost</host>

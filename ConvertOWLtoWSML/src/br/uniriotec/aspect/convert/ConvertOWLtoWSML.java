@@ -94,6 +94,7 @@ public class ConvertOWLtoWSML {
 				
 				// Create goal 
 				if (manualGoals.contains(i)) {
+					System.out.print("Web Service " + i + " - Selected for Goal" + j + "... ");
 					new CreateWsmoFile("Goal"+j, wsmoSWSParameters, j).createGoal();
 					j++;
 				}

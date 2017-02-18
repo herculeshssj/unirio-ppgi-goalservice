@@ -138,8 +138,8 @@ public class SimulationHelper {
 		    
 		    pstm.setString(1, seletedSWS.toString());
 		    pstm.setInt(2, seletedSWS.size());
-		    pstm.setString(3, caseID);
-		    pstm.setBoolean(4, false);
+		    pstm.setBoolean(3, false);
+		    pstm.setString(4, caseID);
 		    
 		    pstm.executeUpdate();
 		    

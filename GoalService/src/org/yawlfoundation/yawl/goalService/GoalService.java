@@ -2,6 +2,7 @@ package org.yawlfoundation.yawl.goalService;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -90,12 +91,18 @@ public class GoalService extends InterfaceBWebsideController {
 			if (selectedServices != null & !selectedServices.isEmpty()) {
 				System.out.println("Services found that achieve the operational goal: \n");
 				
+				List<String> swss = new ArrayList<>(); // used to save the SWS names
+				
 				// List of found services
 				for (String service : selectedServices) {
 					System.out.println(service);
+					
+					String[] temp = service.split("/");
+					swss.add(temp[5]);
 				}
 				
-				SimulationHelper.saveSimulationData(workItem.getCaseID(), selectedServices); // save the simulation data
+				
+				SimulationHelper.saveSimulationData(workItem.getCaseID(), swss); // save the simulation data
 				
 				/* commented for execute simulations
 				System.out.println("Doing the invocation of service... \n");

@@ -155,10 +155,10 @@ public class YSimulator {
                 String caseID = _wqAdapter.launchCase(_props.getSpecID(), null, _handle);                
                 if (!successful(caseID)) 
                 	fail("Failed to launch case: " + caseID);
-                SimulationHelper.saveCaseSimulation(caseID+".1", "Goal" + i, "Repository1");
+                SimulationHelper.saveCaseSimulation(caseID+".1", "Goal" + i, "Repository2");
                 print(MessageFormat.format("{0} - Started case {1} ({2}/{3})",
                         now(), caseID, i, _props.getCaseCount()));                
-                Thread.sleep(5000);
+                Thread.sleep(15000);
             } catch (Exception e) {
                 fail("Failed to launch case: " + e.getMessage());
             }
