@@ -81,8 +81,9 @@ public class ConvertOWLtoWSML {
 					}
 					
 					if (line.contains("parameterType")) {
-						String [] temp3 = line.split("\"");
-						wsmoSWSParameters.add(temp3[1]);
+						String[] temp3 = line.split("\"");
+						String[] temp4 = temp3[1].split("/");						
+						wsmoSWSParameters.add("http://www.uniriotec.br/wsmo/ontology/" + temp4[4]);
 					}
 					
 					line = reader.readLine();

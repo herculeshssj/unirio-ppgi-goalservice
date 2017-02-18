@@ -111,10 +111,9 @@ public class CreateWsmoFile {
 		capability.addPostCondition(axiom);
 		service.setCapability(capability);
 		
-		Serializer serializer = Factory.createSerializer(new HashMap<String, Object>(0));
-		serializer.serialize(new TopEntity[] {service}, new FileWriter("C:\\CustomServiceWorkspace\\unirio-ppgi-webservices\\SWS-WSML\\Services\\WebService_" + index + ".wsml"));
 		
 		// Save the SWS on others folders to build the repositories
+		Serializer serializer = Factory.createSerializer(new HashMap<String, Object>(0));
 		for (Integer repositoryNumber : CreateWsmoFile.swsRepositories.keySet()) {
 			if (CreateWsmoFile.swsRepositories.get(repositoryNumber).contains(index)) 
 				serializer.serialize(new TopEntity[] {service}, new FileWriter("C:\\CustomServiceWorkspace\\unirio-ppgi-webservices\\SWS-WSML\\Services\\Repository" + repositoryNumber + "\\WebService_" + index + ".wsml"));	
