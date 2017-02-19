@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<specificationSet xmlns="http://www.yawlfoundation.org/yawlschema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="3.0" xsi:schemaLocation="http://www.yawlfoundation.org/yawlschema http://www.yawlfoundation.org/yawlschema/YAWL_Schema3.0.xsd">
+  <specification uri="Processo_principal_teste_1">
+    <documentation>No description provided</documentation>
+    <metaData>
+      <creator>Win7HP</creator>
+      <description>No description provided</description>
+      <version>0.1</version>
+      <persistent>false</persistent>
+      <identifier>UID_9a09756b-b91c-4c8e-bd6d-ea2669951589</identifier>
+    </metaData>
+    <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+    <decomposition id="Net" isRootNet="true" xsi:type="NetFactsType">
+      <processControlElements>
+        <inputCondition id="InputCondition">
+          <flowsInto>
+            <nextElementRef id="Atividade_1" />
+          </flowsInto>
+        </inputCondition>
+        <task id="Atividade_1">
+          <name>Atividade 1</name>
+          <flowsInto>
+            <nextElementRef id="Atividade_2" />
+          </flowsInto>
+          <join code="xor" />
+          <split code="and" />
+          <configuration>
+            <join>
+              <port value="activated">
+                <flowSource id="InputCondition" />
+              </port>
+            </join>
+            <split>
+              <port value="activated">
+                <flowDestination id="Atividade_2" />
+              </port>
+            </split>
+          </configuration>
+          <resourcing>
+            <offer initiator="user" />
+            <allocate initiator="user" />
+            <start initiator="user" />
+          </resourcing>
+          <decomposesTo id="Atividade_1" />
+        </task>
+        <task id="Atividade_2">
+          <name>Atividade 2</name>
+          <flowsInto>
+            <nextElementRef id="Atividade_3" />
+          </flowsInto>
+          <join code="xor" />
+          <split code="and" />
+          <configuration>
+            <join>
+              <port value="activated">
+                <flowSource id="Atividade_1" />
+              </port>
+            </join>
+            <split>
+              <port value="activated" />
+            </split>
+          </configuration>
+          <resourcing>
+            <offer initiator="user" />
+            <allocate initiator="user" />
+            <start initiator="user" />
+          </resourcing>
+          <decomposesTo id="Atividade_2" />
+        </task>
+        <task id="Atividade_3">
+          <name>Atividade 3</name>
+          <flowsInto>
+            <nextElementRef id="OutputCondition" />
+          </flowsInto>
+          <join code="xor" />
+          <split code="and" />
+          <configuration>
+            <join>
+              <port value="activated">
+                <flowSource id="Atividade_2" />
+              </port>
+            </join>
+            <split>
+              <port value="activated">
+                <flowDestination id="OutputCondition" />
+              </port>
+            </split>
+          </configuration>
+          <resourcing>
+            <offer initiator="user" />
+            <allocate initiator="user" />
+            <start initiator="user" />
+          </resourcing>
+          <decomposesTo id="Atividade_3" />
+        </task>
+        <outputCondition id="OutputCondition" />
+      </processControlElements>
+    </decomposition>
+    <decomposition id="Atividade_1" xsi:type="WebServiceGatewayFactsType">
+      <name>Atividade 1</name>
+      <externalInteraction>manual</externalInteraction>
+    </decomposition>
+    <decomposition id="Atividade_2" xsi:type="WebServiceGatewayFactsType">
+      <name>Atividade 2</name>
+      <externalInteraction>manual</externalInteraction>
+    </decomposition>
+    <decomposition id="Atividade_3" xsi:type="WebServiceGatewayFactsType">
+      <name>Atividade 3</name>
+      <externalInteraction>manual</externalInteraction>
+    </decomposition>
+  </specification>
+  <layout>
+    <locale language="en" country="US"/>
+    <specification id="Processo_principal_teste_1">
+      <size w="58" h="28"/>
+      <net id="Net">
+        <bounds x="0" y="0" w="1200" h="487"/>
+        <frame x="0" y="0" w="1203" h="490"/>
+        <viewport x="0" y="0" w="1203" h="490"/>
+        <vertex id="OutputCondition">
+          <attributes>
+            <bounds x="684" y="176" w="32" h="32"/>
+          </attributes>
+        </vertex>
+        <vertex id="InputCondition">
+          <attributes>
+            <bounds x="36" y="176" w="32" h="32"/>
+          </attributes>
+        </vertex>
+        <container id="Atividade_3">
+          <vertex>
+            <attributes>
+              <bounds x="532" y="252" w="32" h="32"/>
+            </attributes>
+          </vertex>
+          <label>
+            <attributes>
+              <bounds x="500" y="284" w="97" h="21"/>
+            </attributes>
+          </label>
+        </container>
+        <container id="Atividade_2">
+          <vertex>
+            <attributes>
+              <bounds x="372" y="176" w="32" h="32"/>
+            </attributes>
+          </vertex>
+          <label>
+            <attributes>
+              <bounds x="340" y="208" w="97" h="21"/>
+            </attributes>
+          </label>
+        </container>
+        <container id="Atividade_1">
+          <vertex>
+            <attributes>
+              <bounds x="192" y="248" w="32" h="32"/>
+            </attributes>
+          </vertex>
+          <label>
+            <attributes>
+              <bounds x="160" y="280" w="97" h="21"/>
+            </attributes>
+          </label>
+        </container>
+        <flow source="Atividade_2" target="Atividade_3">
+          <ports in="13" out="12"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+            <points>
+              <value x="415" y="182.5"/>
+              <value x="528" y="182.5"/>
+            </points>
+          </attributes>
+        </flow>
+        <flow source="Atividade_1" target="Atividade_2">
+          <ports in="13" out="12"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+            <points>
+              <value x="239" y="182.5"/>
+              <value x="384" y="182.5"/>
+            </points>
+          </attributes>
+        </flow>
+        <flow source="InputCondition" target="Atividade_1">
+          <ports in="13" out="12"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+            <points>
+              <value x="67" y="182.5"/>
+              <value x="208" y="182.5"/>
+            </points>
+          </attributes>
+        </flow>
+        <flow source="Atividade_3" target="OutputCondition">
+          <ports in="13" out="12"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+            <points>
+              <value x="559" y="182.5"/>
+              <value x="1,056" y="182.5"/>
+            </points>
+          </attributes>
+        </flow>
+      </net>
+    </specification>
+  </layout>
+</specificationSet>

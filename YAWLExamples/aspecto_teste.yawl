@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<specificationSet xmlns="http://www.yawlfoundation.org/yawlschema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="3.0" xsi:schemaLocation="http://www.yawlfoundation.org/yawlschema http://www.yawlfoundation.org/yawlschema/YAWL_Schema3.0.xsd">
+  <specification uri="aspecto_teste">
+    <documentation>No description provided</documentation>
+    <metaData>
+      <creator>Win7HP</creator>
+      <description>No description provided</description>
+      <version>0.1</version>
+      <persistent>false</persistent>
+      <identifier>UID_8dbfa3d4-8087-40bd-a426-ba6d85c7a63a</identifier>
+    </metaData>
+    <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" />
+    <decomposition id="Net" isRootNet="true" xsi:type="NetFactsType">
+      <processControlElements>
+        <inputCondition id="InputCondition">
+          <flowsInto>
+            <nextElementRef id="PROCEED" />
+          </flowsInto>
+        </inputCondition>
+        <task id="PROCEED">
+          <name>PROCEED</name>
+          <flowsInto>
+            <nextElementRef id="Aspecto_Teste" />
+          </flowsInto>
+          <join code="xor" />
+          <split code="and" />
+          <configuration>
+            <join>
+              <port value="activated">
+                <flowSource id="InputCondition" />
+              </port>
+            </join>
+            <split>
+              <port value="activated">
+                <flowDestination id="Aspecto_Teste" />
+              </port>
+            </split>
+          </configuration>
+          <resourcing>
+            <offer initiator="user" />
+            <allocate initiator="user" />
+            <start initiator="user" />
+          </resourcing>
+          <decomposesTo id="PROCEED" />
+        </task>
+        <task id="Aspecto_Teste">
+          <name>Aspecto Teste</name>
+          <flowsInto>
+            <nextElementRef id="atividade_do_aspecto" />
+          </flowsInto>
+          <join code="xor" />
+          <split code="and" />
+          <configuration>
+            <join>
+              <port value="activated">
+                <flowSource id="PROCEED" />
+              </port>
+            </join>
+            <split>
+              <port value="activated">
+                <flowDestination id="atividade_do_aspecto" />
+              </port>
+            </split>
+          </configuration>
+          <resourcing>
+            <offer initiator="user" />
+            <allocate initiator="user" />
+            <start initiator="user" />
+          </resourcing>
+          <decomposesTo id="Aspecto_Teste" />
+        </task>
+        <task id="atividade_do_aspecto">
+          <name>atividade do aspecto</name>
+          <flowsInto>
+            <nextElementRef id="OutputCondition" />
+          </flowsInto>
+          <join code="xor" />
+          <split code="and" />
+          <configuration>
+            <join>
+              <port value="activated">
+                <flowSource id="Aspecto_Teste" />
+              </port>
+            </join>
+            <split>
+              <port value="activated">
+                <flowDestination id="OutputCondition" />
+              </port>
+            </split>
+          </configuration>
+          <resourcing>
+            <offer initiator="user" />
+            <allocate initiator="user" />
+            <start initiator="user" />
+          </resourcing>
+          <decomposesTo id="atividade_do_aspecto" />
+        </task>
+        <outputCondition id="OutputCondition" />
+      </processControlElements>
+    </decomposition>
+    <decomposition id="Aspecto_Teste" xsi:type="WebServiceGatewayFactsType">
+      <name>Aspecto Teste</name>
+      <yawlService id="http://localhost:8080/GoalService/ib">
+        <documentation>A implementation for applying operational semantic to aspect-oriented business process modeling.</documentation>
+      </yawlService>
+      <externalInteraction>manual</externalInteraction>
+    </decomposition>
+    <decomposition id="PROCEED" xsi:type="WebServiceGatewayFactsType">
+      <yawlService id="http://localhost:8080/aspectService/ib">
+        <documentation>A implementation for aspect-oriented business process modeling.</documentation>
+      </yawlService>
+      <externalInteraction>manual</externalInteraction>
+    </decomposition>
+    <decomposition id="atividade_do_aspecto" xsi:type="WebServiceGatewayFactsType">
+      <name>atividade do aspecto</name>
+      <externalInteraction>manual</externalInteraction>
+    </decomposition>
+  </specification>
+  <layout>
+    <locale language="en" country="US"/>
+    <specification id="aspecto_teste">
+      <size w="58" h="28"/>
+      <net id="Net">
+        <bounds x="0" y="0" w="1187" h="653"/>
+        <frame x="0" y="0" w="1190" h="656"/>
+        <viewport x="0" y="0" w="1190" h="656"/>
+        <vertex id="OutputCondition">
+          <attributes>
+            <bounds x="608" y="244" w="32" h="32"/>
+          </attributes>
+        </vertex>
+        <vertex id="InputCondition">
+          <attributes>
+            <bounds x="56" y="180" w="32" h="32"/>
+          </attributes>
+        </vertex>
+        <container id="atividade_do_aspecto">
+          <vertex>
+            <attributes>
+              <bounds x="476" y="116" w="32" h="32"/>
+            </attributes>
+          </vertex>
+          <label>
+            <attributes>
+              <bounds x="444" y="148" w="96" h="40"/>
+            </attributes>
+          </label>
+        </container>
+        <container id="PROCEED">
+          <vertex>
+            <attributes>
+              <bounds x="188" y="88" w="32" h="32"/>
+            </attributes>
+          </vertex>
+          <label>
+            <attributes>
+              <bounds x="156" y="120" w="96" h="20"/>
+            </attributes>
+          </label>
+        </container>
+        <container id="Aspecto_Teste">
+          <vertex>
+            <attributes>
+              <bounds x="308" y="248" w="32" h="32"/>
+            </attributes>
+          </vertex>
+          <label>
+            <attributes>
+              <bounds x="276" y="280" w="96" h="20"/>
+            </attributes>
+          </label>
+        </container>
+        <flow source="atividade_do_aspecto" target="OutputCondition">
+          <ports in="13" out="12"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+            <points>
+              <value x="443" y="206.5"/>
+              <value x="508" y="206.5"/>
+            </points>
+          </attributes>
+        </flow>
+        <flow source="InputCondition" target="PROCEED">
+          <ports in="13" out="12"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+            <points>
+              <value x="31" y="206.5"/>
+              <value x="84" y="206.5"/>
+            </points>
+          </attributes>
+        </flow>
+        <flow source="Aspecto_Teste" target="atividade_do_aspecto">
+          <ports in="13" out="12"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+            <points>
+              <value x="283" y="206.5"/>
+              <value x="412" y="206.5"/>
+            </points>
+          </attributes>
+        </flow>
+        <flow source="PROCEED" target="Aspecto_Teste">
+          <ports in="13" out="12"/>
+          <attributes>
+            <lineStyle>11</lineStyle>
+            <points>
+              <value x="115" y="206.5"/>
+              <value x="252" y="206.5"/>
+            </points>
+          </attributes>
+        </flow>
+      </net>
+    </specification>
+  </layout>
+</specificationSet>
