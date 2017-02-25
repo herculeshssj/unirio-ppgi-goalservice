@@ -267,3 +267,74 @@ order by
 	repository;
 
 select * from simulation where repository = 'Repository10' and goal = 'Goal67';
+
+
+select * from simulation;
+
+select * from simulation 
+where 
+	(goal ilike 'Goal_'
+	or 
+	goal = 'Goal10')
+	and 
+	selected_sws is not null
+order by goal, repository;
+
+
+
+select
+repository,
+goal,
+selected_sws
+from
+simulation
+where
+(identified_sws ilike '%BabylonDictionary%' 
+or identified_sws ilike '%CityHotels%'
+or identified_sws ilike '%CountryInformationFinder%'
+or identified_sws ilike '%DomainRegister%'
+or identified_sws ilike '%EMailAddressValidator%'
+or identified_sws ilike '%GetCityState%'
+or identified_sws ilike '%GetGoogleCachedPage%'
+or identified_sws ilike '%HejriToGregorian%'
+or identified_sws ilike '%SendEMail%'
+or identified_sws ilike '%TimeServer%')
+and 
+(goal ilike 'Goal_'
+	or 
+	goal = 'Goal10')
+and
+selected_sws is not null
+and
+repository = 'Repository1'
+order by repository, goal
+
+
+
+
+select
+repository,
+goal,
+selected_sws
+from
+simulation
+where
+(identified_sws ilike '_BabylonDictionary%' 
+or identified_sws ilike '_CityHotels%'
+or identified_sws ilike '_CountryInformationFinder%'
+or identified_sws ilike '_DomainRegister%'
+or identified_sws ilike '_EMailAddressValidator%'
+or identified_sws ilike '_GetCityState%'
+or identified_sws ilike '_GetGoogleCachedPage%'
+or identified_sws ilike '_HejriToGregorian%'
+or identified_sws ilike '_SendEMail%'
+or identified_sws ilike '_TimeServer%')
+and 
+(goal ilike 'Goal_'
+	or 
+	goal = 'Goal10')
+and
+selected_sws is not null
+and
+repository = 'Repository12'
+order by repository, goal
