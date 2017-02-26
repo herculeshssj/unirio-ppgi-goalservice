@@ -338,3 +338,65 @@ selected_sws is not null
 and
 repository = 'Repository12'
 order by repository, goal
+
+
+
+
+
+select * from simulation;
+
+select
+	*
+from
+	simulation
+where
+(
+	goal ilike 'Goal1_'
+	or
+	goal ilike 'Goal2_'
+	or
+	goal ilike 'Goal3_'
+	or
+	goal = 'Goal40'
+)
+and
+	goal <> 'Goal10'
+and
+	selected_sws is not null
+order by repository, goal;
+
+
+select
+	*
+from
+	simulation
+where
+(
+	goal ilike 'Goal4_'
+	or
+	goal ilike 'Goal5_'
+	or
+	goal ilike 'Goal6_'
+	or
+	goal = 'Goal70'
+)
+and
+	goal <> 'Goal40'
+and
+	selected_sws is not null
+order by repository, goal;
+
+
+
+select * from simulation
+where
+(
+	goal ilike 'Goal1_'
+	or
+	goal = 'Goal20'
+)
+and
+	goal <> 'Goal10'
+and
+	selected_sws is not null
+
